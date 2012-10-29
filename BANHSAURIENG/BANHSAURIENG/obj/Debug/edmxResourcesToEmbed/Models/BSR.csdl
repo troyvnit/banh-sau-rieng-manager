@@ -1,0 +1,1202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BSRModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="BSR_Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CampainDetails" EntityType="BSRModel.CampainDetail" />
+    <EntitySet Name="EmployeePolicies" EntityType="BSRModel.EmployeePolicy" />
+    <EntitySet Name="Product_Material" EntityType="BSRModel.Product_Material" />
+    <EntitySet Name="Supplier_Material" EntityType="BSRModel.Supplier_Material" />
+    <EntitySet Name="sysdiagrams" EntityType="BSRModel.sysdiagram" />
+    <EntitySet Name="tblAccount_tblRoles" EntityType="BSRModel.tblAccount_tblRoles" />
+    <EntitySet Name="tblAccountGroups" EntityType="BSRModel.tblAccountGroup" />
+    <EntitySet Name="tblAccounts" EntityType="BSRModel.tblAccount" />
+    <EntitySet Name="tblArticleCat_Article" EntityType="BSRModel.tblArticleCat_Article" />
+    <EntitySet Name="tblArticleCats" EntityType="BSRModel.tblArticleCat" />
+    <EntitySet Name="tblArticles" EntityType="BSRModel.tblArticle" />
+    <EntitySet Name="tblBillDetails" EntityType="BSRModel.tblBillDetail" />
+    <EntitySet Name="tblBills" EntityType="BSRModel.tblBill" />
+    <EntitySet Name="tblCampaigns" EntityType="BSRModel.tblCampaign" />
+    <EntitySet Name="tblCities" EntityType="BSRModel.tblCity" />
+    <EntitySet Name="tblContacts" EntityType="BSRModel.tblContact" />
+    <EntitySet Name="tblCustomers" EntityType="BSRModel.tblCustomer" />
+    <EntitySet Name="tblDistricts" EntityType="BSRModel.tblDistrict" />
+    <EntitySet Name="tblEmployees" EntityType="BSRModel.tblEmployee" />
+    <EntitySet Name="tblEmployeeType_tblEmployee" EntityType="BSRModel.tblEmployeeType_tblEmployee" />
+    <EntitySet Name="tblEmployeeTypes" EntityType="BSRModel.tblEmployeeType" />
+    <EntitySet Name="tblFixedAsset_Store_Shop" EntityType="BSRModel.tblFixedAsset_Store_Shop" />
+    <EntitySet Name="tblFixedAssets" EntityType="BSRModel.tblFixedAsset" />
+    <EntitySet Name="tblFixedCosts" EntityType="BSRModel.tblFixedCost" />
+    <EntitySet Name="tblGroupSuppliers" EntityType="BSRModel.tblGroupSupplier" />
+    <EntitySet Name="tblMaterials" EntityType="BSRModel.tblMaterial" />
+    <EntitySet Name="tblMediaCat_tblMedia" EntityType="BSRModel.tblMediaCat_tblMedia" />
+    <EntitySet Name="tblMediaCats" EntityType="BSRModel.tblMediaCat" />
+    <EntitySet Name="tblMedias" EntityType="BSRModel.tblMedia" />
+    <EntitySet Name="tblMenus" EntityType="BSRModel.tblMenu" />
+    <EntitySet Name="tblObjects" EntityType="BSRModel.tblObject" />
+    <EntitySet Name="tblProductPrices" EntityType="BSRModel.tblProductPrice" />
+    <EntitySet Name="tblProducts" EntityType="BSRModel.tblProduct" />
+    <EntitySet Name="tblRoles" EntityType="BSRModel.tblRole" />
+    <EntitySet Name="tblShop_tblStore_tblEmployee" EntityType="BSRModel.tblShop_tblStore_tblEmployee" />
+    <EntitySet Name="tblShops" EntityType="BSRModel.tblShop" />
+    <EntitySet Name="tblStatements" EntityType="BSRModel.tblStatement" />
+    <EntitySet Name="tblStores" EntityType="BSRModel.tblStore" />
+    <EntitySet Name="tblSuppliers" EntityType="BSRModel.tblSupplier" />
+    <EntitySet Name="tblTables" EntityType="BSRModel.tblTable" />
+    <EntitySet Name="tblVouchers" EntityType="BSRModel.tblVoucher" />
+    <EntitySet Name="tblWards" EntityType="BSRModel.tblWard" />
+    <AssociationSet Name="FK_CampainDetail_tblCampaign" Association="BSRModel.FK_CampainDetail_tblCampaign">
+      <End Role="tblCampaigns" EntitySet="tblCampaigns" />
+      <End Role="CampainDetails" EntitySet="CampainDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CampainDetail_tblProduct" Association="BSRModel.FK_CampainDetail_tblProduct">
+      <End Role="tblProducts" EntitySet="tblProducts" />
+      <End Role="CampainDetails" EntitySet="CampainDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_Material_tblMaterial" Association="BSRModel.FK_Product_Material_tblMaterial">
+      <End Role="tblMaterials" EntitySet="tblMaterials" />
+      <End Role="Product_Material" EntitySet="Product_Material" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_Material_tblProduct" Association="BSRModel.FK_Product_Material_tblProduct">
+      <End Role="tblProducts" EntitySet="tblProducts" />
+      <End Role="Product_Material" EntitySet="Product_Material" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Supplier_Material_tblMaterial" Association="BSRModel.FK_Supplier_Material_tblMaterial">
+      <End Role="tblMaterials" EntitySet="tblMaterials" />
+      <End Role="Supplier_Material" EntitySet="Supplier_Material" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Supplier_Material_tblStore" Association="BSRModel.FK_Supplier_Material_tblStore">
+      <End Role="tblStores" EntitySet="tblStores" />
+      <End Role="Supplier_Material" EntitySet="Supplier_Material" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Supplier_Material_tblSupplier" Association="BSRModel.FK_Supplier_Material_tblSupplier">
+      <End Role="tblSuppliers" EntitySet="tblSuppliers" />
+      <End Role="Supplier_Material" EntitySet="Supplier_Material" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Account_Roles_tblAccount" Association="BSRModel.FK_Account_Roles_tblAccount">
+      <End Role="tblAccounts" EntitySet="tblAccounts" />
+      <End Role="tblAccount_tblRoles" EntitySet="tblAccount_tblRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Account_Roles_tblRoles" Association="BSRModel.FK_Account_Roles_tblRoles">
+      <End Role="tblRoles" EntitySet="tblRoles" />
+      <End Role="tblAccount_tblRoles" EntitySet="tblAccount_tblRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblAccount_tblObject" Association="BSRModel.FK_tblAccount_tblObject">
+      <End Role="tblObjects" EntitySet="tblObjects" />
+      <End Role="tblAccounts" EntitySet="tblAccounts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblBill_tblAccount" Association="BSRModel.FK_tblBill_tblAccount">
+      <End Role="tblAccounts" EntitySet="tblAccounts" />
+      <End Role="tblBills" EntitySet="tblBills" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblArticleCat_Article_tblArticle" Association="BSRModel.FK_tblArticleCat_Article_tblArticle">
+      <End Role="tblArticles" EntitySet="tblArticles" />
+      <End Role="tblArticleCat_Article" EntitySet="tblArticleCat_Article" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblArticleCat_Article_tblArticleCat" Association="BSRModel.FK_tblArticleCat_Article_tblArticleCat">
+      <End Role="tblArticleCats" EntitySet="tblArticleCats" />
+      <End Role="tblArticleCat_Article" EntitySet="tblArticleCat_Article" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblBillDetail_tblBill" Association="BSRModel.FK_tblBillDetail_tblBill">
+      <End Role="tblBills" EntitySet="tblBills" />
+      <End Role="tblBillDetails" EntitySet="tblBillDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblBillDetail_tblProduct" Association="BSRModel.FK_tblBillDetail_tblProduct">
+      <End Role="tblProducts" EntitySet="tblProducts" />
+      <End Role="tblBillDetails" EntitySet="tblBillDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblVoucher_tblCampaign" Association="BSRModel.FK_tblVoucher_tblCampaign">
+      <End Role="tblCampaigns" EntitySet="tblCampaigns" />
+      <End Role="tblVouchers" EntitySet="tblVouchers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblDistrict_tblCity" Association="BSRModel.FK_tblDistrict_tblCity">
+      <End Role="tblCities" EntitySet="tblCities" />
+      <End Role="tblDistricts" EntitySet="tblDistricts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblCustomer_tblObject" Association="BSRModel.FK_tblCustomer_tblObject">
+      <End Role="tblObjects" EntitySet="tblObjects" />
+      <End Role="tblCustomers" EntitySet="tblCustomers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblWard_tblDistrict" Association="BSRModel.FK_tblWard_tblDistrict">
+      <End Role="tblDistricts" EntitySet="tblDistricts" />
+      <End Role="tblWards" EntitySet="tblWards" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblEmployee_tblObject" Association="BSRModel.FK_tblEmployee_tblObject">
+      <End Role="tblObjects" EntitySet="tblObjects" />
+      <End Role="tblEmployees" EntitySet="tblEmployees" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblEmployeeType_tblEmployee_tblEmployee" Association="BSRModel.FK_tblEmployeeType_tblEmployee_tblEmployee">
+      <End Role="tblEmployees" EntitySet="tblEmployees" />
+      <End Role="tblEmployeeType_tblEmployee" EntitySet="tblEmployeeType_tblEmployee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblShop_tblStore_tblEmployee_tblEmployee" Association="BSRModel.FK_tblShop_tblStore_tblEmployee_tblEmployee">
+      <End Role="tblEmployees" EntitySet="tblEmployees" />
+      <End Role="tblShop_tblStore_tblEmployee" EntitySet="tblShop_tblStore_tblEmployee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblEmployeeType_tblEmployee_tblEmployeeType" Association="BSRModel.FK_tblEmployeeType_tblEmployee_tblEmployeeType">
+      <End Role="tblEmployeeTypes" EntitySet="tblEmployeeTypes" />
+      <End Role="tblEmployeeType_tblEmployee" EntitySet="tblEmployeeType_tblEmployee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblFixedAsset_Store_Shop_tblFixedAsset" Association="BSRModel.FK_tblFixedAsset_Store_Shop_tblFixedAsset">
+      <End Role="tblFixedAssets" EntitySet="tblFixedAssets" />
+      <End Role="tblFixedAsset_Store_Shop" EntitySet="tblFixedAsset_Store_Shop" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblFixedAsset_Store_Shop_tblShop" Association="BSRModel.FK_tblFixedAsset_Store_Shop_tblShop">
+      <End Role="tblShops" EntitySet="tblShops" />
+      <End Role="tblFixedAsset_Store_Shop" EntitySet="tblFixedAsset_Store_Shop" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblFixedAsset_Store_Shop_tblStore" Association="BSRModel.FK_tblFixedAsset_Store_Shop_tblStore">
+      <End Role="tblStores" EntitySet="tblStores" />
+      <End Role="tblFixedAsset_Store_Shop" EntitySet="tblFixedAsset_Store_Shop" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblStatement_tblFixedCost" Association="BSRModel.FK_tblStatement_tblFixedCost">
+      <End Role="tblFixedCosts" EntitySet="tblFixedCosts" />
+      <End Role="tblStatements" EntitySet="tblStatements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblSupplier_tblGroupSupplier" Association="BSRModel.FK_tblSupplier_tblGroupSupplier">
+      <End Role="tblGroupSuppliers" EntitySet="tblGroupSuppliers" />
+      <End Role="tblSuppliers" EntitySet="tblSuppliers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblMediaCat_tblMedia_tblMedia" Association="BSRModel.FK_tblMediaCat_tblMedia_tblMedia">
+      <End Role="tblMedias" EntitySet="tblMedias" />
+      <End Role="tblMediaCat_tblMedia" EntitySet="tblMediaCat_tblMedia" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblMediaCat_tblMedia_tblMediaCat" Association="BSRModel.FK_tblMediaCat_tblMedia_tblMediaCat">
+      <End Role="tblMediaCats" EntitySet="tblMediaCats" />
+      <End Role="tblMediaCat_tblMedia" EntitySet="tblMediaCat_tblMedia" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblProductPrice_tblProduct" Association="BSRModel.FK_tblProductPrice_tblProduct">
+      <End Role="tblProducts" EntitySet="tblProducts" />
+      <End Role="tblProductPrices" EntitySet="tblProductPrices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblRoles_tblTable" Association="BSRModel.FK_tblRoles_tblTable">
+      <End Role="tblTables" EntitySet="tblTables" />
+      <End Role="tblRoles" EntitySet="tblRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblShop_tblStore_tblEmployee_tblShop" Association="BSRModel.FK_tblShop_tblStore_tblEmployee_tblShop">
+      <End Role="tblShops" EntitySet="tblShops" />
+      <End Role="tblShop_tblStore_tblEmployee" EntitySet="tblShop_tblStore_tblEmployee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblShop_tblStore_tblEmployee_tblStore" Association="BSRModel.FK_tblShop_tblStore_tblEmployee_tblStore">
+      <End Role="tblStores" EntitySet="tblStores" />
+      <End Role="tblShop_tblStore_tblEmployee" EntitySet="tblShop_tblStore_tblEmployee" />
+    </AssociationSet>
+    <AssociationSet Name="AccountGroup_Roles" Association="BSRModel.AccountGroup_Roles">
+      <End Role="tblAccountGroups" EntitySet="tblAccountGroups" />
+      <End Role="tblRoles" EntitySet="tblRoles" />
+    </AssociationSet>
+    <AssociationSet Name="tblAccountGroup_tblAccount" Association="BSRModel.tblAccountGroup_tblAccount">
+      <End Role="tblAccounts" EntitySet="tblAccounts" />
+      <End Role="tblAccountGroups" EntitySet="tblAccountGroups" />
+    </AssociationSet>
+    <AssociationSet Name="tblMenu_tablArticleCat" Association="BSRModel.tblMenu_tablArticleCat">
+      <End Role="tblArticleCats" EntitySet="tblArticleCats" />
+      <End Role="tblMenus" EntitySet="tblMenus" />
+    </AssociationSet>
+    <FunctionImport Name="spGetProductByID" ReturnType="Collection(BSRModel.spGetProductByID_Result)">
+      <Parameter Name="productID" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <EntityType Name="CampainDetail">
+    <Key>
+      <PropertyRef Name="CampainDetailID" />
+      <PropertyRef Name="CampainID" />
+    </Key>
+    <Property Name="CampainDetailID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CampainID" Type="Int64" Nullable="false" />
+    <Property Name="ProductID" Type="Int32" />
+    <Property Name="Discount" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="isPercent" Type="Boolean" />
+    <NavigationProperty Name="tblCampaign" Relationship="BSRModel.FK_CampainDetail_tblCampaign" FromRole="CampainDetails" ToRole="tblCampaigns" />
+    <NavigationProperty Name="tblProduct" Relationship="BSRModel.FK_CampainDetail_tblProduct" FromRole="CampainDetails" ToRole="tblProducts" />
+  </EntityType>
+  <EntityType Name="EmployeePolicy">
+    <Key>
+      <PropertyRef Name="EmployeePolicyID" />
+    </Key>
+    <Property Name="EmployeePolicyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PolicyName" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+    <Property Name="Salary" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+  </EntityType>
+  <EntityType Name="Product_Material">
+    <Key>
+      <PropertyRef Name="MaterialID" />
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="MaterialID" Type="Int64" Nullable="false" />
+    <Property Name="ProductID" Type="Int32" Nullable="false" />
+    <Property Name="MaterialQuantity" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="tblMaterial" Relationship="BSRModel.FK_Product_Material_tblMaterial" FromRole="Product_Material" ToRole="tblMaterials" />
+    <NavigationProperty Name="tblProduct" Relationship="BSRModel.FK_Product_Material_tblProduct" FromRole="Product_Material" ToRole="tblProducts" />
+  </EntityType>
+  <EntityType Name="Supplier_Material">
+    <Key>
+      <PropertyRef Name="ObjectID" />
+      <PropertyRef Name="MaterialID" />
+      <PropertyRef Name="StoreID" />
+    </Key>
+    <Property Name="ObjectID" Type="Int64" Nullable="false" />
+    <Property Name="MaterialID" Type="Int64" Nullable="false" />
+    <Property Name="StoreID" Type="Int16" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="tblMaterial" Relationship="BSRModel.FK_Supplier_Material_tblMaterial" FromRole="Supplier_Material" ToRole="tblMaterials" />
+    <NavigationProperty Name="tblStore" Relationship="BSRModel.FK_Supplier_Material_tblStore" FromRole="Supplier_Material" ToRole="tblStores" />
+    <NavigationProperty Name="tblSupplier" Relationship="BSRModel.FK_Supplier_Material_tblSupplier" FromRole="Supplier_Material" ToRole="tblSuppliers" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="tblAccount_tblRoles">
+    <Key>
+      <PropertyRef Name="RoleID" />
+      <PropertyRef Name="ObjectID" />
+    </Key>
+    <Property Name="RoleID" Type="Int16" Nullable="false" />
+    <Property Name="ObjectID" Type="Int64" Nullable="false" />
+    <Property Name="Allow" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="tblAccount" Relationship="BSRModel.FK_Account_Roles_tblAccount" FromRole="tblAccount_tblRoles" ToRole="tblAccounts" />
+    <NavigationProperty Name="tblRole" Relationship="BSRModel.FK_Account_Roles_tblRoles" FromRole="tblAccount_tblRoles" ToRole="tblRoles" />
+  </EntityType>
+  <EntityType Name="tblAccountGroup">
+    <Key>
+      <PropertyRef Name="AccountGroupID" />
+    </Key>
+    <Property Name="AccountGroupID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GroupName" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Description" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+    <Property Name="isDelete" Type="Boolean" Nullable="false" />
+    <Property Name="isHiddent" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="tblRoles" Relationship="BSRModel.AccountGroup_Roles" FromRole="tblAccountGroups" ToRole="tblRoles" />
+    <NavigationProperty Name="tblAccounts" Relationship="BSRModel.tblAccountGroup_tblAccount" FromRole="tblAccountGroups" ToRole="tblAccounts" />
+  </EntityType>
+  <EntityType Name="tblAccount">
+    <Key>
+      <PropertyRef Name="ObjectID" />
+    </Key>
+    <Property Name="ObjectID" Type="Int64" Nullable="false" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="isEnable" Type="Boolean" Nullable="false" />
+    <Property Name="LastLogin" Type="DateTime" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" />
+    <Property Name="LastUpdate" Type="DateTime" Nullable="false" />
+    <Property Name="isSystem" Type="Boolean" Nullable="false" />
+    <Property Name="isDelete" Type="Boolean" Nullable="false" />
+    <Property Name="isHidden" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="tblAccount_tblRoles" Relationship="BSRModel.FK_Account_Roles_tblAccount" FromRole="tblAccounts" ToRole="tblAccount_tblRoles" />
+    <NavigationProperty Name="tblObject" Relationship="BSRModel.FK_tblAccount_tblObject" FromRole="tblAccounts" ToRole="tblObjects" />
+    <NavigationProperty Name="tblBills" Relationship="BSRModel.FK_tblBill_tblAccount" FromRole="tblAccounts" ToRole="tblBills" />
+    <NavigationProperty Name="tblAccountGroups" Relationship="BSRModel.tblAccountGroup_tblAccount" FromRole="tblAccounts" ToRole="tblAccountGroups" />
+  </EntityType>
+  <EntityType Name="tblArticleCat_Article">
+    <Key>
+      <PropertyRef Name="ArticleCatID" />
+      <PropertyRef Name="ArticleID" />
+    </Key>
+    <Property Name="ArticleCatID" Type="Int32" Nullable="false" />
+    <Property Name="ArticleID" Type="Int64" Nullable="false" />
+    <Property Name="IndexASC" Type="Byte" />
+    <NavigationProperty Name="tblArticle" Relationship="BSRModel.FK_tblArticleCat_Article_tblArticle" FromRole="tblArticleCat_Article" ToRole="tblArticles" />
+    <NavigationProperty Name="tblArticleCat" Relationship="BSRModel.FK_tblArticleCat_Article_tblArticleCat" FromRole="tblArticleCat_Article" ToRole="tblArticleCats" />
+  </EntityType>
+  <EntityType Name="tblArticleCat">
+    <Key>
+      <PropertyRef Name="ArticleCatID" />
+    </Key>
+    <Property Name="ArticleCatID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ArticleCatName" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="TreeLevel" Type="Byte" />
+    <Property Name="TreePatch" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+    <Property Name="HasChildren" Type="Boolean" Nullable="false" />
+    <Property Name="ParentID" Type="Int32" />
+    <Property Name="isHidden" Type="Boolean" Nullable="false" />
+    <Property Name="isDelete" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="tblArticleCat_Article" Relationship="BSRModel.FK_tblArticleCat_Article_tblArticleCat" FromRole="tblArticleCats" ToRole="tblArticleCat_Article" />
+    <NavigationProperty Name="tblMenus" Relationship="BSRModel.tblMenu_tablArticleCat" FromRole="tblArticleCats" ToRole="tblMenus" />
+  </EntityType>
+  <EntityType Name="tblArticle">
+    <Key>
+      <PropertyRef Name="ArticleID" />
+    </Key>
+    <Property Name="ArticleID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+    <Property Name="Description" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+    <Property Name="Detail" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="CreateDate" Type="DateTime" />
+    <Property Name="CreateBy" Type="Int64" />
+    <Property Name="LastUpdate" Type="DateTime" />
+    <Property Name="UpdateBy" Type="Int64" />
+    <Property Name="isHidden" Type="Boolean" Nullable="false" />
+    <Property Name="isDelete" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="tblArticleCat_Article" Relationship="BSRModel.FK_tblArticleCat_Article_tblArticle" FromRole="tblArticles" ToRole="tblArticleCat_Article" />
+  </EntityType>
+  <EntityType Name="tblBillDetail">
+    <Key>
+      <PropertyRef Name="BillDetailID" />
+      <PropertyRef Name="BillID" />
+    </Key>
+    <Property Name="BillDetailID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BillID" Type="Int64" Nullable="false" />
+    <Property Name="ProductID" Type="Int32" Nullable="false" />
+    <Property Name="Quantity" Type="Int16" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <NavigationProperty Name="tblBill" Relationship="BSRModel.FK_tblBillDetail_tblBill" FromRole="tblBillDetails" ToRole="tblBills" />
+    <NavigationProperty Name="tblProduct" Relationship="BSRModel.FK_tblBillDetail_tblProduct" FromRole="tblBillDetails" ToRole="tblProducts" />
+  </EntityType>
+  <EntityType Name="tblBill">
+    <Key>
+      <PropertyRef Name="BillID" />
+    </Key>
+    <Property Name="BillID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerID" Type="Int64" />
+    <Property Name="CreateBy" Type="Int64" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" />
+    <Property Name="isDiscount" Type="Boolean" />
+    <Property Name="CampainID" Type="Int64" />
+    <Property Name="TotalMoney" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="VoucherCode" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="tblAccount" Relationship="BSRModel.FK_tblBill_tblAccount" FromRole="tblBills" ToRole="tblAccounts" />
+    <NavigationProperty Name="tblBillDetails" Relationship="BSRModel.FK_tblBillDetail_tblBill" FromRole="tblBills" ToRole="tblBillDetails" />
+  </EntityType>
+  <EntityType Name="tblCampaign">
+    <Key>
+      <PropertyRef Name="CampainID" />
+    </Key>
+    <Property Name="CampainID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CampainName" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+    <Property Name="StartDate" Type="DateTime" Nullable="false" />
+    <Property Name="DueDate" Type="DateTime" Nullable="false" />
+    <Property Name="StartHours" Type="Time" Nullable="false" />
+    <Property Name="DueHours" Type="Time" Nullable="false" />
+    <Property Name="ForBill" Type="Boolean" Nullable="false" />
+    <Property Name="Discount" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="isPercent" Type="Boolean" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" />
+    <Property Name="CreateBy" Type="Int64" Nullable="false" />
+    <Property Name="UpdateDate" Type="DateTime" Nullable="false" />
+    <Property Name="UpdateBy" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="CampainDetails" Relationship="BSRModel.FK_CampainDetail_tblCampaign" FromRole="tblCampaigns" ToRole="CampainDetails" />
+    <NavigationProperty Name="tblVouchers" Relationship="BSRModel.FK_tblVoucher_tblCampaign" FromRole="tblCampaigns" ToRole="tblVouchers" />
+  </EntityType>
+  <EntityType Name="tblCity">
+    <Key>
+      <PropertyRef Name="CityID" />
+    </Key>
+    <Property Name="CityID" Type="Int32" Nullable="false" />
+    <Property Name="CityName" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+    <Property Name="isHidden" Type="Boolean" Nullable="false" />
+    <Property Name="isDelete" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="tblDistricts" Relationship="BSRModel.FK_tblDistrict_tblCity" FromRole="tblCities" ToRole="tblDistricts" />
+  </EntityType>
+  <EntityType Name="tblContact">
+    <Key>
+      <PropertyRef Name="ContactID" />
+    </Key>
+    <Property Name="ContactID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="LastName" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+    <Property Name="Phone" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+    <Property Name="Content" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="tblCustomer">
+    <Key>
+      <PropertyRef Name="ObjectID" />
+    </Key>
+    <Property Name="ObjectID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="tblObject" Relationship="BSRModel.FK_tblCustomer_tblObject" FromRole="tblCustomers" ToRole="tblObjects" />
+  </EntityType>
+  <EntityType Name="tblDistrict">
+    <Key>
+      <PropertyRef Name="DistrictID" />
+    </Key>
+    <Property Name="DistrictID" Type="Int32" Nullable="false" />
+    <Property Name="DistrictName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="CityID" Type="Int32" Nullable="false" />
+    <Property Name="isHidden" Type="Boolean" Nullable="false" />
+    <Property Name="isDelete" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="tblCity" Relationship="BSRModel.FK_tblDistrict_tblCity" FromRole="tblDistricts" ToRole="tblCities" />
+    <NavigationProperty Name="tblWards" Relationship="BSRModel.FK_tblWard_tblDistrict" FromRole="tblDistricts" ToRole="tblWards" />
+  </EntityType>
+  <EntityType Name="tblEmployee">
+    <Key>
+      <PropertyRef Name="ObjectID" />
+    </Key>
+    <Property Name="ObjectID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Avartar" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+    <Property Name="CreateBy" Type="Int64" Nullable="false" />
+    <Property Name="LastUpdate" Type="DateTime" Nullable="false" />
+    <Property Name="UpdateBy" Type="Int64" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" />
+    <Property Name="isDelete" Type="Boolean" Nullable="false" />
+    <Property Name="isHiddent" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="tblObject" Relationship="BSRModel.FK_tblEmployee_tblObject" FromRole="tblEmployees" ToRole="tblObjects" />
+    <NavigationProperty Name="tblEmployeeType_tblEmployee" Relationship="BSRModel.FK_tblEmployeeType_tblEmployee_tblEmployee" FromRole="tblEmployees" ToRole="tblEmployeeType_tblEmployee" />
+    <NavigationProperty Name="tblShop_tblStore_tblEmployee" Relationship="BSRModel.FK_tblShop_tblStore_tblEmployee_tblEmployee" FromRole="tblEmployees" ToRole="tblShop_tblStore_tblEmployee" />
+  </EntityType>
+  <EntityType Name="tblEmployeeType_tblEmployee">
+    <Key>
+      <PropertyRef Name="ObjectID" />
+      <PropertyRef Name="CreateDate" />
+      <PropertyRef Name="EmployeeTypeID" />
+    </Key>
+    <Property Name="ObjectID" Type="Int64" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" />
+    <Property Name="EmployeeTypeID" Type="Int32" Nullable="false" />
+    <Property Name="Salary" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <NavigationProperty Name="tblEmployee" Relationship="BSRModel.FK_tblEmployeeType_tblEmployee_tblEmployee" FromRole="tblEmployeeType_tblEmployee" ToRole="tblEmployees" />
+    <NavigationProperty Name="tblEmployeeType" Relationship="BSRModel.FK_tblEmployeeType_tblEmployee_tblEmployeeType" FromRole="tblEmployeeType_tblEmployee" ToRole="tblEmployeeTypes" />
+  </EntityType>
+  <EntityType Name="tblEmployeeType">
+    <Key>
+      <PropertyRef Name="EmployeeTypeID" />
+    </Key>
+    <Property Name="EmployeeTypeID" Type="Int32" Nullable="false" />
+    <Property Name="EmployeeTypeName" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Description" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+    <Property Name="isDelete" Type="Boolean" Nullable="false" />
+    <Property Name="isHidden" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="tblEmployeeType_tblEmployee" Relationship="BSRModel.FK_tblEmployeeType_tblEmployee_tblEmployeeType" FromRole="tblEmployeeTypes" ToRole="tblEmployeeType_tblEmployee" />
+  </EntityType>
+  <EntityType Name="tblFixedAsset_Store_Shop">
+    <Key>
+      <PropertyRef Name="FixedAssetID" />
+      <PropertyRef Name="CreateDate" />
+    </Key>
+    <Property Name="FixedAssetID" Type="Int32" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" />
+    <Property Name="ShopID" Type="Int16" />
+    <Property Name="StoreID" Type="Int16" />
+    <NavigationProperty Name="tblFixedAsset" Relationship="BSRModel.FK_tblFixedAsset_Store_Shop_tblFixedAsset" FromRole="tblFixedAsset_Store_Shop" ToRole="tblFixedAssets" />
+    <NavigationProperty Name="tblShop" Relationship="BSRModel.FK_tblFixedAsset_Store_Shop_tblShop" FromRole="tblFixedAsset_Store_Shop" ToRole="tblShops" />
+    <NavigationProperty Name="tblStore" Relationship="BSRModel.FK_tblFixedAsset_Store_Shop_tblStore" FromRole="tblFixedAsset_Store_Shop" ToRole="tblStores" />
+  </EntityType>
+  <EntityType Name="tblFixedAsset">
+    <Key>
+      <PropertyRef Name="FixedAssetID" />
+    </Key>
+    <Property Name="FixedAssetID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FixedAssetName" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Description" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+    <Property Name="SupllierID" Type="Int64" />
+    <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="PurchaseDate" Type="DateTime" Nullable="false" />
+    <Property Name="DepreciationPeriod" Type="Byte" Nullable="false" />
+    <Property Name="isDelete" Type="Boolean" Nullable="false" />
+    <Property Name="isHiddent" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="tblFixedAsset_Store_Shop" Relationship="BSRModel.FK_tblFixedAsset_Store_Shop_tblFixedAsset" FromRole="tblFixedAssets" ToRole="tblFixedAsset_Store_Shop" />
+  </EntityType>
+  <EntityType Name="tblFixedCost">
+    <Key>
+      <PropertyRef Name="FixedCostID" />
+    </Key>
+    <Property Name="FixedCostID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FixedCostName" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Description" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+    <Property Name="Money" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" />
+    <Property Name="isDelete" Type="Boolean" Nullable="false" />
+    <Property Name="isHiddent" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="tblStatements" Relationship="BSRModel.FK_tblStatement_tblFixedCost" FromRole="tblFixedCosts" ToRole="tblStatements" />
+  </EntityType>
+  <EntityType Name="tblGroupSupplier">
+    <Key>
+      <PropertyRef Name="GroupSupplierID" />
+    </Key>
+    <Property Name="GroupSupplierID" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GroupSupplierName" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Description" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+    <Property Name="isDelete" Type="Boolean" Nullable="false" />
+    <Property Name="isHidden" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="tblSuppliers" Relationship="BSRModel.FK_tblSupplier_tblGroupSupplier" FromRole="tblGroupSuppliers" ToRole="tblSuppliers" />
+  </EntityType>
+  <EntityType Name="tblMaterial">
+    <Key>
+      <PropertyRef Name="MaterialID" />
+    </Key>
+    <Property Name="MaterialID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MaterialName" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Description" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+    <Property Name="Unit" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Avatar" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+    <Property Name="isHidden" Type="Boolean" Nullable="false" />
+    <Property Name="isDelete" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Product_Material" Relationship="BSRModel.FK_Product_Material_tblMaterial" FromRole="tblMaterials" ToRole="Product_Material" />
+    <NavigationProperty Name="Supplier_Material" Relationship="BSRModel.FK_Supplier_Material_tblMaterial" FromRole="tblMaterials" ToRole="Supplier_Material" />
+  </EntityType>
+  <EntityType Name="tblMediaCat_tblMedia">
+    <Key>
+      <PropertyRef Name="MediaCatID" />
+      <PropertyRef Name="MediaID" />
+    </Key>
+    <Property Name="MediaCatID" Type="Int16" Nullable="false" />
+    <Property Name="MediaID" Type="Int32" Nullable="false" />
+    <Property Name="IndexASC" Type="Byte" />
+    <NavigationProperty Name="tblMedia" Relationship="BSRModel.FK_tblMediaCat_tblMedia_tblMedia" FromRole="tblMediaCat_tblMedia" ToRole="tblMedias" />
+    <NavigationProperty Name="tblMediaCat" Relationship="BSRModel.FK_tblMediaCat_tblMedia_tblMediaCat" FromRole="tblMediaCat_tblMedia" ToRole="tblMediaCats" />
+  </EntityType>
+  <EntityType Name="tblMediaCat">
+    <Key>
+      <PropertyRef Name="MediaCatID" />
+    </Key>
+    <Property Name="MediaCatID" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MediaCatName" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="isDelete" Type="Boolean" Nullable="false" />
+    <Property Name="isHidden" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="tblMediaCat_tblMedia" Relationship="BSRModel.FK_tblMediaCat_tblMedia_tblMediaCat" FromRole="tblMediaCats" ToRole="tblMediaCat_tblMedia" />
+  </EntityType>
+  <EntityType Name="tblMedia">
+    <Key>
+      <PropertyRef Name="MediaID" />
+    </Key>
+    <Property Name="MediaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MediaName" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+    <Property Name="Alt" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+    <Property Name="isDelete" Type="Boolean" Nullable="false" />
+    <Property Name="isHidden" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="tblMediaCat_tblMedia" Relationship="BSRModel.FK_tblMediaCat_tblMedia_tblMedia" FromRole="tblMedias" ToRole="tblMediaCat_tblMedia" />
+  </EntityType>
+  <EntityType Name="tblMenu">
+    <Key>
+      <PropertyRef Name="MenuID" />
+    </Key>
+    <Property Name="MenuID" Type="Int16" Nullable="false" />
+    <Property Name="MenuName" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="TreeLevel" Type="Byte" />
+    <Property Name="TreePatch" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+    <Property Name="HasChildren" Type="Boolean" Nullable="false" />
+    <Property Name="ParentID" Type="Int32" />
+    <NavigationProperty Name="tblArticleCats" Relationship="BSRModel.tblMenu_tablArticleCat" FromRole="tblMenus" ToRole="tblArticleCats" />
+  </EntityType>
+  <EntityType Name="tblObject">
+    <Key>
+      <PropertyRef Name="ObjectID" />
+    </Key>
+    <Property Name="ObjectID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ObjectName" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="LastName" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="FirstName" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="Address" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+    <Property Name="CityID" Type="Int32" />
+    <Property Name="WardID" Type="Int32" />
+    <Property Name="DistrictID" Type="Int32" />
+    <Property Name="Email" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+    <Property Name="Email1" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+    <Property Name="Phone" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Phone1" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Website" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" />
+    <Property Name="CreateBy" Type="Int64" Nullable="false" />
+    <Property Name="LastUpdate" Type="DateTime" Nullable="false" />
+    <Property Name="UpdateBy" Type="Int64" Nullable="false" />
+    <Property Name="Birthday" Type="DateTime" />
+    <Property Name="Gender" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
+    <Property Name="isDelete" Type="Boolean" Nullable="false" />
+    <Property Name="isHiddent" Type="Boolean" Nullable="false" />
+    <Property Name="isCustomer" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="tblAccount" Relationship="BSRModel.FK_tblAccount_tblObject" FromRole="tblObjects" ToRole="tblAccounts" />
+    <NavigationProperty Name="tblCustomer" Relationship="BSRModel.FK_tblCustomer_tblObject" FromRole="tblObjects" ToRole="tblCustomers" />
+    <NavigationProperty Name="tblEmployee" Relationship="BSRModel.FK_tblEmployee_tblObject" FromRole="tblObjects" ToRole="tblEmployees" />
+  </EntityType>
+  <EntityType Name="tblProductPrice">
+    <Key>
+      <PropertyRef Name="ProductID" />
+      <PropertyRef Name="Price" />
+      <PropertyRef Name="CreateDate" />
+    </Key>
+    <Property Name="ProductID" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="tblProduct" Relationship="BSRModel.FK_tblProductPrice_tblProduct" FromRole="tblProductPrices" ToRole="tblProducts" />
+  </EntityType>
+  <EntityType Name="tblProduct">
+    <Key>
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="isHidden" Type="Boolean" Nullable="false" />
+    <Property Name="isDelete" Type="Boolean" Nullable="false" />
+    <Property Name="Avatar" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+    <Property Name="ProductName" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+    <Property Name="Description" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="CampainDetails" Relationship="BSRModel.FK_CampainDetail_tblProduct" FromRole="tblProducts" ToRole="CampainDetails" />
+    <NavigationProperty Name="Product_Material" Relationship="BSRModel.FK_Product_Material_tblProduct" FromRole="tblProducts" ToRole="Product_Material" />
+    <NavigationProperty Name="tblBillDetails" Relationship="BSRModel.FK_tblBillDetail_tblProduct" FromRole="tblProducts" ToRole="tblBillDetails" />
+    <NavigationProperty Name="tblProductPrices" Relationship="BSRModel.FK_tblProductPrice_tblProduct" FromRole="tblProducts" ToRole="tblProductPrices" />
+    <Property Type="String" Name="ProductCode" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="Unit" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="tblRole">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Description" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+    <Property Name="TableID" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="tblAccount_tblRoles" Relationship="BSRModel.FK_Account_Roles_tblRoles" FromRole="tblRoles" ToRole="tblAccount_tblRoles" />
+    <NavigationProperty Name="tblTable" Relationship="BSRModel.FK_tblRoles_tblTable" FromRole="tblRoles" ToRole="tblTables" />
+    <NavigationProperty Name="tblAccountGroups" Relationship="BSRModel.AccountGroup_Roles" FromRole="tblRoles" ToRole="tblAccountGroups" />
+  </EntityType>
+  <EntityType Name="tblShop_tblStore_tblEmployee">
+    <Key>
+      <PropertyRef Name="ObjectID" />
+      <PropertyRef Name="CreateDate" />
+    </Key>
+    <Property Name="ObjectID" Type="Int64" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" />
+    <Property Name="ShopID" Type="Int16" Nullable="false" />
+    <Property Name="StoreID" Type="Int16" />
+    <NavigationProperty Name="tblEmployee" Relationship="BSRModel.FK_tblShop_tblStore_tblEmployee_tblEmployee" FromRole="tblShop_tblStore_tblEmployee" ToRole="tblEmployees" />
+    <NavigationProperty Name="tblShop" Relationship="BSRModel.FK_tblShop_tblStore_tblEmployee_tblShop" FromRole="tblShop_tblStore_tblEmployee" ToRole="tblShops" />
+    <NavigationProperty Name="tblStore" Relationship="BSRModel.FK_tblShop_tblStore_tblEmployee_tblStore" FromRole="tblShop_tblStore_tblEmployee" ToRole="tblStores" />
+  </EntityType>
+  <EntityType Name="tblShop">
+    <Key>
+      <PropertyRef Name="ShopID" />
+    </Key>
+    <Property Name="ShopID" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Address" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+    <Property Name="CityID" Type="Int32" />
+    <Property Name="WardID" Type="Int32" />
+    <Property Name="DistrictID" Type="Int32" />
+    <Property Name="Phone" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Phone1" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Fax" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Fax1" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="isDelete" Type="Boolean" Nullable="false" />
+    <Property Name="isHidden" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="tblFixedAsset_Store_Shop" Relationship="BSRModel.FK_tblFixedAsset_Store_Shop_tblShop" FromRole="tblShops" ToRole="tblFixedAsset_Store_Shop" />
+    <NavigationProperty Name="tblShop_tblStore_tblEmployee" Relationship="BSRModel.FK_tblShop_tblStore_tblEmployee_tblShop" FromRole="tblShops" ToRole="tblShop_tblStore_tblEmployee" />
+  </EntityType>
+  <EntityType Name="tblStatement">
+    <Key>
+      <PropertyRef Name="StatementID" />
+    </Key>
+    <Property Name="StatementID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+    <Property Name="StatementType" Type="Boolean" Nullable="false" />
+    <Property Name="Money" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="Description" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+    <Property Name="ReceiverName" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="ReceiverID" Type="Int64" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" />
+    <Property Name="CreateBy" Type="Int64" Nullable="false" />
+    <Property Name="isFixedCost" Type="Boolean" Nullable="false" />
+    <Property Name="FixedCostID" Type="Int32" />
+    <Property Name="isDelete" Type="Boolean" Nullable="false" />
+    <Property Name="isHidden" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="tblFixedCost" Relationship="BSRModel.FK_tblStatement_tblFixedCost" FromRole="tblStatements" ToRole="tblFixedCosts" />
+  </EntityType>
+  <EntityType Name="tblStore">
+    <Key>
+      <PropertyRef Name="StoreID" />
+    </Key>
+    <Property Name="StoreID" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Address" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+    <Property Name="CityID" Type="Int32" />
+    <Property Name="WardID" Type="Int32" />
+    <Property Name="DistrictID" Type="Int32" />
+    <Property Name="Phone" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Phone1" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Fax" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Fax1" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="isHidden" Type="Boolean" Nullable="false" />
+    <Property Name="isDelete" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Supplier_Material" Relationship="BSRModel.FK_Supplier_Material_tblStore" FromRole="tblStores" ToRole="Supplier_Material" />
+    <NavigationProperty Name="tblFixedAsset_Store_Shop" Relationship="BSRModel.FK_tblFixedAsset_Store_Shop_tblStore" FromRole="tblStores" ToRole="tblFixedAsset_Store_Shop" />
+    <NavigationProperty Name="tblShop_tblStore_tblEmployee" Relationship="BSRModel.FK_tblShop_tblStore_tblEmployee_tblStore" FromRole="tblStores" ToRole="tblShop_tblStore_tblEmployee" />
+  </EntityType>
+  <EntityType Name="tblSupplier">
+    <Key>
+      <PropertyRef Name="ObjectID" />
+    </Key>
+    <Property Name="ObjectID" Type="Int64" Nullable="false" />
+    <Property Name="GroupSupplier" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="Supplier_Material" Relationship="BSRModel.FK_Supplier_Material_tblSupplier" FromRole="tblSuppliers" ToRole="Supplier_Material" />
+    <NavigationProperty Name="tblGroupSupplier" Relationship="BSRModel.FK_tblSupplier_tblGroupSupplier" FromRole="tblSuppliers" ToRole="tblGroupSuppliers" />
+  </EntityType>
+  <EntityType Name="tblTable">
+    <Key>
+      <PropertyRef Name="TableID" />
+    </Key>
+    <Property Name="TableID" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TableName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Description" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="tblRoles" Relationship="BSRModel.FK_tblRoles_tblTable" FromRole="tblTables" ToRole="tblRoles" />
+  </EntityType>
+  <EntityType Name="tblVoucher">
+    <Key>
+      <PropertyRef Name="VoucherID" />
+    </Key>
+    <Property Name="VoucherID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CampainID" Type="Int64" Nullable="false" />
+    <Property Name="VoucherCode" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="tblCampaign" Relationship="BSRModel.FK_tblVoucher_tblCampaign" FromRole="tblVouchers" ToRole="tblCampaigns" />
+  </EntityType>
+  <EntityType Name="tblWard">
+    <Key>
+      <PropertyRef Name="WardID" />
+    </Key>
+    <Property Name="WardID" Type="Int32" Nullable="false" />
+    <Property Name="WardName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="DistrictID" Type="Int32" />
+    <Property Name="isHidden" Type="Boolean" Nullable="false" />
+    <Property Name="isDelete" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="tblDistrict" Relationship="BSRModel.FK_tblWard_tblDistrict" FromRole="tblWards" ToRole="tblDistricts" />
+  </EntityType>
+  <Association Name="FK_CampainDetail_tblCampaign">
+    <End Role="tblCampaigns" Type="BSRModel.tblCampaign" Multiplicity="1" />
+    <End Role="CampainDetails" Type="BSRModel.CampainDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblCampaigns">
+        <PropertyRef Name="CampainID" />
+      </Principal>
+      <Dependent Role="CampainDetails">
+        <PropertyRef Name="CampainID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CampainDetail_tblProduct">
+    <End Role="tblProducts" Type="BSRModel.tblProduct" Multiplicity="0..1" />
+    <End Role="CampainDetails" Type="BSRModel.CampainDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblProducts">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="CampainDetails">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_Material_tblMaterial">
+    <End Role="tblMaterials" Type="BSRModel.tblMaterial" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Product_Material" Type="BSRModel.Product_Material" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblMaterials">
+        <PropertyRef Name="MaterialID" />
+      </Principal>
+      <Dependent Role="Product_Material">
+        <PropertyRef Name="MaterialID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_Material_tblProduct">
+    <End Role="tblProducts" Type="BSRModel.tblProduct" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Product_Material" Type="BSRModel.Product_Material" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblProducts">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="Product_Material">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Supplier_Material_tblMaterial">
+    <End Role="tblMaterials" Type="BSRModel.tblMaterial" Multiplicity="1" />
+    <End Role="Supplier_Material" Type="BSRModel.Supplier_Material" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblMaterials">
+        <PropertyRef Name="MaterialID" />
+      </Principal>
+      <Dependent Role="Supplier_Material">
+        <PropertyRef Name="MaterialID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Supplier_Material_tblStore">
+    <End Role="tblStores" Type="BSRModel.tblStore" Multiplicity="1" />
+    <End Role="Supplier_Material" Type="BSRModel.Supplier_Material" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblStores">
+        <PropertyRef Name="StoreID" />
+      </Principal>
+      <Dependent Role="Supplier_Material">
+        <PropertyRef Name="StoreID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Supplier_Material_tblSupplier">
+    <End Role="tblSuppliers" Type="BSRModel.tblSupplier" Multiplicity="1" />
+    <End Role="Supplier_Material" Type="BSRModel.Supplier_Material" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblSuppliers">
+        <PropertyRef Name="ObjectID" />
+      </Principal>
+      <Dependent Role="Supplier_Material">
+        <PropertyRef Name="ObjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Account_Roles_tblAccount">
+    <End Role="tblAccounts" Type="BSRModel.tblAccount" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tblAccount_tblRoles" Type="BSRModel.tblAccount_tblRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblAccounts">
+        <PropertyRef Name="ObjectID" />
+      </Principal>
+      <Dependent Role="tblAccount_tblRoles">
+        <PropertyRef Name="ObjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Account_Roles_tblRoles">
+    <End Role="tblRoles" Type="BSRModel.tblRole" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tblAccount_tblRoles" Type="BSRModel.tblAccount_tblRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblRoles">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="tblAccount_tblRoles">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblAccount_tblObject">
+    <End Role="tblObjects" Type="BSRModel.tblObject" Multiplicity="1" />
+    <End Role="tblAccounts" Type="BSRModel.tblAccount" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="tblObjects">
+        <PropertyRef Name="ObjectID" />
+      </Principal>
+      <Dependent Role="tblAccounts">
+        <PropertyRef Name="ObjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblBill_tblAccount">
+    <End Role="tblAccounts" Type="BSRModel.tblAccount" Multiplicity="1" />
+    <End Role="tblBills" Type="BSRModel.tblBill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblAccounts">
+        <PropertyRef Name="ObjectID" />
+      </Principal>
+      <Dependent Role="tblBills">
+        <PropertyRef Name="CreateBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblArticleCat_Article_tblArticle">
+    <End Role="tblArticles" Type="BSRModel.tblArticle" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tblArticleCat_Article" Type="BSRModel.tblArticleCat_Article" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblArticles">
+        <PropertyRef Name="ArticleID" />
+      </Principal>
+      <Dependent Role="tblArticleCat_Article">
+        <PropertyRef Name="ArticleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblArticleCat_Article_tblArticleCat">
+    <End Role="tblArticleCats" Type="BSRModel.tblArticleCat" Multiplicity="1" />
+    <End Role="tblArticleCat_Article" Type="BSRModel.tblArticleCat_Article" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblArticleCats">
+        <PropertyRef Name="ArticleCatID" />
+      </Principal>
+      <Dependent Role="tblArticleCat_Article">
+        <PropertyRef Name="ArticleCatID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblBillDetail_tblBill">
+    <End Role="tblBills" Type="BSRModel.tblBill" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tblBillDetails" Type="BSRModel.tblBillDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblBills">
+        <PropertyRef Name="BillID" />
+      </Principal>
+      <Dependent Role="tblBillDetails">
+        <PropertyRef Name="BillID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblBillDetail_tblProduct">
+    <End Role="tblProducts" Type="BSRModel.tblProduct" Multiplicity="1" />
+    <End Role="tblBillDetails" Type="BSRModel.tblBillDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblProducts">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="tblBillDetails">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblVoucher_tblCampaign">
+    <End Role="tblCampaigns" Type="BSRModel.tblCampaign" Multiplicity="1" />
+    <End Role="tblVouchers" Type="BSRModel.tblVoucher" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblCampaigns">
+        <PropertyRef Name="CampainID" />
+      </Principal>
+      <Dependent Role="tblVouchers">
+        <PropertyRef Name="CampainID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblDistrict_tblCity">
+    <End Role="tblCities" Type="BSRModel.tblCity" Multiplicity="1" />
+    <End Role="tblDistricts" Type="BSRModel.tblDistrict" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblCities">
+        <PropertyRef Name="CityID" />
+      </Principal>
+      <Dependent Role="tblDistricts">
+        <PropertyRef Name="CityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblCustomer_tblObject">
+    <End Role="tblObjects" Type="BSRModel.tblObject" Multiplicity="1" />
+    <End Role="tblCustomers" Type="BSRModel.tblCustomer" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="tblObjects">
+        <PropertyRef Name="ObjectID" />
+      </Principal>
+      <Dependent Role="tblCustomers">
+        <PropertyRef Name="ObjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblWard_tblDistrict">
+    <End Role="tblDistricts" Type="BSRModel.tblDistrict" Multiplicity="0..1" />
+    <End Role="tblWards" Type="BSRModel.tblWard" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblDistricts">
+        <PropertyRef Name="DistrictID" />
+      </Principal>
+      <Dependent Role="tblWards">
+        <PropertyRef Name="DistrictID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblEmployee_tblObject">
+    <End Role="tblObjects" Type="BSRModel.tblObject" Multiplicity="1" />
+    <End Role="tblEmployees" Type="BSRModel.tblEmployee" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="tblObjects">
+        <PropertyRef Name="ObjectID" />
+      </Principal>
+      <Dependent Role="tblEmployees">
+        <PropertyRef Name="ObjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblEmployeeType_tblEmployee_tblEmployee">
+    <End Role="tblEmployees" Type="BSRModel.tblEmployee" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tblEmployeeType_tblEmployee" Type="BSRModel.tblEmployeeType_tblEmployee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblEmployees">
+        <PropertyRef Name="ObjectID" />
+      </Principal>
+      <Dependent Role="tblEmployeeType_tblEmployee">
+        <PropertyRef Name="ObjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblShop_tblStore_tblEmployee_tblEmployee">
+    <End Role="tblEmployees" Type="BSRModel.tblEmployee" Multiplicity="1" />
+    <End Role="tblShop_tblStore_tblEmployee" Type="BSRModel.tblShop_tblStore_tblEmployee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblEmployees">
+        <PropertyRef Name="ObjectID" />
+      </Principal>
+      <Dependent Role="tblShop_tblStore_tblEmployee">
+        <PropertyRef Name="ObjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblEmployeeType_tblEmployee_tblEmployeeType">
+    <End Role="tblEmployeeTypes" Type="BSRModel.tblEmployeeType" Multiplicity="1" />
+    <End Role="tblEmployeeType_tblEmployee" Type="BSRModel.tblEmployeeType_tblEmployee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblEmployeeTypes">
+        <PropertyRef Name="EmployeeTypeID" />
+      </Principal>
+      <Dependent Role="tblEmployeeType_tblEmployee">
+        <PropertyRef Name="EmployeeTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblFixedAsset_Store_Shop_tblFixedAsset">
+    <End Role="tblFixedAssets" Type="BSRModel.tblFixedAsset" Multiplicity="1" />
+    <End Role="tblFixedAsset_Store_Shop" Type="BSRModel.tblFixedAsset_Store_Shop" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblFixedAssets">
+        <PropertyRef Name="FixedAssetID" />
+      </Principal>
+      <Dependent Role="tblFixedAsset_Store_Shop">
+        <PropertyRef Name="FixedAssetID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblFixedAsset_Store_Shop_tblShop">
+    <End Role="tblShops" Type="BSRModel.tblShop" Multiplicity="0..1" />
+    <End Role="tblFixedAsset_Store_Shop" Type="BSRModel.tblFixedAsset_Store_Shop" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblShops">
+        <PropertyRef Name="ShopID" />
+      </Principal>
+      <Dependent Role="tblFixedAsset_Store_Shop">
+        <PropertyRef Name="ShopID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblFixedAsset_Store_Shop_tblStore">
+    <End Role="tblStores" Type="BSRModel.tblStore" Multiplicity="0..1" />
+    <End Role="tblFixedAsset_Store_Shop" Type="BSRModel.tblFixedAsset_Store_Shop" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblStores">
+        <PropertyRef Name="StoreID" />
+      </Principal>
+      <Dependent Role="tblFixedAsset_Store_Shop">
+        <PropertyRef Name="StoreID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblStatement_tblFixedCost">
+    <End Role="tblFixedCosts" Type="BSRModel.tblFixedCost" Multiplicity="0..1" />
+    <End Role="tblStatements" Type="BSRModel.tblStatement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblFixedCosts">
+        <PropertyRef Name="FixedCostID" />
+      </Principal>
+      <Dependent Role="tblStatements">
+        <PropertyRef Name="FixedCostID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblSupplier_tblGroupSupplier">
+    <End Role="tblGroupSuppliers" Type="BSRModel.tblGroupSupplier" Multiplicity="1" />
+    <End Role="tblSuppliers" Type="BSRModel.tblSupplier" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblGroupSuppliers">
+        <PropertyRef Name="GroupSupplierID" />
+      </Principal>
+      <Dependent Role="tblSuppliers">
+        <PropertyRef Name="GroupSupplier" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblMediaCat_tblMedia_tblMedia">
+    <End Role="tblMedias" Type="BSRModel.tblMedia" Multiplicity="1" />
+    <End Role="tblMediaCat_tblMedia" Type="BSRModel.tblMediaCat_tblMedia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblMedias">
+        <PropertyRef Name="MediaID" />
+      </Principal>
+      <Dependent Role="tblMediaCat_tblMedia">
+        <PropertyRef Name="MediaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblMediaCat_tblMedia_tblMediaCat">
+    <End Role="tblMediaCats" Type="BSRModel.tblMediaCat" Multiplicity="1" />
+    <End Role="tblMediaCat_tblMedia" Type="BSRModel.tblMediaCat_tblMedia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblMediaCats">
+        <PropertyRef Name="MediaCatID" />
+      </Principal>
+      <Dependent Role="tblMediaCat_tblMedia">
+        <PropertyRef Name="MediaCatID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblProductPrice_tblProduct">
+    <End Role="tblProducts" Type="BSRModel.tblProduct" Multiplicity="1" />
+    <End Role="tblProductPrices" Type="BSRModel.tblProductPrice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblProducts">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="tblProductPrices">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblRoles_tblTable">
+    <End Role="tblTables" Type="BSRModel.tblTable" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="tblRoles" Type="BSRModel.tblRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblTables">
+        <PropertyRef Name="TableID" />
+      </Principal>
+      <Dependent Role="tblRoles">
+        <PropertyRef Name="TableID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblShop_tblStore_tblEmployee_tblShop">
+    <End Role="tblShops" Type="BSRModel.tblShop" Multiplicity="1" />
+    <End Role="tblShop_tblStore_tblEmployee" Type="BSRModel.tblShop_tblStore_tblEmployee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblShops">
+        <PropertyRef Name="ShopID" />
+      </Principal>
+      <Dependent Role="tblShop_tblStore_tblEmployee">
+        <PropertyRef Name="ShopID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblShop_tblStore_tblEmployee_tblStore">
+    <End Role="tblStores" Type="BSRModel.tblStore" Multiplicity="0..1" />
+    <End Role="tblShop_tblStore_tblEmployee" Type="BSRModel.tblShop_tblStore_tblEmployee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblStores">
+        <PropertyRef Name="StoreID" />
+      </Principal>
+      <Dependent Role="tblShop_tblStore_tblEmployee">
+        <PropertyRef Name="StoreID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AccountGroup_Roles">
+    <End Role="tblAccountGroups" Type="BSRModel.tblAccountGroup" Multiplicity="*" />
+    <End Role="tblRoles" Type="BSRModel.tblRole" Multiplicity="*" />
+  </Association>
+  <Association Name="tblAccountGroup_tblAccount">
+    <End Role="tblAccounts" Type="BSRModel.tblAccount" Multiplicity="*" />
+    <End Role="tblAccountGroups" Type="BSRModel.tblAccountGroup" Multiplicity="*" />
+  </Association>
+  <Association Name="tblMenu_tablArticleCat">
+    <End Role="tblArticleCats" Type="BSRModel.tblArticleCat" Multiplicity="*" />
+    <End Role="tblMenus" Type="BSRModel.tblMenu" Multiplicity="*" />
+  </Association>
+  <ComplexType Name="spGetProductByID_Result">
+    <Property Type="Int32" Name="ProductID" Nullable="false" />
+    <Property Type="Boolean" Name="isHidden" Nullable="false" />
+    <Property Type="Boolean" Name="isDelete" Nullable="false" />
+    <Property Type="String" Name="Avatar" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="ProductName" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="Description" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="ProductCode" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Unit" Nullable="true" MaxLength="50" />
+    <Property Type="Decimal" Name="Price" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="DateTime" Name="CreateDate" Nullable="false" Precision="23" />
+  </ComplexType>
+</Schema>
