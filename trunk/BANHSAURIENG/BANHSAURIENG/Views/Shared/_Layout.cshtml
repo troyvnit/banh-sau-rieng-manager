@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <!---Kendo CSS--->
+    <link href="@Url.Content("~/kendo/content/shared/styles/examples-offline.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/kendo/styles/kendo.common.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/kendo/styles/kendo.metro.min.css")" rel="stylesheet" type="text/css" />
+    @*<link href="@Url.Content("~/kendo/styles/kendo.default.min.css")" rel="stylesheet" type="text/css" />*@
+    <!---End of Kendo CSS--->
+    <!---Kendo JS--->
+    <script src="@Url.Content("~/kendo/js/jquery.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/kendo/js/kendo.web.min.js")" type="text/javascript"></script>
+    @*<script src="../../Scripts/Troy/jquery.tools.min.js" type="text/javascript"></script>*@
+    <!---ENd of Kendo CSS--->
+    <script type="text/javascript" src="http://alessioatzeni.bluxart.netdna-cdn.com/mac-osx-lion-css3/res/js/jquery-ui-1.8.17.custom.min.js"></script>
+    <script type="text/javascript" src="http://alessioatzeni.bluxart.netdna-cdn.com/mac-osx-lion-css3/res/js/modernizr.js"></script>
+    <script type="text/javascript" src="http://alessioatzeni.bluxart.netdna-cdn.com/mac-osx-lion-css3/res/js/fix-and-clock.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="http://alessioatzeni.bluxart.netdna-cdn.com/mac-osx-lion-css3/res/css/style.css" />
+    <script type="text/javascript">
+        $(document).ready(function () { $("#menu").kendoMenu(); }); //ini menu
+    </script>
+</head>
+<body> 
+    <div style="margin: auto; width: 100%">
+        @RenderBody()
+    </div>
+    @RenderSection("Scripts", required: false)
+</body>
+<footer>
+<!-- DOCK -->
+<div class="dock">
+	<ul>
+    	<li id="sale">
+        	<a href="@Url.Action("Index","Sale")">
+            	<em><span>Bán hàng</span></em>
+                <img src="../../Images/Dock/atm-money-icon.png" alt="Finder"/>
+            </a>
+        </li>
+        <li id="customer">
+        	<a href="@Url.Action("Index","Customer")">
+            	<em><span>Khách hàng</span></em>
+<img src="../../Images/Dock/admin-icon.png" />
+            </a>
+        </li>
+        <li id="store">
+        	<a href="#warning" data-rel="showOp">
+            	<em><span>Kho</span></em>
+<img src="../../Images/Dock/production-icon.png" />
+            </a>
+        </li>
+        <li id="account">
+        	<a href="#warning" data-rel="showOp">
+            	<em><span>Tài khoản</span></em>
+                <img src="../../Images/Dock/user-icon.png" />
+            </a>
+        </li>
+        <li id="report">
+        	<a href="#warning" data-rel="showOp">
+            	<em><span>Báo cáo</span></em>
+                <img src="../../Images/Dock/stock-market-icon.png" />
+            </a>
+        </li>
+        <li id="general">
+        	<a href="#warning" data-rel="showOp">
+            	<em><span>Quản lý chung</span></em>
+                <img src="../../Images/Dock/company-building-icon.png" />
+            </a>
+        </li>
+    </ul>
+</div>
+</footer>
+</html>
