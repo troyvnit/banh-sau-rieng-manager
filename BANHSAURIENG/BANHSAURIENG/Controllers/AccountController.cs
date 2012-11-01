@@ -8,6 +8,7 @@ using System.Web.Security;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
+using System.IO;
 using BANHSAURIENG.Filters;
 using BANHSAURIENG.Models;
 using BANHSAURIENG.DataAccess;
@@ -92,6 +93,24 @@ namespace BANHSAURIENG.Controllers
             FormsAuthentication.SignOut();
             Session["UserBANHSAURIENG"] = null;
             return RedirectToAction("Login");
+        }
+        public ActionResult Attendance()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Upload(string image)
+        {
+            image = image.Substring("data:image/png;base64,".Length);
+            var buffer = Convert.FromBase64String(image);
+            // TODO: I am saving the image on the hard disk but
+            // you could do whatever processing you want with it
+            string time = DateTime.Now.ToString().Replace("/", "_");
+            time = time.Replace(":", "_");
+            time = time.Replace(" ", "_");
+            var croppath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Images/"), String.Format("{0}_{1}", time, ".png"));
+            System.IO.File.WriteAllBytes(croppath, buffer);
+            return Json(new { success = true });
         }
     }
 }
