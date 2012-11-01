@@ -194,6 +194,24 @@
     <FunctionImport Name="spGetProductByID" ReturnType="Collection(BSRModel.spGetProductByID_Result)">
       <Parameter Name="productID" Mode="In" Type="Int32" />
     </FunctionImport>
+    <EntitySet Name="tblComBoes" EntityType="BSRModel.tblComBo" />
+    <EntitySet Name="tblComboPrices" EntityType="BSRModel.tblComboPrice" />
+    <AssociationSet Name="FK_tblBillDetails_tblComBo" Association="BSRModel.FK_tblBillDetails_tblComBo">
+      <End Role="tblComBo" EntitySet="tblComBoes" />
+      <End Role="tblBillDetail" EntitySet="tblBillDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblComboPrice_tblComBo" Association="BSRModel.FK_tblComboPrice_tblComBo">
+      <End Role="tblComBo" EntitySet="tblComBoes" />
+      <End Role="tblComboPrice" EntitySet="tblComboPrices" />
+    </AssociationSet>
+    <AssociationSet Name="tblProduct_Combo" Association="BSRModel.tblProduct_Combo">
+      <End Role="tblComBo" EntitySet="tblComBoes" />
+      <End Role="tblProduct" EntitySet="tblProducts" />
+    </AssociationSet>
+    <FunctionImport Name="spCheckLogin" EntitySet="tblAccounts" ReturnType="Collection(BSRModel.tblAccount)">
+      <Parameter Name="username" Mode="In" Type="String" />
+      <Parameter Name="password" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="CampainDetail">
     <Key>
@@ -347,6 +365,12 @@
     <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
     <NavigationProperty Name="tblBill" Relationship="BSRModel.FK_tblBillDetail_tblBill" FromRole="tblBillDetails" ToRole="tblBills" />
     <NavigationProperty Name="tblProduct" Relationship="BSRModel.FK_tblBillDetail_tblProduct" FromRole="tblBillDetails" ToRole="tblProducts" />
+    <Property Type="Int16" Name="ProductQuantity" />
+    <Property Type="Decimal" Name="ProductPrice" Precision="18" Scale="0" />
+    <Property Type="Int32" Name="ComboID" />
+    <Property Type="Int16" Name="ComboQUantity" />
+    <Property Type="Decimal" Name="ComboPrice" Precision="18" Scale="0" />
+    <NavigationProperty Name="tblComBo" Relationship="BSRModel.FK_tblBillDetails_tblComBo" FromRole="tblBillDetail" ToRole="tblComBo" />
   </EntityType>
   <EntityType Name="tblBill">
     <Key>
@@ -362,6 +386,9 @@
     <Property Name="VoucherCode" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
     <NavigationProperty Name="tblAccount" Relationship="BSRModel.FK_tblBill_tblAccount" FromRole="tblBills" ToRole="tblAccounts" />
     <NavigationProperty Name="tblBillDetails" Relationship="BSRModel.FK_tblBillDetail_tblBill" FromRole="tblBills" ToRole="tblBillDetails" />
+    <Property Type="Boolean" Name="Copy" />
+    <Property Type="Int64" Name="DeliveryStaff" />
+    <Property Type="DateTime" Name="OrderTime" />
   </EntityType>
   <EntityType Name="tblCampaign">
     <Key>
@@ -631,6 +658,8 @@
     <NavigationProperty Name="tblProductPrices" Relationship="BSRModel.FK_tblProductPrice_tblProduct" FromRole="tblProducts" ToRole="tblProductPrices" />
     <Property Type="String" Name="ProductCode" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="Unit" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="ShortcutKey" MaxLength="20" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tblComBoes" Relationship="BSRModel.tblProduct_Combo" FromRole="tblProduct" ToRole="tblComBo" />
   </EntityType>
   <EntityType Name="tblRole">
     <Key>
@@ -1199,4 +1228,52 @@
     <Property Type="Decimal" Name="Price" Nullable="false" Precision="18" Scale="0" />
     <Property Type="DateTime" Name="CreateDate" Nullable="false" Precision="23" />
   </ComplexType>
+  <EntityType Name="tblComBo">
+    <Key>
+      <PropertyRef Name="ComboID" />
+    </Key>
+    <Property Type="Int32" Name="ComboID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="ComboName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="String" Name="ShortcutKey" MaxLength="20" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tblBillDetails" Relationship="BSRModel.FK_tblBillDetails_tblComBo" FromRole="tblComBo" ToRole="tblBillDetail" />
+    <NavigationProperty Name="tblComboPrice" Relationship="BSRModel.FK_tblComboPrice_tblComBo" FromRole="tblComBo" ToRole="tblComboPrice" />
+    <NavigationProperty Name="tblProducts" Relationship="BSRModel.tblProduct_Combo" FromRole="tblComBo" ToRole="tblProduct" />
+  </EntityType>
+  <EntityType Name="tblComboPrice">
+    <Key>
+      <PropertyRef Name="ComboID" />
+    </Key>
+    <Property Type="Int32" Name="ComboID" Nullable="false" />
+    <Property Type="Decimal" Name="Price" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="DateTime" Name="CreateDate" Nullable="false" />
+    <NavigationProperty Name="tblComBo" Relationship="BSRModel.FK_tblComboPrice_tblComBo" FromRole="tblComboPrice" ToRole="tblComBo" />
+  </EntityType>
+  <Association Name="FK_tblBillDetails_tblComBo">
+    <End Type="BSRModel.tblComBo" Role="tblComBo" Multiplicity="0..1" />
+    <End Type="BSRModel.tblBillDetail" Role="tblBillDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblComBo">
+        <PropertyRef Name="ComboID" />
+      </Principal>
+      <Dependent Role="tblBillDetail">
+        <PropertyRef Name="ComboID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblComboPrice_tblComBo">
+    <End Type="BSRModel.tblComBo" Role="tblComBo" Multiplicity="1" />
+    <End Type="BSRModel.tblComboPrice" Role="tblComboPrice" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="tblComBo">
+        <PropertyRef Name="ComboID" />
+      </Principal>
+      <Dependent Role="tblComboPrice">
+        <PropertyRef Name="ComboID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="tblProduct_Combo">
+    <End Type="BSRModel.tblComBo" Role="tblComBo" Multiplicity="*" />
+    <End Type="BSRModel.tblProduct" Role="tblProduct" Multiplicity="*" />
+  </Association>
 </Schema>

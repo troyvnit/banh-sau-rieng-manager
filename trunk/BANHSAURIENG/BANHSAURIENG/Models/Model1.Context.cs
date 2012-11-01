@@ -68,6 +68,8 @@ namespace BANHSAURIENG.Models
         public DbSet<tblTable> tblTables { get; set; }
         public DbSet<tblVoucher> tblVouchers { get; set; }
         public DbSet<tblWard> tblWards { get; set; }
+        public DbSet<tblComBo> tblComBoes { get; set; }
+        public DbSet<tblComboPrice> tblComboPrices { get; set; }
     
         public virtual ObjectResult<spGetProductByID_Result> spGetProductByID(Nullable<int> productID)
         {
@@ -78,6 +80,36 @@ namespace BANHSAURIENG.Models
                 new ObjectParameter("productID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetProductByID_Result>("spGetProductByID", productIDParameter);
+        }
+    
+        public virtual ObjectResult<tblAccount> spCheckLogin(string username, string password)
+        {
+            ((IObjectContextAdapter)this).ObjectContext.MetadataWorkspace.LoadFromAssembly(typeof(tblAccount).Assembly);
+    
+            var usernameParameter = username != null ?
+                new ObjectParameter("username", username) :
+                new ObjectParameter("username", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("password", password) :
+                new ObjectParameter("password", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<tblAccount>("spCheckLogin", usernameParameter, passwordParameter);
+        }
+    
+        public virtual ObjectResult<tblAccount> spCheckLogin(string username, string password, MergeOption mergeOption)
+        {
+            ((IObjectContextAdapter)this).ObjectContext.MetadataWorkspace.LoadFromAssembly(typeof(tblAccount).Assembly);
+    
+            var usernameParameter = username != null ?
+                new ObjectParameter("username", username) :
+                new ObjectParameter("username", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("password", password) :
+                new ObjectParameter("password", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<tblAccount>("spCheckLogin", mergeOption, usernameParameter, passwordParameter);
         }
     }
 }

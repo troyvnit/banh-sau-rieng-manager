@@ -129,17 +129,23 @@
     <EntitySetMapping Name="tblBillDetails">
       <EntityTypeMapping TypeName="BSRModel.tblBillDetail">
         <MappingFragment StoreEntitySet="tblBillDetails">
+          <ScalarProperty Name="ComboPrice" ColumnName="ComboPrice" />
+          <ScalarProperty Name="ComboQUantity" ColumnName="ComboQUantity" />
+          <ScalarProperty Name="ComboID" ColumnName="ComboID" />
+          <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
+          <ScalarProperty Name="ProductQuantity" ColumnName="ProductQuantity" />
           <ScalarProperty Name="BillDetailID" ColumnName="BillDetailID" />
           <ScalarProperty Name="BillID" ColumnName="BillID" />
           <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-          <ScalarProperty Name="Price" ColumnName="Price" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="tblBills">
       <EntityTypeMapping TypeName="BSRModel.tblBill">
         <MappingFragment StoreEntitySet="tblBills">
+          <ScalarProperty Name="OrderTime" ColumnName="OrderTime" />
+          <ScalarProperty Name="DeliveryStaff" ColumnName="DeliveryStaff" />
+          <ScalarProperty Name="Copy" ColumnName="Copy" />
           <ScalarProperty Name="BillID" ColumnName="BillID" />
           <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
           <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
@@ -390,6 +396,7 @@
     <EntitySetMapping Name="tblProducts">
       <EntityTypeMapping TypeName="BSRModel.tblProduct">
         <MappingFragment StoreEntitySet="tblProducts">
+          <ScalarProperty Name="ShortcutKey" ColumnName="ShortcutKey" />
           <ScalarProperty Name="Unit" ColumnName="Unit" />
           <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
           <ScalarProperty Name="ProductID" ColumnName="ProductID" />
@@ -551,5 +558,32 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <EntitySetMapping Name="tblComBoes">
+      <EntityTypeMapping TypeName="BSRModel.tblComBo">
+        <MappingFragment StoreEntitySet="tblComBo">
+          <ScalarProperty Name="ShortcutKey" ColumnName="ShortcutKey" />
+          <ScalarProperty Name="ComboName" ColumnName="ComboName" />
+          <ScalarProperty Name="ComboID" ColumnName="ComboID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblComboPrices">
+      <EntityTypeMapping TypeName="BSRModel.tblComboPrice">
+        <MappingFragment StoreEntitySet="tblComboPrice">
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="ComboID" ColumnName="ComboID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="tblProduct_Combo" TypeName="BSRModel.tblProduct_Combo" StoreEntitySet="tblProduct_Combo">
+      <EndProperty Name="tblProduct">
+        <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+      </EndProperty>
+      <EndProperty Name="tblComBo">
+        <ScalarProperty Name="ComboID" ColumnName="ComboID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <FunctionImportMapping FunctionImportName="spCheckLogin" FunctionName="BSRModel.Store.spCheckLogin" />
   </EntityContainerMapping>
 </Mapping>

@@ -19,8 +19,14 @@ namespace BANHSAURIENG.Models
         public int ProductID { get; set; }
         public short Quantity { get; set; }
         public decimal Price { get; set; }
+        public Nullable<short> ProductQuantity { get; set; }
+        public Nullable<decimal> ProductPrice { get; set; }
+        public Nullable<int> ComboID { get; set; }
+        public Nullable<short> ComboQUantity { get; set; }
+        public Nullable<decimal> ComboPrice { get; set; }
     
         public virtual tblBill tblBill { get; set; }
         public virtual tblProduct tblProduct { get; set; }
+        public virtual tblComBo tblComBo { get; set; }
     }
 }

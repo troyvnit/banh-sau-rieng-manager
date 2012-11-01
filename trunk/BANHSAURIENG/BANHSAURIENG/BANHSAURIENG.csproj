@@ -35,6 +35,30 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DotNetOpenAuth.AspNet, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.AspNet.4.1.2.12274\lib\net40-full\DotNetOpenAuth.AspNet.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.Core, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.Core.4.1.2.12274\lib\net40-full\DotNetOpenAuth.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Core.4.1.2.12274\lib\net40-full\DotNetOpenAuth.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth.Consumer, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Consumer.4.1.2.12274\lib\net40-full\DotNetOpenAuth.OAuth.Consumer.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.Core.4.1.2.12274\lib\net40-full\DotNetOpenAuth.OpenId.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId.RelyingParty, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.RelyingParty.4.1.2.12274\lib\net40-full\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
+    </Reference>
     <Reference Include="Kendo.Mvc, Version=2012.2.815.340, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Kendo.Mvc.dll</HintPath>
@@ -52,6 +76,9 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Providers">
+      <HintPath>..\packages\Microsoft.AspNet.Providers.Core.1.1\lib\net40\System.Web.Providers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -128,30 +155,6 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.WebData.2.0.20710.0\lib\net40\WebMatrix.WebData.dll</HintPath>
     </Reference>
-    <Reference Include="DotNetOpenAuth.AspNet, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\DotNetOpenAuth.AspNet.4.0.3.12153\lib\net40-full\DotNetOpenAuth.AspNet.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\DotNetOpenAuth.Core.4.0.3.12153\lib\net40-full\DotNetOpenAuth.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.OAuth.Consumer, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\DotNetOpenAuth.OAuth.Consumer.4.0.3.12153\lib\net40-full\DotNetOpenAuth.OAuth.Consumer.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.OAuth, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\DotNetOpenAuth.OAuth.Core.4.0.3.12153\lib\net40-full\DotNetOpenAuth.OAuth.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.OpenId, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\DotNetOpenAuth.OpenId.Core.4.0.3.12153\lib\net40-full\DotNetOpenAuth.OpenId.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.OpenId.RelyingParty, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\DotNetOpenAuth.OpenId.RelyingParty.4.0.3.12153\lib\net40-full\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
-    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.1.0\lib\WebGrease.dll</HintPath>
@@ -172,6 +175,7 @@
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SaleController.cs" />
+    <Compile Include="DataAccess\AccountDataAccess.cs" />
     <Compile Include="DataAccess\BillDataAccess.cs" />
     <Compile Include="DataAccess\SaleDataAccess.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -242,6 +246,12 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblCity.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblComBo.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tblComboPrice.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tblContact.cs">

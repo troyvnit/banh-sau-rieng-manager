@@ -27,6 +27,9 @@ namespace BANHSAURIENG.Models
         public Nullable<long> CampainID { get; set; }
         public decimal TotalMoney { get; set; }
         public string VoucherCode { get; set; }
+        public Nullable<bool> Copy { get; set; }
+        public Nullable<long> DeliveryStaff { get; set; }
+        public Nullable<System.DateTime> OrderTime { get; set; }
     
         public virtual tblAccount tblAccount { get; set; }
         public virtual ICollection<tblBillDetail> tblBillDetails { get; set; }
