@@ -15,8 +15,8 @@ namespace BANHSAURIENG.Models
         [DisplayName("Mã sản phẩm")]
         public int ProductID { get; set; }
         [DisplayName("Số lượng")]
-        public short Quantity { get; set; }
+        public short? Quantity { get; set; }
         [DisplayName("Đơn giá")]
-        public decimal Price { get; set; }
+        public decimal? Price { get; set; }
     }
 }

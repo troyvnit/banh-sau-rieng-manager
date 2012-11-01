@@ -17,8 +17,6 @@ namespace BANHSAURIENG.Models
         public long BillDetailID { get; set; }
         public long BillID { get; set; }
         public int ProductID { get; set; }
-        public short Quantity { get; set; }
-        public decimal Price { get; set; }
         public Nullable<short> ProductQuantity { get; set; }
         public Nullable<decimal> ProductPrice { get; set; }
         public Nullable<int> ComboID { get; set; }
