@@ -23,6 +23,8 @@
           <EntitySet Name="tblBills" EntityType="BSRModel.Store.tblBills" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="tblCampaigns" EntityType="BSRModel.Store.tblCampaigns" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="tblCities" EntityType="BSRModel.Store.tblCities" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tblComBo" EntityType="BSRModel.Store.tblComBo" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tblComboPrice" EntityType="BSRModel.Store.tblComboPrice" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="tblContacts" EntityType="BSRModel.Store.tblContacts" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="tblCustomers" EntityType="BSRModel.Store.tblCustomers" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="tblDistricts" EntityType="BSRModel.Store.tblDistricts" store:Type="Tables" Schema="dbo" />
@@ -40,6 +42,7 @@
           <EntitySet Name="tblMenu_tablArticleCat" EntityType="BSRModel.Store.tblMenu_tablArticleCat" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="tblMenus" EntityType="BSRModel.Store.tblMenus" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="tblObjects" EntityType="BSRModel.Store.tblObjects" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tblProduct_Combo" EntityType="BSRModel.Store.tblProduct_Combo" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="tblProductPrices" EntityType="BSRModel.Store.tblProductPrices" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="tblProducts" EntityType="BSRModel.Store.tblProducts" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="tblRoles" EntityType="BSRModel.Store.tblRoles" store:Type="Tables" Schema="dbo" />
@@ -127,6 +130,14 @@
             <End Role="tblProducts" EntitySet="tblProducts" />
             <End Role="tblBillDetails" EntitySet="tblBillDetails" />
           </AssociationSet>
+          <AssociationSet Name="FK_tblBillDetails_tblComBo" Association="BSRModel.Store.FK_tblBillDetails_tblComBo">
+            <End Role="tblComBo" EntitySet="tblComBo" />
+            <End Role="tblBillDetails" EntitySet="tblBillDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblComboPrice_tblComBo" Association="BSRModel.Store.FK_tblComboPrice_tblComBo">
+            <End Role="tblComBo" EntitySet="tblComBo" />
+            <End Role="tblComboPrice" EntitySet="tblComboPrice" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblCustomer_tblObject" Association="BSRModel.Store.FK_tblCustomer_tblObject">
             <End Role="tblObjects" EntitySet="tblObjects" />
             <End Role="tblCustomers" EntitySet="tblCustomers" />
@@ -174,6 +185,14 @@
           <AssociationSet Name="FK_tblMenu_tablArticleCat_tblMenu" Association="BSRModel.Store.FK_tblMenu_tablArticleCat_tblMenu">
             <End Role="tblMenus" EntitySet="tblMenus" />
             <End Role="tblMenu_tablArticleCat" EntitySet="tblMenu_tablArticleCat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblProduct_Combo_tblComBo" Association="BSRModel.Store.FK_tblProduct_Combo_tblComBo">
+            <End Role="tblComBo" EntitySet="tblComBo" />
+            <End Role="tblProduct_Combo" EntitySet="tblProduct_Combo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblProduct_Combo_tblProducts" Association="BSRModel.Store.FK_tblProduct_Combo_tblProducts">
+            <End Role="tblProducts" EntitySet="tblProducts" />
+            <End Role="tblProduct_Combo" EntitySet="tblProduct_Combo" />
           </AssociationSet>
           <AssociationSet Name="FK_tblProductPrice_tblProduct" Association="BSRModel.Store.FK_tblProductPrice_tblProduct">
             <End Role="tblProducts" EntitySet="tblProducts" />
@@ -355,9 +374,12 @@
           </Key>
           <Property Name="BillDetailID" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="BillID" Type="bigint" Nullable="false" />
-          <Property Name="ProductID" Type="int" Nullable="false" />
-          <Property Name="Quantity" Type="smallint" Nullable="false" />
-          <Property Name="Price" Type="decimal" Nullable="false" />
+          <Property Name="ProductID" Type="int" />
+          <Property Name="ProductQuantity" Type="smallint" />
+          <Property Name="ProductPrice" Type="decimal" />
+          <Property Name="ComboID" Type="int" />
+          <Property Name="ComboQUantity" Type="smallint" />
+          <Property Name="ComboPrice" Type="decimal" />
         </EntityType>
         <EntityType Name="tblBills">
           <Key>
@@ -371,6 +393,9 @@
           <Property Name="CampainID" Type="bigint" />
           <Property Name="TotalMoney" Type="decimal" Nullable="false" />
           <Property Name="VoucherCode" Type="varchar" MaxLength="200" />
+          <Property Name="Copy" Type="bit" />
+          <Property Name="DeliveryStaff" Type="bigint" />
+          <Property Name="OrderTime" Type="datetime" />
         </EntityType>
         <EntityType Name="tblCampaigns">
           <Key>
@@ -398,6 +423,22 @@
           <Property Name="CityName" Type="nvarchar" MaxLength="200" />
           <Property Name="isHidden" Type="bit" Nullable="false" />
           <Property Name="isDelete" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblComBo">
+          <Key>
+            <PropertyRef Name="ComboID" />
+          </Key>
+          <Property Name="ComboID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ComboName" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="ShortcutKey" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="tblComboPrice">
+          <Key>
+            <PropertyRef Name="ComboID" />
+          </Key>
+          <Property Name="ComboID" Type="int" Nullable="false" />
+          <Property Name="Price" Type="decimal" Nullable="false" />
+          <Property Name="CreateDate" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="tblContacts">
           <Key>
@@ -593,6 +634,14 @@
           <Property Name="isHiddent" Type="bit" Nullable="false" />
           <Property Name="isCustomer" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="tblProduct_Combo">
+          <Key>
+            <PropertyRef Name="ProductID" />
+            <PropertyRef Name="ComboID" />
+          </Key>
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="ComboID" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="tblProductPrices">
           <Key>
             <PropertyRef Name="ProductID" />
@@ -615,6 +664,7 @@
           <Property Name="Description" Type="nvarchar" MaxLength="500" />
           <Property Name="ProductCode" Type="nvarchar" MaxLength="50" />
           <Property Name="Unit" Type="nvarchar" MaxLength="50" />
+          <Property Name="ShortcutKey" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="tblRoles">
           <Key>
@@ -947,7 +997,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblBillDetail_tblProduct">
-          <End Role="tblProducts" Type="BSRModel.Store.tblProducts" Multiplicity="1" />
+          <End Role="tblProducts" Type="BSRModel.Store.tblProducts" Multiplicity="0..1" />
           <End Role="tblBillDetails" Type="BSRModel.Store.tblBillDetails" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblProducts">
@@ -955,6 +1005,30 @@
             </Principal>
             <Dependent Role="tblBillDetails">
               <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblBillDetails_tblComBo">
+          <End Role="tblComBo" Type="BSRModel.Store.tblComBo" Multiplicity="0..1" />
+          <End Role="tblBillDetails" Type="BSRModel.Store.tblBillDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblComBo">
+              <PropertyRef Name="ComboID" />
+            </Principal>
+            <Dependent Role="tblBillDetails">
+              <PropertyRef Name="ComboID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblComboPrice_tblComBo">
+          <End Role="tblComBo" Type="BSRModel.Store.tblComBo" Multiplicity="1" />
+          <End Role="tblComboPrice" Type="BSRModel.Store.tblComboPrice" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tblComBo">
+              <PropertyRef Name="ComboID" />
+            </Principal>
+            <Dependent Role="tblComboPrice">
+              <PropertyRef Name="ComboID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1104,6 +1178,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tblProduct_Combo_tblComBo">
+          <End Role="tblComBo" Type="BSRModel.Store.tblComBo" Multiplicity="1" />
+          <End Role="tblProduct_Combo" Type="BSRModel.Store.tblProduct_Combo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblComBo">
+              <PropertyRef Name="ComboID" />
+            </Principal>
+            <Dependent Role="tblProduct_Combo">
+              <PropertyRef Name="ComboID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblProduct_Combo_tblProducts">
+          <End Role="tblProducts" Type="BSRModel.Store.tblProducts" Multiplicity="1" />
+          <End Role="tblProduct_Combo" Type="BSRModel.Store.tblProduct_Combo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProducts">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="tblProduct_Combo">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblProductPrice_tblProduct">
           <End Role="tblProducts" Type="BSRModel.Store.tblProducts" Multiplicity="1" />
           <End Role="tblProductPrices" Type="BSRModel.Store.tblProductPrices" Multiplicity="*" />
@@ -1245,6 +1343,10 @@
           <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spCheckLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="username" Type="nvarchar" Mode="In" />
+          <Parameter Name="password" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="spGetProductByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="productID" Type="int" Mode="In" />
         </Function>
@@ -1446,6 +1548,24 @@
           <FunctionImport Name="spGetProductByID" ReturnType="Collection(BSRModel.spGetProductByID_Result)">
           <Parameter Name="productID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="tblComBoes" EntityType="BSRModel.tblComBo" />
+          <EntitySet Name="tblComboPrices" EntityType="BSRModel.tblComboPrice" />
+          <AssociationSet Name="FK_tblBillDetails_tblComBo" Association="BSRModel.FK_tblBillDetails_tblComBo">
+            <End Role="tblComBo" EntitySet="tblComBoes" />
+            <End Role="tblBillDetail" EntitySet="tblBillDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblComboPrice_tblComBo" Association="BSRModel.FK_tblComboPrice_tblComBo">
+            <End Role="tblComBo" EntitySet="tblComBoes" />
+            <End Role="tblComboPrice" EntitySet="tblComboPrices" />
+          </AssociationSet>
+          <AssociationSet Name="tblProduct_Combo" Association="BSRModel.tblProduct_Combo">
+            <End Role="tblComBo" EntitySet="tblComBoes" />
+            <End Role="tblProduct" EntitySet="tblProducts" />
+          </AssociationSet>
+          <FunctionImport Name="spCheckLogin" EntitySet="tblAccounts" ReturnType="Collection(BSRModel.tblAccount)">
+            <Parameter Name="username" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="CampainDetail">
           <Key>
@@ -1599,6 +1719,12 @@
           <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
           <NavigationProperty Name="tblBill" Relationship="BSRModel.FK_tblBillDetail_tblBill" FromRole="tblBillDetails" ToRole="tblBills" />
           <NavigationProperty Name="tblProduct" Relationship="BSRModel.FK_tblBillDetail_tblProduct" FromRole="tblBillDetails" ToRole="tblProducts" />
+          <Property Type="Int16" Name="ProductQuantity" />
+          <Property Type="Decimal" Name="ProductPrice" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="ComboID" />
+          <Property Type="Int16" Name="ComboQUantity" />
+          <Property Type="Decimal" Name="ComboPrice" Precision="18" Scale="0" />
+          <NavigationProperty Name="tblComBo" Relationship="BSRModel.FK_tblBillDetails_tblComBo" FromRole="tblBillDetail" ToRole="tblComBo" />
         </EntityType>
         <EntityType Name="tblBill">
           <Key>
@@ -1614,6 +1740,9 @@
           <Property Name="VoucherCode" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="tblAccount" Relationship="BSRModel.FK_tblBill_tblAccount" FromRole="tblBills" ToRole="tblAccounts" />
           <NavigationProperty Name="tblBillDetails" Relationship="BSRModel.FK_tblBillDetail_tblBill" FromRole="tblBills" ToRole="tblBillDetails" />
+          <Property Type="Boolean" Name="Copy" />
+          <Property Type="Int64" Name="DeliveryStaff" />
+          <Property Type="DateTime" Name="OrderTime" />
         </EntityType>
         <EntityType Name="tblCampaign">
           <Key>
@@ -1883,6 +2012,8 @@
           <NavigationProperty Name="tblProductPrices" Relationship="BSRModel.FK_tblProductPrice_tblProduct" FromRole="tblProducts" ToRole="tblProductPrices" />
           <Property Type="String" Name="ProductCode" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Unit" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ShortcutKey" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblComBoes" Relationship="BSRModel.tblProduct_Combo" FromRole="tblProduct" ToRole="tblComBo" />
         </EntityType>
         <EntityType Name="tblRole">
           <Key>
@@ -2451,6 +2582,54 @@
           <Property Type="Decimal" Name="Price" Nullable="false" Precision="18" Scale="0" />
           <Property Type="DateTime" Name="CreateDate" Nullable="false" Precision="23" />
         </ComplexType>
+        <EntityType Name="tblComBo">
+          <Key>
+            <PropertyRef Name="ComboID" />
+          </Key>
+          <Property Type="Int32" Name="ComboID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="ComboName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ShortcutKey" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblBillDetails" Relationship="BSRModel.FK_tblBillDetails_tblComBo" FromRole="tblComBo" ToRole="tblBillDetail" />
+          <NavigationProperty Name="tblComboPrice" Relationship="BSRModel.FK_tblComboPrice_tblComBo" FromRole="tblComBo" ToRole="tblComboPrice" />
+          <NavigationProperty Name="tblProducts" Relationship="BSRModel.tblProduct_Combo" FromRole="tblComBo" ToRole="tblProduct" />
+        </EntityType>
+        <EntityType Name="tblComboPrice">
+          <Key>
+            <PropertyRef Name="ComboID" />
+          </Key>
+          <Property Type="Int32" Name="ComboID" Nullable="false" />
+          <Property Type="Decimal" Name="Price" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="DateTime" Name="CreateDate" Nullable="false" />
+          <NavigationProperty Name="tblComBo" Relationship="BSRModel.FK_tblComboPrice_tblComBo" FromRole="tblComboPrice" ToRole="tblComBo" />
+        </EntityType>
+        <Association Name="FK_tblBillDetails_tblComBo">
+          <End Type="BSRModel.tblComBo" Role="tblComBo" Multiplicity="0..1" />
+          <End Type="BSRModel.tblBillDetail" Role="tblBillDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblComBo">
+              <PropertyRef Name="ComboID" />
+            </Principal>
+            <Dependent Role="tblBillDetail">
+              <PropertyRef Name="ComboID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblComboPrice_tblComBo">
+          <End Type="BSRModel.tblComBo" Role="tblComBo" Multiplicity="1" />
+          <End Type="BSRModel.tblComboPrice" Role="tblComboPrice" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tblComBo">
+              <PropertyRef Name="ComboID" />
+            </Principal>
+            <Dependent Role="tblComboPrice">
+              <PropertyRef Name="ComboID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="tblProduct_Combo">
+          <End Type="BSRModel.tblComBo" Role="tblComBo" Multiplicity="*" />
+          <End Type="BSRModel.tblProduct" Role="tblProduct" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2585,17 +2764,23 @@
           <EntitySetMapping Name="tblBillDetails">
             <EntityTypeMapping TypeName="BSRModel.tblBillDetail">
               <MappingFragment StoreEntitySet="tblBillDetails">
+                <ScalarProperty Name="ComboPrice" ColumnName="ComboPrice" />
+                <ScalarProperty Name="ComboQUantity" ColumnName="ComboQUantity" />
+                <ScalarProperty Name="ComboID" ColumnName="ComboID" />
+                <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
+                <ScalarProperty Name="ProductQuantity" ColumnName="ProductQuantity" />
                 <ScalarProperty Name="BillDetailID" ColumnName="BillDetailID" />
                 <ScalarProperty Name="BillID" ColumnName="BillID" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-              </MappingFragment>
+                </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblBills">
             <EntityTypeMapping TypeName="BSRModel.tblBill">
               <MappingFragment StoreEntitySet="tblBills">
+                <ScalarProperty Name="OrderTime" ColumnName="OrderTime" />
+                <ScalarProperty Name="DeliveryStaff" ColumnName="DeliveryStaff" />
+                <ScalarProperty Name="Copy" ColumnName="Copy" />
                 <ScalarProperty Name="BillID" ColumnName="BillID" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
                 <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
@@ -2846,6 +3031,7 @@
           <EntitySetMapping Name="tblProducts">
             <EntityTypeMapping TypeName="BSRModel.tblProduct">
               <MappingFragment StoreEntitySet="tblProducts">
+                <ScalarProperty Name="ShortcutKey" ColumnName="ShortcutKey" />
                 <ScalarProperty Name="Unit" ColumnName="Unit" />
                 <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
@@ -3007,6 +3193,33 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="tblComBoes">
+            <EntityTypeMapping TypeName="BSRModel.tblComBo">
+              <MappingFragment StoreEntitySet="tblComBo">
+                <ScalarProperty Name="ShortcutKey" ColumnName="ShortcutKey" />
+                <ScalarProperty Name="ComboName" ColumnName="ComboName" />
+                <ScalarProperty Name="ComboID" ColumnName="ComboID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblComboPrices">
+            <EntityTypeMapping TypeName="BSRModel.tblComboPrice">
+              <MappingFragment StoreEntitySet="tblComboPrice">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ComboID" ColumnName="ComboID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="tblProduct_Combo" TypeName="BSRModel.tblProduct_Combo" StoreEntitySet="tblProduct_Combo">
+            <EndProperty Name="tblProduct">
+              <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+            </EndProperty>
+            <EndProperty Name="tblComBo">
+              <ScalarProperty Name="ComboID" ColumnName="ComboID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="spCheckLogin" FunctionName="BSRModel.Store.spCheckLogin" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -3072,32 +3285,38 @@
         <EntityTypeShape EntityType="BSRModel.tblVoucher" Width="1.5" PointX="3" PointY="13.75" Height="1.7879850260416674" IsExpanded="true" />
         <EntityTypeShape EntityType="BSRModel.tblWard" Width="1.5" PointX="18.25" PointY="10" Height="2.172587890624996" IsExpanded="true" />
         <AssociationConnector Association="BSRModel.FK_CampainDetail_tblCampaign" ManuallyRouted="false">
-          <ConnectorPoint PointX="1.5" PointY="11.625" />
-          <ConnectorPoint PointX="1.5" PointY="10.316793619791667" />
-          <ConnectorPoint PointX="2.5" PointY="10.316793619791667" />
-          <ConnectorPoint PointX="2.5" PointY="8.6824446614583319" />
-          <ConnectorPoint PointX="3" PointY="8.6824446614583319" />
+          <ConnectorPoint PointX="1.7343746875" PointY="11.625" />
+          <ConnectorPoint PointX="1.7343746875" PointY="11.085999348958334" />
+          <ConnectorPoint PointX="2.5" PointY="11.085999348958334" />
+          <ConnectorPoint PointX="2.5" PointY="9.051961118164062" />
+          <ConnectorPoint PointX="3" PointY="9.051961118164062" />
         </AssociationConnector>
         <AssociationConnector Association="BSRModel.FK_CampainDetail_tblProduct" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="8.0287223307291669" />
-          <ConnectorPoint PointX="3" PointY="8.0287223307291669" />
+          <ConnectorPoint PointX="2.25" PointY="8.213480559082031" />
+          <ConnectorPoint PointX="2.5166466460461749" PointY="8.213480559082031" />
+          <ConnectorPoint PointX="2.6833133127128419" PointY="8.213480559082031" />
+          <ConnectorPoint PointX="3" PointY="8.213480559082031" />
         </AssociationConnector>
         <AssociationConnector Association="BSRModel.FK_Product_Material_tblMaterial" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="5.3122460937500051" />
+          <ConnectorPoint PointX="2.6041666666666665" PointY="5.3122460937500042" />
+          <ConnectorPoint PointX="2.7708333333333335" PointY="5.3122460937500051" />
           <ConnectorPoint PointX="3" PointY="5.3122460937500051" />
         </AssociationConnector>
         <AssociationConnector Association="BSRModel.FK_Product_Material_tblProduct" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.2499999999999991" PointY="7.125" />
-          <ConnectorPoint PointX="2.625" PointY="6.75" />
+          <ConnectorPoint PointX="2.2499999999999982" PointY="7.125" />
+          <ConnectorPoint PointX="2.625" PointY="6.7499999999999982" />
           <ConnectorPoint PointX="2.625" PointY="6.9802864583333317" />
+          <ConnectorPoint PointX="2.6285744349011204" PointY="6.97671202343221" />
+          <ConnectorPoint PointX="2.7464255650988791" PointY="6.8588608932344526" />
           <ConnectorPoint PointX="3" PointY="6.6052864583333317" />
         </AssociationConnector>
         <AssociationConnector Association="BSRModel.FK_Supplier_Material_tblMaterial" ManuallyRouted="false">
           <ConnectorPoint PointX="1.5" PointY="5.99949218750001" />
           <ConnectorPoint PointX="1.5" PointY="6.8552864583333317" />
-          <ConnectorPoint PointX="2.4363802083333335" PointY="6.8552864583333308" />
-          <ConnectorPoint PointX="2.6030468750000004" PointY="6.8552864583333317" />
-          <ConnectorPoint PointX="2.6666666666666665" PointY="6.8552864583333308" />
+          <ConnectorPoint PointX="2.436380208333333" PointY="6.8552864583333308" />
+          <ConnectorPoint PointX="2.603046875" PointY="6.8552864583333317" />
+          <ConnectorPoint PointX="2.6041666666666665" PointY="6.8552864583333308" />
           <ConnectorPoint PointX="2.8333333333333335" PointY="6.8552864583333317" />
           <ConnectorPoint PointX="8.5" PointY="6.8552864583333317" />
           <ConnectorPoint PointX="8.5" PointY="5.375" />
@@ -3132,8 +3351,8 @@
           <ConnectorPoint PointX="2.25" PointY="24.460999348958332" />
         </AssociationConnector>
         <AssociationConnector Association="BSRModel.FK_tblBill_tblAccount" ManuallyRouted="false">
-          <ConnectorPoint PointX="3" PointY="22.595896809895834" />
-          <ConnectorPoint PointX="3.75" PointY="22.595896809895834" />
+          <ConnectorPoint PointX="3" PointY="22.647573242187498" />
+          <ConnectorPoint PointX="3.75" PointY="22.647573242187498" />
         </AssociationConnector>
         <AssociationConnector Association="BSRModel.FK_tblArticleCat_Article_tblArticle" ManuallyRouted="false">
           <ConnectorPoint PointX="15.25" PointY="20" />
@@ -3148,20 +3367,15 @@
           <ConnectorPoint PointX="16" PointY="16.04771484375" />
         </AssociationConnector>
         <AssociationConnector Association="BSRModel.FK_tblBillDetail_tblBill" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="21.125" />
-          <ConnectorPoint PointX="4.5" PointY="18.787985026041667" />
-          <ConnectorPoint PointX="4.75" PointY="18.787985026041667" />
-          <ConnectorPoint PointX="4.75" PointY="8.6824446614583337" />
-          <ConnectorPoint PointX="6" PointY="8.6824446614583337" />
+          <ConnectorPoint PointX="4.75" PointY="21.125" />
+          <ConnectorPoint PointX="4.75" PointY="10.485321701822917" />
+          <ConnectorPoint PointX="6" PointY="10.485321701822917" />
         </AssociationConnector>
         <AssociationConnector Association="BSRModel.FK_tblBillDetail_tblProduct" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.2500000000000009" PointY="10.066793619791667" />
-          <ConnectorPoint PointX="2.875" PointY="10.691793619791667" />
-          <ConnectorPoint PointX="2.875" PointY="10.239889322916667" />
-          <ConnectorPoint PointX="4.666666666666667" PointY="10.239889322916667" />
-          <ConnectorPoint PointX="4.833333333333333" PointY="10.239889322916667" />
-          <ConnectorPoint PointX="5.6261528461538468" PointY="10.239889322916667" />
-          <ConnectorPoint PointX="6.0011528461538459" PointY="9.8648893229166674" />
+          <ConnectorPoint PointX="2.25" PointY="10.14385551236979" />
+          <ConnectorPoint PointX="2.4166666666666665" PointY="10.14385551236979" />
+          <ConnectorPoint PointX="2.5833333333333335" PointY="10.14385551236979" />
+          <ConnectorPoint PointX="6" PointY="10.14385551236979" />
         </AssociationConnector>
         <AssociationConnector Association="BSRModel.FK_tblVoucher_tblCampaign" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="14.639150390624998" />
@@ -3252,10 +3466,10 @@
           <ConnectorPoint PointX="5" PointY="11.865143229166662" />
         </AssociationConnector>
         <AssociationConnector Association="BSRModel.FK_tblProductPrice_tblProduct" ManuallyRouted="false">
-          <ConnectorPoint PointX="1.1250005" PointY="10.066793619791667" />
-          <ConnectorPoint PointX="1.1250005" PointY="11.375" />
-          <ConnectorPoint PointX="1.4166666666666667" PointY="11.375" />
-          <ConnectorPoint PointX="1.5833333333333333" PointY="11.375" />
+          <ConnectorPoint PointX="1.24218784375" PointY="10.835999348958334" />
+          <ConnectorPoint PointX="1.24218784375" PointY="11.375" />
+          <ConnectorPoint PointX="1.6510413541666666" PointY="11.375" />
+          <ConnectorPoint PointX="1.8177080208333332" PointY="11.375" />
           <ConnectorPoint PointX="2.5" PointY="11.375" />
           <ConnectorPoint PointX="2.5" PointY="17.643992513020834" />
           <ConnectorPoint PointX="3" PointY="17.643992513020834" />
@@ -3303,6 +3517,27 @@
           <ConnectorPoint PointX="15.8125" PointY="18.441984927483976" />
           <ConnectorPoint PointX="15.8125" PointY="17.9375" />
           <ConnectorPoint PointX="16" PointY="18.125" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="BSRModel.tblComBo" Width="1.5" PointX="0.75" PointY="8.5" Height="2.1725878906250102" />
+        <EntityTypeShape EntityType="BSRModel.tblComboPrice" Width="1.5" PointX="3" PointY="0.75" Height="1.7879850260416674" />
+        <AssociationConnector Association="BSRModel.FK_tblBillDetails_tblComBo" >
+          <ConnectorPoint PointX="2.25" PointY="9.9731224176432267" />
+          <ConnectorPoint PointX="2.4166666666666665" PointY="9.9731224176432267" />
+          <ConnectorPoint PointX="2.5833333333333335" PointY="9.9731224176432267" />
+          <ConnectorPoint PointX="6" PointY="9.9731224176432267" />
+        </AssociationConnector>
+        <AssociationConnector Association="BSRModel.FK_tblComboPrice_tblComBo" >
+          <ConnectorPoint PointX="2.25" PointY="8.56346053846154" />
+          <ConnectorPoint PointX="2.6875" PointY="8.12596053846154" />
+          <ConnectorPoint PointX="2.6875" PointY="1.6439925130208337" />
+          <ConnectorPoint PointX="3" PointY="1.6439925130208337" />
+        </AssociationConnector>
+        <AssociationConnector Association="BSRModel.tblProduct_Combo" >
+          <ConnectorPoint PointX="0.75" PointY="9.5862939453125051" />
+          <ConnectorPoint PointX="0.7024999999999999" PointY="9.5862939453125051" />
+          <ConnectorPoint PointX="0.7024999999999999" PointY="10.798499348958332" />
+          <ConnectorPoint PointX="1.5" PointY="10.798499348958332" />
+          <ConnectorPoint PointX="1.5" PointY="10.835999348958334" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>
