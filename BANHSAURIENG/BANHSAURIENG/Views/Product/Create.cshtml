@@ -1,68 +1,70 @@
 ﻿@model BANHSAURIENG.Models.tblProduct
-
-@{
-    ViewBag.Title = "Create";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-<div id="example" class="k-content" style="width: 100%; height: 1024px; margin: 0px">
-@using (Html.BeginForm()) {
+@using (Html.BeginForm("Create","Product",FormMethod.Post,new {id="from_create"}))
+{
     @Html.ValidationSummary(true)
-
-    <fieldset>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.isHidden)
+    
+        <div id="form_validate">
+            @Html.HiddenFor(model => model.Avatar)
+            <div class="editor-field">
+                <input type="text" name="ProductName" id="ProductName" class="k-textbox" placeholder="Tên sản phẩm"
+                    required validationmessage="Vui lòng điền tên sản phẩm" maxlength="200" />
+            </div>
+            <div class="editor-field">
+                <textarea name="Description" id="Description" class="k-textbox" placeholder="Mô tả"
+                    maxlength="500" />
+            </div>
+            
+            <div class="editor-field">
+                <input type="text" name="Price" id="Price" placeholder="Giá" type="number" min="0" required validationmessage="Vui lòng điền giá"/>
+            </div>
+            <div class="editor-field">
+                <select id="Unit">
+                    <option value="Kg">Kg</option>
+                    <option value="Gói">Gói</option>
+                    <option value="Cái">Cái</option>
+                    <option value="Ly">Ly</option>
+                </select>
+            </div>
+            
+            <div class="editor-field">
+                <input type="text" name="ShortcutKey" id="ShortcutKey" class="k-textbox" placeholder="Phím tắt" maxlength="1" />
+            </div>
+            <p>
+                <a class="k-button" type="button" id="submit">Hoàn thành</a>
+               
+            </p>
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.isHidden)
-            @Html.ValidationMessageFor(model => model.isHidden)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.isDelete)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.isDelete)
-            @Html.ValidationMessageFor(model => model.isDelete)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Avatar)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Avatar)
-            @Html.ValidationMessageFor(model => model.Avatar)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ProductName)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ProductName)
-            @Html.ValidationMessageFor(model => model.ProductName)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Description)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Description)
-            @Html.ValidationMessageFor(model => model.Description)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Unit)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Unit)
-            @Html.ValidationMessageFor(model => model.Unit)
-        </div>
-
-        <p>
-            <input type="submit" value="Create" />
-        </p>
-    </fieldset>
+   
 }
-</div>
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("select").kendoDropDownList();
+        $("#Price").kendoNumericTextBox({
+            format: "c",
+            decimals: 3
+        });
+        var validator = $("#form_validate").kendoValidator().data("kendoValidator");
+        $("#submit").click(function () {
+            if (validator.validate()) {
+                var ProductName = $("#ProductName").val();
+                var Avatar = $("#Avatar").val();
+                var Description = $("#Description").val();
+                var Price = $("#Price").val();
+                var Unit = $("#Unit").val();
+                var ShortcutKey = $("#ShortcutKey").val();
+                $.ajax({
+                    type: "Post",
+                    url: '@Url.Action("Create","Product")',
+                    data: { 'ProductName': ProductName, 'Avatar': Avatar, 'Description': Description, 'Price': Price, 'Unit': Unit, 'ShortcutKey': ShortcutKey },
+                    success: function () {
+                        $("#window").data("kendoWindow").close();
+                        $("#grid").data("kendoGrid").dataSource.read();
+                    }
+                })
+
+            } else {
+
+            }
+        });
+    })
+</script>

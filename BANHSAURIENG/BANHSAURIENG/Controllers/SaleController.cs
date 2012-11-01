@@ -52,9 +52,9 @@ namespace BANHSAURIENG.Controllers
                    tblBillDetail detail = new tblBillDetail()
                    {
                        ProductID = productID,
-                       Quantity = quantity,
+                       ProductQuantity = quantity,
                        BillID = billID,
-                       Price = price
+                       ProductPrice = price
                    };
                    SaleDataAccess.GetInstance().CreateBillDetail(detail);
                }

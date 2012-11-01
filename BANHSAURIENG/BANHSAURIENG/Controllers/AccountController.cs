@@ -47,45 +47,45 @@ namespace BANHSAURIENG.Controllers
             }
         }
         //Troy
-        [HttpPost]
-        [AllowAnonymous]
-        public ActionResult Login(FormCollection f)
-        {
+        //[HttpPost]
+        //[AllowAnonymous]
+        //public ActionResult Login(FormCollection f)
+        //{
 
-            if (Session["UserBANHSAURIENG"] != null)
-            {
-                return RedirectToAction("Create");
-            }
-            else
-            {
-                string username = f["UserName"];
-                string password = f["Password"];
-                string remember = f["Remember"];
-                int login_status = AccountDataAccess.GetInstance().checkLogin(username.Trim(), password);
-                if (login_status == 0)
-                {
-                    if (remember == "on")
-                    {
-                        FormsAuthentication.SetAuthCookie(username, true);
-                    }
-                    FormsAuthentication.SetAuthCookie(username, false);
-                    Session["UserBANHSAURIENG"] = username;
-                    return RedirectToAction("Index", "Sale");
-                }
-                else
-                {
-                    if (Session["LoginFailBANHSAURIENG"] == null)
-                    {
-                        Session["LoginFailBANHSAURIENG"] = 1;
-                    }
-                    else
-                    {
-                        Session["LoginFailBANHSAURIENG"] = Int32.Parse(Session["LoginFailBANHSAURIENG"].ToString()) + 1;
-                    }
-                    return RedirectToAction("Login", new { status = "Tài khoản hoặc mật khẩu không đúng!" });
-                }
-            }
-        }
+        //    if (Session["UserBANHSAURIENG"] != null)
+        //    {
+        //        return RedirectToAction("Create");
+        //    }
+        //    else
+        //    {
+        //        string username = f["UserName"];
+        //        string password = f["Password"];
+        //        string remember = f["Remember"];
+        //        int login_status = AccountDataAccess.GetInstance().checkLogin(username.Trim(), password);
+        //        if (login_status == 0)
+        //        {
+        //            if (remember == "on")
+        //            {
+        //                FormsAuthentication.SetAuthCookie(username, true);
+        //            }
+        //            FormsAuthentication.SetAuthCookie(username, false);
+        //            Session["UserBANHSAURIENG"] = username;
+        //            return RedirectToAction("Index", "Sale");
+        //        }
+        //        else
+        //        {
+        //            if (Session["LoginFailBANHSAURIENG"] == null)
+        //            {
+        //                Session["LoginFailBANHSAURIENG"] = 1;
+        //            }
+        //            else
+        //            {
+        //                Session["LoginFailBANHSAURIENG"] = Int32.Parse(Session["LoginFailBANHSAURIENG"].ToString()) + 1;
+        //            }
+        //            return RedirectToAction("Login", new { status = "Tài khoản hoặc mật khẩu không đúng!" });
+        //        }
+        //    }
+        //}
         //Troy
         public ActionResult LogOff()
         {

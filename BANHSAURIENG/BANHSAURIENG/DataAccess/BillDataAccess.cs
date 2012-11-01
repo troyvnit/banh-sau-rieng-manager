@@ -53,8 +53,8 @@ namespace BANHSAURIENG.DataAccess
                     BillDetailID = detail.BillDetailID,
                     BillID = detail.BillID,
                     ProductID = detail.ProductID,
-                    Quantity = detail.Quantity,
-                    Price = detail.Price
+                    Quantity = detail.ProductQuantity,
+                    Price = detail.ProductPrice
                 });
             }
             return details;
