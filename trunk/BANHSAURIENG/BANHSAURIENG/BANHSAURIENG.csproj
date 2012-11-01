@@ -174,9 +174,12 @@
     <Compile Include="Controllers\BillController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\SaleController.cs" />
     <Compile Include="DataAccess\AccountDataAccess.cs" />
     <Compile Include="DataAccess\BillDataAccess.cs" />
+    <Compile Include="DataAccess\ComboDataAccess.cs" />
+    <Compile Include="DataAccess\ProductDataAccess.cs" />
     <Compile Include="DataAccess\SaleDataAccess.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -1722,6 +1725,7 @@
       <LastGenOutput>Model1.cs</LastGenOutput>
     </None>
     <Content Include="Views\Bill\Index.cshtml" />
+    <Content Include="Views\Product\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
