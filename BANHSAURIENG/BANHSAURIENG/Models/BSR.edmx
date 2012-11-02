@@ -624,15 +624,15 @@
           <Property Name="Phone" Type="nvarchar" MaxLength="50" />
           <Property Name="Phone1" Type="nvarchar" MaxLength="50" />
           <Property Name="Website" Type="nvarchar" MaxLength="200" />
-          <Property Name="CreateDate" Type="datetime" Nullable="false" />
-          <Property Name="CreateBy" Type="bigint" Nullable="false" />
-          <Property Name="LastUpdate" Type="datetime" Nullable="false" />
-          <Property Name="UpdateBy" Type="bigint" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="CreateBy" Type="bigint" />
+          <Property Name="LastUpdate" Type="datetime" />
+          <Property Name="UpdateBy" Type="bigint" />
           <Property Name="Birthday" Type="datetime" />
-          <Property Name="Gender" Type="nvarchar" Nullable="false" MaxLength="10" />
-          <Property Name="isDelete" Type="bit" Nullable="false" />
-          <Property Name="isHiddent" Type="bit" Nullable="false" />
-          <Property Name="isCustomer" Type="bit" Nullable="false" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="10" />
+          <Property Name="isDelete" Type="bit" />
+          <Property Name="isHiddent" Type="bit" />
+          <Property Name="isCustomer" Type="bit" />
         </EntityType>
         <EntityType Name="tblProduct_Combo">
           <Key>
@@ -1343,6 +1343,10 @@
           <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spCheckLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="username" Type="nvarchar" Mode="In" />
+          <Parameter Name="password" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="spGetProductByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="productID" Type="int" Mode="In" />
         </Function>
@@ -1954,27 +1958,27 @@
             <PropertyRef Name="ObjectID" />
           </Key>
           <Property Name="ObjectID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ObjectName" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
-          <Property Name="LastName" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
-          <Property Name="FirstName" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
-          <Property Name="Address" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
-          <Property Name="CityID" Type="Int32" />
-          <Property Name="WardID" Type="Int32" />
-          <Property Name="DistrictID" Type="Int32" />
-          <Property Name="Email" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
-          <Property Name="Email1" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
-          <Property Name="Phone" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="Phone1" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="Website" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" />
-          <Property Name="CreateBy" Type="Int64" Nullable="false" />
-          <Property Name="LastUpdate" Type="DateTime" Nullable="false" />
-          <Property Name="UpdateBy" Type="Int64" Nullable="false" />
-          <Property Name="Birthday" Type="DateTime" />
-          <Property Name="Gender" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
-          <Property Name="isDelete" Type="Boolean" Nullable="false" />
-          <Property Name="isHiddent" Type="Boolean" Nullable="false" />
-          <Property Name="isCustomer" Type="Boolean" Nullable="false" />
+          <Property Name="ObjectName" Type="String" MaxLength="100" Unicode="true" FixedLength="false" Nullable="true" />
+          <Property Name="LastName" Type="String" MaxLength="100" Unicode="true" FixedLength="false" Nullable="true" />
+          <Property Name="FirstName" Type="String" MaxLength="100" Unicode="true" FixedLength="false" Nullable="true" />
+          <Property Name="Address" Type="String" MaxLength="500" Unicode="true" FixedLength="false" Nullable="true" />
+          <Property Name="CityID" Type="Int32" Nullable="true" />
+          <Property Name="WardID" Type="Int32" Nullable="true" />
+          <Property Name="DistrictID" Type="Int32" Nullable="true" />
+          <Property Name="Email" Type="String" MaxLength="500" Unicode="true" FixedLength="false" Nullable="true" />
+          <Property Name="Email1" Type="String" MaxLength="500" Unicode="true" FixedLength="false" Nullable="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" Unicode="true" FixedLength="false" Nullable="true" />
+          <Property Name="Phone1" Type="String" MaxLength="50" Unicode="true" FixedLength="false" Nullable="true" />
+          <Property Name="Website" Type="String" MaxLength="200" Unicode="true" FixedLength="false" Nullable="true" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="true" />
+          <Property Name="CreateBy" Type="Int64" Nullable="true" />
+          <Property Name="LastUpdate" Type="DateTime" Nullable="true" />
+          <Property Name="UpdateBy" Type="Int64" Nullable="true" />
+          <Property Name="Birthday" Type="DateTime" Nullable="true" />
+          <Property Name="Gender" Type="String" Nullable="true" MaxLength="10" Unicode="true" FixedLength="false" />
+          <Property Name="isDelete" Type="Boolean" Nullable="true" />
+          <Property Name="isHiddent" Type="Boolean" Nullable="true" />
+          <Property Name="isCustomer" Type="Boolean" Nullable="true" />
           <NavigationProperty Name="tblAccount" Relationship="BSRModel.FK_tblAccount_tblObject" FromRole="tblObjects" ToRole="tblAccounts" />
           <NavigationProperty Name="tblCustomer" Relationship="BSRModel.FK_tblCustomer_tblObject" FromRole="tblObjects" ToRole="tblCustomers" />
           <NavigationProperty Name="tblEmployee" Relationship="BSRModel.FK_tblEmployee_tblObject" FromRole="tblObjects" ToRole="tblEmployees" />
@@ -3213,6 +3217,7 @@
               <ScalarProperty Name="ComboID" ColumnName="ComboID" />
             </EndProperty>
           </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="spCheckLogin" FunctionName="BSRModel.Store.spCheckLogin" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -27,15 +27,15 @@ namespace BANHSAURIENG.Models
         public string Phone { get; set; }
         public string Phone1 { get; set; }
         public string Website { get; set; }
-        public System.DateTime CreateDate { get; set; }
-        public long CreateBy { get; set; }
-        public System.DateTime LastUpdate { get; set; }
-        public long UpdateBy { get; set; }
+        public Nullable<System.DateTime> CreateDate { get; set; }
+        public Nullable<long> CreateBy { get; set; }
+        public Nullable<System.DateTime> LastUpdate { get; set; }
+        public Nullable<long> UpdateBy { get; set; }
         public Nullable<System.DateTime> Birthday { get; set; }
         public string Gender { get; set; }
-        public bool isDelete { get; set; }
-        public bool isHiddent { get; set; }
-        public bool isCustomer { get; set; }
+        public Nullable<bool> isDelete { get; set; }
+        public Nullable<bool> isHiddent { get; set; }
+        public Nullable<bool> isCustomer { get; set; }
     
         public virtual tblAccount tblAccount { get; set; }
         public virtual tblCustomer tblCustomer { get; set; }

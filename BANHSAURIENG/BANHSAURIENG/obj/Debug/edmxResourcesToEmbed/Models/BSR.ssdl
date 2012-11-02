@@ -619,15 +619,15 @@
     <Property Name="Phone" Type="nvarchar" MaxLength="50" />
     <Property Name="Phone1" Type="nvarchar" MaxLength="50" />
     <Property Name="Website" Type="nvarchar" MaxLength="200" />
-    <Property Name="CreateDate" Type="datetime" Nullable="false" />
-    <Property Name="CreateBy" Type="bigint" Nullable="false" />
-    <Property Name="LastUpdate" Type="datetime" Nullable="false" />
-    <Property Name="UpdateBy" Type="bigint" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="CreateBy" Type="bigint" />
+    <Property Name="LastUpdate" Type="datetime" />
+    <Property Name="UpdateBy" Type="bigint" />
     <Property Name="Birthday" Type="datetime" />
-    <Property Name="Gender" Type="nvarchar" Nullable="false" MaxLength="10" />
-    <Property Name="isDelete" Type="bit" Nullable="false" />
-    <Property Name="isHiddent" Type="bit" Nullable="false" />
-    <Property Name="isCustomer" Type="bit" Nullable="false" />
+    <Property Name="Gender" Type="nvarchar" MaxLength="10" />
+    <Property Name="isDelete" Type="bit" />
+    <Property Name="isHiddent" Type="bit" />
+    <Property Name="isCustomer" Type="bit" />
   </EntityType>
   <EntityType Name="tblProduct_Combo">
     <Key>
@@ -1338,6 +1338,10 @@
     <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="spCheckLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="username" Type="nvarchar" Mode="In" />
+    <Parameter Name="password" Type="nvarchar" Mode="In" />
+  </Function>
   <Function Name="spGetProductByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="productID" Type="int" Mode="In" />
   </Function>

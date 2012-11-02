@@ -604,27 +604,27 @@
       <PropertyRef Name="ObjectID" />
     </Key>
     <Property Name="ObjectID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ObjectName" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
-    <Property Name="LastName" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
-    <Property Name="FirstName" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
-    <Property Name="Address" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
-    <Property Name="CityID" Type="Int32" />
-    <Property Name="WardID" Type="Int32" />
-    <Property Name="DistrictID" Type="Int32" />
-    <Property Name="Email" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
-    <Property Name="Email1" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
-    <Property Name="Phone" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
-    <Property Name="Phone1" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
-    <Property Name="Website" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
-    <Property Name="CreateDate" Type="DateTime" Nullable="false" />
-    <Property Name="CreateBy" Type="Int64" Nullable="false" />
-    <Property Name="LastUpdate" Type="DateTime" Nullable="false" />
-    <Property Name="UpdateBy" Type="Int64" Nullable="false" />
-    <Property Name="Birthday" Type="DateTime" />
-    <Property Name="Gender" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
-    <Property Name="isDelete" Type="Boolean" Nullable="false" />
-    <Property Name="isHiddent" Type="Boolean" Nullable="false" />
-    <Property Name="isCustomer" Type="Boolean" Nullable="false" />
+    <Property Name="ObjectName" Type="String" MaxLength="100" Unicode="true" FixedLength="false" Nullable="true" />
+    <Property Name="LastName" Type="String" MaxLength="100" Unicode="true" FixedLength="false" Nullable="true" />
+    <Property Name="FirstName" Type="String" MaxLength="100" Unicode="true" FixedLength="false" Nullable="true" />
+    <Property Name="Address" Type="String" MaxLength="500" Unicode="true" FixedLength="false" Nullable="true" />
+    <Property Name="CityID" Type="Int32" Nullable="true" />
+    <Property Name="WardID" Type="Int32" Nullable="true" />
+    <Property Name="DistrictID" Type="Int32" Nullable="true" />
+    <Property Name="Email" Type="String" MaxLength="500" Unicode="true" FixedLength="false" Nullable="true" />
+    <Property Name="Email1" Type="String" MaxLength="500" Unicode="true" FixedLength="false" Nullable="true" />
+    <Property Name="Phone" Type="String" MaxLength="50" Unicode="true" FixedLength="false" Nullable="true" />
+    <Property Name="Phone1" Type="String" MaxLength="50" Unicode="true" FixedLength="false" Nullable="true" />
+    <Property Name="Website" Type="String" MaxLength="200" Unicode="true" FixedLength="false" Nullable="true" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="true" />
+    <Property Name="CreateBy" Type="Int64" Nullable="true" />
+    <Property Name="LastUpdate" Type="DateTime" Nullable="true" />
+    <Property Name="UpdateBy" Type="Int64" Nullable="true" />
+    <Property Name="Birthday" Type="DateTime" Nullable="true" />
+    <Property Name="Gender" Type="String" Nullable="true" MaxLength="10" Unicode="true" FixedLength="false" />
+    <Property Name="isDelete" Type="Boolean" Nullable="true" />
+    <Property Name="isHiddent" Type="Boolean" Nullable="true" />
+    <Property Name="isCustomer" Type="Boolean" Nullable="true" />
     <NavigationProperty Name="tblAccount" Relationship="BSRModel.FK_tblAccount_tblObject" FromRole="tblObjects" ToRole="tblAccounts" />
     <NavigationProperty Name="tblCustomer" Relationship="BSRModel.FK_tblCustomer_tblObject" FromRole="tblObjects" ToRole="tblCustomers" />
     <NavigationProperty Name="tblEmployee" Relationship="BSRModel.FK_tblEmployee_tblObject" FromRole="tblObjects" ToRole="tblEmployees" />
