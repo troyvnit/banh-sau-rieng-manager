@@ -163,10 +163,28 @@ namespace BANHSAURIENG.Controllers
             acc.isSystem = (bool)o.SelectToken("isSystem");
             acc.isDelete = (bool)o.SelectToken("isDelete");
             acc.isHidden = (bool)o.SelectToken("isHidden");
-            acc.LastUpdate = DateTime.Now;
+            acc.CreateDate = DateTime.Now;
             acc.LastLogin = DateTime.Now;
             acc.LastUpdate = DateTime.Now;
             return Json(AccountDataAccess.GetInstance().Update(acc), JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult Destroy(string models)
+        {
+            models = models.Replace("[", "");
+            models = models.Replace("]", "");
+            JObject o = JObject.Parse(models);
+            tblAccount acc = new tblAccount();
+            acc.ObjectID = (long)o.SelectToken("ObjectID");
+            acc.Username = (string)o.SelectToken("Username");
+            acc.Password = (string)o.SelectToken("Password");
+            acc.isEnable = (bool)o.SelectToken("isEnable");
+            acc.isSystem = (bool)o.SelectToken("isSystem");
+            acc.isDelete = (bool)o.SelectToken("isDelete");
+            acc.isHidden = (bool)o.SelectToken("isHidden");
+            acc.CreateDate = DateTime.Now;
+            acc.LastLogin = DateTime.Now;
+            acc.LastUpdate = DateTime.Now;
+            return Json(AccountDataAccess.GetInstance().Destroy(acc), JsonRequestBehavior.AllowGet);
         }
     }
 }

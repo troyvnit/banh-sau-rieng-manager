@@ -74,6 +74,20 @@ namespace BANHSAURIENG.DataAccess
                 return false;
             }
         }
+        public bool Destroy(tblAccount acc)
+        {
+            try
+            {
+                _db.tblObjects.Remove(_db.tblObjects.Find(acc.ObjectID));
+                _db.tblAccounts.Remove(_db.tblAccounts.Find(acc.ObjectID));
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
         // destroy 
         ~AccountDataAccess()
         {
