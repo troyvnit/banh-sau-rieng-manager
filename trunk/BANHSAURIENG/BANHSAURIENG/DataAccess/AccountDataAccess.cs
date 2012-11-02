@@ -36,7 +36,42 @@ namespace BANHSAURIENG.DataAccess
             }
             catch (Exception e)
             {
-                return 5;
+                return -1;
+            }
+        }
+        public List<tblAccount> Read()
+        {
+            return _db.tblAccounts.ToList();
+        }
+        public bool Create(tblAccount acc)
+        {
+            try
+            {
+                tblObject o = new tblObject();
+                o.ObjectName = acc.Username;
+                _db.tblObjects.Add(o);
+                _db.SaveChanges();
+                acc.ObjectID = o.ObjectID;
+                _db.tblAccounts.Add(acc);
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        public bool Update(tblAccount acc)
+        {
+            try
+            {
+                _db.Entry(_db.tblAccounts.Find(acc.ObjectID)).CurrentValues.SetValues(acc);
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
             }
         }
         // destroy 

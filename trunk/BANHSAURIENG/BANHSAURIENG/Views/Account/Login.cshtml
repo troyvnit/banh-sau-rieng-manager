@@ -3,7 +3,6 @@
     ViewBag.Title = "Log in";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<script src="@Url.Content("~/Scripts/livevalidation_standalone.js")" type="text/javascript"></script>
 <div class="" style="text-align: center; margin-top: 120px;">
     <img src="@Url.Content("~/Images/template/logo_login.jpg")" alt="" />
 </div>
@@ -20,12 +19,12 @@
                         @Html.LabelFor(model => model.Username)
                     </div>
                     <div class="editor-field">
-                        <input class="k-textbox" id="UserName" name="UserName" value="@ViewBag.Username" style=" width:318px;" />
+                        <input class="k-textbox" id="UserName" name="UserName" value="@ViewBag.Username" style=" width:318px;" required validationmessage="Vui lòng nhập tài khoản" maxlength="50"/>
                     </div>
                     <div class="editor-label" style="margin-right: 5px;">
                         @Html.LabelFor(model => model.Password)
                     </div>
-                    <div class="editor-field" style="width: 318px;">
+                    <div class="editor-field" style="width: 318px;" required validationmessage="Vui lòng nhập mật khẩu" maxlength="50">
                         @Html.PasswordFor(model => model.Password)
                     </div>
                 </div>
@@ -46,14 +45,9 @@
         $("#menu").hide();
         $("#Password").addClass("k-textbox").css("width", "300px");
         $(".text-box").addClass("k-textbox").removeClass("text-box").css("width", "300px");
-        var UserName = new LiveValidation('UserName', { validMessage: " " });
-        UserName.add(Validate.Presence);
-        UserName.add(Validate.Length, { maximum: 50 });
-        var Password = new LiveValidation('Password', { validMessage: " " });
-        Password.add(Validate.Presence);
-        Password.add(Validate.Length, { maximum: 50 });
+        var validator = $("#loginform").kendoValidator().data("kendoValidator");
         if ($(".loginform").attr("visible") == "false") {
-            $(".loginbody").html("<label style='color: Red;float:left'>You login fail more than 3 time! Please wait 1 day to continue login...</label>");
+            $(".loginbody").html("<label style='color: Red;float:left'>Bạn đã đăng nhập sai 3 lần, khung đăng nhập tự động khóa!</label>");
         }
     })
 </script>

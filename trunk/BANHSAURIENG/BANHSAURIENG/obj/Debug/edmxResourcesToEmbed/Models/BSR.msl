@@ -584,5 +584,6 @@
         <ScalarProperty Name="ComboID" ColumnName="ComboID" />
       </EndProperty>
     </AssociationSetMapping>
+    <FunctionImportMapping FunctionImportName="spCheckLogin" FunctionName="BSRModel.Store.spCheckLogin" />
   </EntityContainerMapping>
 </Mapping>

@@ -9,6 +9,10 @@ using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using System.IO;
+using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 using BANHSAURIENG.Filters;
 using BANHSAURIENG.Models;
 using BANHSAURIENG.DataAccess;
@@ -48,45 +52,45 @@ namespace BANHSAURIENG.Controllers
             }
         }
         //Troy
-        //[HttpPost]
-        //[AllowAnonymous]
-        //public ActionResult Login(FormCollection f)
-        //{
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult Login(FormCollection f)
+        {
 
-        //    if (Session["UserBANHSAURIENG"] != null)
-        //    {
-        //        return RedirectToAction("Create");
-        //    }
-        //    else
-        //    {
-        //        string username = f["UserName"];
-        //        string password = f["Password"];
-        //        string remember = f["Remember"];
-        //        int login_status = AccountDataAccess.GetInstance().checkLogin(username.Trim(), password);
-        //        if (login_status == 0)
-        //        {
-        //            if (remember == "on")
-        //            {
-        //                FormsAuthentication.SetAuthCookie(username, true);
-        //            }
-        //            FormsAuthentication.SetAuthCookie(username, false);
-        //            Session["UserBANHSAURIENG"] = username;
-        //            return RedirectToAction("Index", "Sale");
-        //        }
-        //        else
-        //        {
-        //            if (Session["LoginFailBANHSAURIENG"] == null)
-        //            {
-        //                Session["LoginFailBANHSAURIENG"] = 1;
-        //            }
-        //            else
-        //            {
-        //                Session["LoginFailBANHSAURIENG"] = Int32.Parse(Session["LoginFailBANHSAURIENG"].ToString()) + 1;
-        //            }
-        //            return RedirectToAction("Login", new { status = "Tài khoản hoặc mật khẩu không đúng!" });
-        //        }
-        //    }
-        //}
+            if (Session["UserBANHSAURIENG"] != null)
+            {
+                return RedirectToAction("Create");
+            }
+            else
+            {
+                string username = f["UserName"];
+                string password = f["Password"];
+                string remember = f["Remember"];
+                int login_status = AccountDataAccess.GetInstance().checkLogin(username.Trim(), password);
+                if (login_status == 0)
+                {
+                    if (remember == "on")
+                    {
+                        FormsAuthentication.SetAuthCookie(username, true);
+                    }
+                    FormsAuthentication.SetAuthCookie(username, false);
+                    Session["UserBANHSAURIENG"] = username;
+                    return RedirectToAction("Index", "Sale");
+                }
+                else
+                {
+                    if (Session["LoginFailBANHSAURIENG"] == null)
+                    {
+                        Session["LoginFailBANHSAURIENG"] = 1;
+                    }
+                    else
+                    {
+                        Session["LoginFailBANHSAURIENG"] = Int32.Parse(Session["LoginFailBANHSAURIENG"].ToString()) + 1;
+                    }
+                    return RedirectToAction("Login", new { status = "Tài khoản hoặc mật khẩu không đúng!" });
+                }
+            }
+        }
         //Troy
         public ActionResult LogOff()
         {
@@ -94,7 +98,7 @@ namespace BANHSAURIENG.Controllers
             Session["UserBANHSAURIENG"] = null;
             return RedirectToAction("Login");
         }
-        public ActionResult Attendance()
+        public ActionResult Employee()
         {
             return View();
         }
@@ -111,6 +115,58 @@ namespace BANHSAURIENG.Controllers
             var croppath = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/Images/"), String.Format("{0}_{1}", time, ".png"));
             System.IO.File.WriteAllBytes(croppath, buffer);
             return Json(new { success = true });
+        }
+        public ActionResult Read()
+        {
+            List<Account> accs = new List<Account>();
+            foreach(tblAccount acc in AccountDataAccess.GetInstance().Read())
+            {
+                accs.Add(new Account(){
+                    ObjectID = acc.ObjectID,
+                    Username = acc.Username,
+                    Password = acc.Password,
+                    isEnable = acc.isEnable,
+                    isSystem = acc.isSystem,
+                    isDelete = acc.isDelete,
+                    isHidden = acc.isHidden
+                });
+            }
+            return Json(accs, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult Create(string models)
+        {
+            models = models.Replace("[", "");
+            models = models.Replace("]", "");
+            JObject o = JObject.Parse(models);
+            tblAccount acc = new tblAccount();
+            acc.Username = (string)o.SelectToken("Username");
+            acc.Password = (string)o.SelectToken("Password");
+            acc.isEnable = (bool)o.SelectToken("isEnable");
+            acc.isSystem = (bool)o.SelectToken("isSystem");
+            acc.isDelete = (bool)o.SelectToken("isDelete");
+            acc.isHidden = (bool)o.SelectToken("isHidden");
+            acc.CreateDate = DateTime.Now;
+            acc.LastLogin = DateTime.Now;
+            acc.LastUpdate = DateTime.Now;
+            return Json(AccountDataAccess.GetInstance().Create(acc), JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult Update(string models)
+        {
+            models = models.Replace("[", "");
+            models = models.Replace("]", "");
+            JObject o = JObject.Parse(models);
+            tblAccount acc = new tblAccount();
+            acc.ObjectID = (long)o.SelectToken("ObjectID");
+            acc.Username = (string)o.SelectToken("Username");
+            acc.Password = (string)o.SelectToken("Password");
+            acc.isEnable = (bool)o.SelectToken("isEnable");
+            acc.isSystem = (bool)o.SelectToken("isSystem");
+            acc.isDelete = (bool)o.SelectToken("isDelete");
+            acc.isHidden = (bool)o.SelectToken("isHidden");
+            acc.LastUpdate = DateTime.Now;
+            acc.LastLogin = DateTime.Now;
+            acc.LastUpdate = DateTime.Now;
+            return Json(AccountDataAccess.GetInstance().Update(acc), JsonRequestBehavior.AllowGet);
         }
     }
 }
