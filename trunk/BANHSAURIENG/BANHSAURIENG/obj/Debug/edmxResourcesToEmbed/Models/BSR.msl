@@ -571,13 +571,10 @@
         <ScalarProperty Name="ComboID" ColumnName="ComboID" />
       </EndProperty>
     </AssociationSetMapping>
-<<<<<<< .mine
     <FunctionImportMapping FunctionImportName="spAddComboProduct" FunctionName="BSRModel.Store.spAddComboProduct" />
     <FunctionImportMapping FunctionImportName="spGetProductByComboID" FunctionName="BSRModel.Store.spGetProductByComboID" />
     <FunctionImportMapping FunctionImportName="spDeleteComboProduct" FunctionName="BSRModel.Store.spDeleteComboProduct" />
     <FunctionImportMapping FunctionImportName="spTest" FunctionName="BSRModel.Store.spTest" />
-=======
     <FunctionImportMapping FunctionImportName="spCheckLogin" FunctionName="BSRModel.Store.spCheckLogin" />
->>>>>>> .r16
   </EntityContainerMapping>
 </Mapping>

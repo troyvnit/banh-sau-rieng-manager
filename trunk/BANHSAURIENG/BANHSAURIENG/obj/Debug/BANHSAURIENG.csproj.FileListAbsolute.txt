@@ -269,7 +269,6 @@ E:\BSR\BANHSAURIENG\BANHSAURIENG\bin\Antlr3.Runtime.dll
 E:\BSR\BANHSAURIENG\BANHSAURIENG\bin\EntityFramework.dll
 E:\BSR\BANHSAURIENG\BANHSAURIENG\bin\Microsoft.Web.Infrastructure.dll
 E:\BSR\BANHSAURIENG\BANHSAURIENG\bin\Microsoft.Web.WebPages.OAuth.dll
-E:\BSR\BANHSAURIENG\BANHSAURIENG\bin\Newtonsoft.Json.dll
 E:\BSR\BANHSAURIENG\BANHSAURIENG\bin\System.Net.Http.dll
 E:\BSR\BANHSAURIENG\BANHSAURIENG\bin\System.Net.Http.Formatting.dll
 E:\BSR\BANHSAURIENG\BANHSAURIENG\bin\System.Net.Http.WebRequest.dll

@@ -1734,15 +1734,12 @@
     <Content Include="Views\Bill\Index.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Product\Create.cshtml" />
-<<<<<<< .mine
     <Content Include="Views\Product\Edit.cshtml" />
     <Content Include="Views\Combo\Index.cshtml" />
     <Content Include="Views\Combo\Create.cshtml" />
     <Content Include="Views\Combo\Edit.cshtml" />
     <Content Include="Views\Sale\Index1.cshtml" />
-=======
     <Content Include="Views\Account\Employee.cshtml" />
->>>>>>> .r16
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
