@@ -1296,7 +1296,7 @@
           <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-<<<<<<< .mine
+
         <Function Name="spAddComboProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="comboID" Type="int" Mode="In" />
           <Parameter Name="productID" Type="int" Mode="In" />
@@ -1307,12 +1307,11 @@
         <Function Name="spGetProductByComboID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="comboID" Type="int" Mode="In" />
         </Function>
-=======
         <Function Name="spCheckLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="username" Type="nvarchar" Mode="In" />
           <Parameter Name="password" Type="nvarchar" Mode="In" />
         </Function>
->>>>>>> .r16
+
         <Function Name="spGetProductByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="productID" Type="int" Mode="In" />
         </Function>
@@ -3131,14 +3130,13 @@
               <ScalarProperty Name="ComboID" ColumnName="ComboID" />
             </EndProperty>
           </AssociationSetMapping>
-<<<<<<< .mine
           <FunctionImportMapping FunctionImportName="spAddComboProduct" FunctionName="BSRModel.Store.spAddComboProduct" />
           <FunctionImportMapping FunctionImportName="spGetProductByComboID" FunctionName="BSRModel.Store.spGetProductByComboID" />
           <FunctionImportMapping FunctionImportName="spDeleteComboProduct" FunctionName="BSRModel.Store.spDeleteComboProduct" />
           <FunctionImportMapping FunctionImportName="spTest" FunctionName="BSRModel.Store.spTest" />
-=======
+
           <FunctionImportMapping FunctionImportName="spCheckLogin" FunctionName="BSRModel.Store.spCheckLogin" />
->>>>>>> .r16
+
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
