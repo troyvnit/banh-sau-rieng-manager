@@ -1,0 +1,125 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+    <div class="k-toolbar k-grid-toolbar">
+        <a class="k-button" title="Thêm sản phẩm" id="add"><span class="k-icon k-i-plus"></span></a>
+                <a class="k-button" style="display:none" id="edit"><span class="k-icon k-i-pencil"></span></a>
+                <a class="k-button" style="display:none" id="delete"><span class="k-icon k-i-close"></span></a>
+    </div>
+    <div id="grid">
+        </div>
+        <div id="window">
+        </div>       
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var proID="";
+        var resDataSource = new kendo.data.DataSource({
+            transport: {
+                read: {
+                    url: '@Url.Action("ReadDataToGrid")',
+                    type: "post",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json"
+                },
+                parameterMap: function (options, type) {
+                    if (type == "read") {
+                        return JSON.stringify({
+                            page: options.page,
+                            itemCount: 20
+                        })
+                    }
+                }
+            },
+            pageSize: 20,
+            serverPaging: true,
+            schema: {
+                data: "Data",
+                total: "ItemCount",
+                model: {
+                    id: "ComboID",
+                    fields: {
+                        Avatar: { type: "string" },
+                        ComboName: { type: "string" },
+                        ShortcutKey: { type: "string" },
+                        Price: { type: "string" },
+                    }
+                }
+            }
+        })
+       $("#grid").kendoGrid({
+            dataSource: resDataSource,
+            groupable: true,
+            columnMenu: true,
+            resizable: true,
+            sortable: true,
+            selectable: "single",
+            pageable: true,
+            height: 500,
+            columns: [
+                         { field: "ComboID", title: "ID", hidden: true },
+                         {field:"ComboName",title: "Tên Combo"},
+                         { field:"Price",title:"Giá"},
+                         { field:"ShortcutKey",title:"Phím tắt"}
+                        
+                    ],
+            change: function (e) {
+                proID = this.select().find('td:first').html();
+                $("#edit").show();
+                $("#delete").show();
+            }
+        });
+        //window
+       var window = $("#window");
+       var addProduct = $("#add").bind("click", function () {
+            window.kendoWindow({
+                width: "500px",
+                title: "Thêm Combo",
+                content: "/Combo/Create",
+                close: onClose
+            });
+            window.data("kendoWindow").open();
+            window.data("kendoWindow").center();
+            addProduct.hide();
+        });
+
+        var onClose = function () {
+            addProduct.show();
+        }
+         $(document).keyup(function (e) {
+            if (e.keyCode == 27) { window.data("kendoWindow").close(); }
+        });
+         var editProduct = $("#edit").bind("click", function () {
+            window.kendoWindow({
+                width: "350px",
+                title: "Sửa Combo",
+                content: "/Combo/Edit?comboID="+proID,
+                close: onClose
+            });
+            window.data("kendoWindow").open();
+            window.data("kendoWindow").center();
+            editProduct.hide();
+        });
+        //end of window
+        //delete
+        $("#delete").click(function () {
+            if (confirm("Bạn có chắc chắn muốn xóa sản phẩm này?")) {
+                    $.ajax({
+                        url: '@Url.Action("Hide","Combo")',
+                        data: { 'comboID': +proID },
+                        success: function () {
+                            $("#grid").data("kendoGrid").dataSource.read();
+                        }
+                    })
+                    proID = "";
+                    $("#edit").hide();
+                    $("#delete").hide();
+                }
+        })
+        //end of delete
+
+    })
+</script>
+

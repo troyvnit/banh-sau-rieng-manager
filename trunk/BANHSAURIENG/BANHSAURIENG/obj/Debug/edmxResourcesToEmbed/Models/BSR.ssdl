@@ -19,7 +19,6 @@
     <EntitySet Name="tblCampaigns" EntityType="BSRModel.Store.tblCampaigns" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="tblCities" EntityType="BSRModel.Store.tblCities" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="tblComBo" EntityType="BSRModel.Store.tblComBo" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="tblComboPrice" EntityType="BSRModel.Store.tblComboPrice" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="tblContacts" EntityType="BSRModel.Store.tblContacts" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="tblCustomers" EntityType="BSRModel.Store.tblCustomers" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="tblDistricts" EntityType="BSRModel.Store.tblDistricts" store:Type="Tables" Schema="dbo" />
@@ -38,7 +37,6 @@
     <EntitySet Name="tblMenus" EntityType="BSRModel.Store.tblMenus" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="tblObjects" EntityType="BSRModel.Store.tblObjects" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="tblProduct_Combo" EntityType="BSRModel.Store.tblProduct_Combo" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="tblProductPrices" EntityType="BSRModel.Store.tblProductPrices" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="tblProducts" EntityType="BSRModel.Store.tblProducts" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="tblRoles" EntityType="BSRModel.Store.tblRoles" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="tblShop_tblStore_tblEmployee" EntityType="BSRModel.Store.tblShop_tblStore_tblEmployee" store:Type="Tables" Schema="dbo" />
@@ -129,10 +127,6 @@
       <End Role="tblComBo" EntitySet="tblComBo" />
       <End Role="tblBillDetails" EntitySet="tblBillDetails" />
     </AssociationSet>
-    <AssociationSet Name="FK_tblComboPrice_tblComBo" Association="BSRModel.Store.FK_tblComboPrice_tblComBo">
-      <End Role="tblComBo" EntitySet="tblComBo" />
-      <End Role="tblComboPrice" EntitySet="tblComboPrice" />
-    </AssociationSet>
     <AssociationSet Name="FK_tblCustomer_tblObject" Association="BSRModel.Store.FK_tblCustomer_tblObject">
       <End Role="tblObjects" EntitySet="tblObjects" />
       <End Role="tblCustomers" EntitySet="tblCustomers" />
@@ -188,10 +182,6 @@
     <AssociationSet Name="FK_tblProduct_Combo_tblProducts" Association="BSRModel.Store.FK_tblProduct_Combo_tblProducts">
       <End Role="tblProducts" EntitySet="tblProducts" />
       <End Role="tblProduct_Combo" EntitySet="tblProduct_Combo" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tblProductPrice_tblProduct" Association="BSRModel.Store.FK_tblProductPrice_tblProduct">
-      <End Role="tblProducts" EntitySet="tblProducts" />
-      <End Role="tblProductPrices" EntitySet="tblProductPrices" />
     </AssociationSet>
     <AssociationSet Name="FK_tblRoles_tblTable" Association="BSRModel.Store.FK_tblRoles_tblTable">
       <End Role="tblTables" EntitySet="tblTables" />
@@ -426,14 +416,10 @@
     <Property Name="ComboID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="ComboName" Type="nvarchar" Nullable="false" MaxLength="100" />
     <Property Name="ShortcutKey" Type="nvarchar" MaxLength="20" />
-  </EntityType>
-  <EntityType Name="tblComboPrice">
-    <Key>
-      <PropertyRef Name="ComboID" />
-    </Key>
-    <Property Name="ComboID" Type="int" Nullable="false" />
+    <Property Name="Avatar" Type="nvarchar" MaxLength="500" />
+    <Property Name="isDelete" Type="bit" Nullable="false" />
+    <Property Name="isHidden" Type="bit" Nullable="false" />
     <Property Name="Price" Type="decimal" Nullable="false" />
-    <Property Name="CreateDate" Type="date" Nullable="false" />
   </EntityType>
   <EntityType Name="tblContacts">
     <Key>
@@ -637,16 +623,6 @@
     <Property Name="ProductID" Type="int" Nullable="false" />
     <Property Name="ComboID" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="tblProductPrices">
-    <Key>
-      <PropertyRef Name="ProductID" />
-      <PropertyRef Name="Price" />
-      <PropertyRef Name="CreateDate" />
-    </Key>
-    <Property Name="ProductID" Type="int" Nullable="false" />
-    <Property Name="Price" Type="decimal" Nullable="false" />
-    <Property Name="CreateDate" Type="datetime" Nullable="false" />
-  </EntityType>
   <EntityType Name="tblProducts">
     <Key>
       <PropertyRef Name="ProductID" />
@@ -660,6 +636,7 @@
     <Property Name="ProductCode" Type="nvarchar" MaxLength="50" />
     <Property Name="Unit" Type="nvarchar" MaxLength="50" />
     <Property Name="ShortcutKey" Type="nvarchar" MaxLength="20" />
+    <Property Name="Price" Type="decimal" />
   </EntityType>
   <EntityType Name="tblRoles">
     <Key>
@@ -1015,18 +992,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_tblComboPrice_tblComBo">
-    <End Role="tblComBo" Type="BSRModel.Store.tblComBo" Multiplicity="1" />
-    <End Role="tblComboPrice" Type="BSRModel.Store.tblComboPrice" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="tblComBo">
-        <PropertyRef Name="ComboID" />
-      </Principal>
-      <Dependent Role="tblComboPrice">
-        <PropertyRef Name="ComboID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_tblCustomer_tblObject">
     <End Role="tblObjects" Type="BSRModel.Store.tblObjects" Multiplicity="1" />
     <End Role="tblCustomers" Type="BSRModel.Store.tblCustomers" Multiplicity="0..1" />
@@ -1197,18 +1162,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_tblProductPrice_tblProduct">
-    <End Role="tblProducts" Type="BSRModel.Store.tblProducts" Multiplicity="1" />
-    <End Role="tblProductPrices" Type="BSRModel.Store.tblProductPrices" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tblProducts">
-        <PropertyRef Name="ProductID" />
-      </Principal>
-      <Dependent Role="tblProductPrices">
-        <PropertyRef Name="ProductID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_tblRoles_tblTable">
     <End Role="tblTables" Type="BSRModel.Store.tblTables" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -1338,11 +1291,25 @@
     <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+<<<<<<< .mine
+  <Function Name="spAddComboProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="comboID" Type="int" Mode="In" />
+    <Parameter Name="productID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spDeleteComboProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="comboID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spGetProductByComboID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="comboID" Type="int" Mode="In" />
+  </Function>
+=======
   <Function Name="spCheckLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="username" Type="nvarchar" Mode="In" />
     <Parameter Name="password" Type="nvarchar" Mode="In" />
   </Function>
+>>>>>>> .r16
   <Function Name="spGetProductByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="productID" Type="int" Mode="In" />
   </Function>
+  <Function Name="spTest" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
 </Schema>

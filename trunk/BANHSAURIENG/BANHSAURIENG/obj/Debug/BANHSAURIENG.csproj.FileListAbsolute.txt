@@ -305,6 +305,14 @@ E:\BSR\BANHSAURIENG\BANHSAURIENG\obj\Debug\ResolveAssemblyReference.cache
 E:\BSR\BANHSAURIENG\BANHSAURIENG\obj\Debug\BANHSAURIENG.dll
 E:\BSR\BANHSAURIENG\BANHSAURIENG\obj\Debug\BANHSAURIENG.pdb
 E:\BSR\BANHSAURIENG\BANHSAURIENG\bin\System.Web.Providers.dll
+<<<<<<< .mine
+E:\BSR\BANHSAURIENG\BANHSAURIENG\bin\DotNetOpenAuth.AspNet.xml
+E:\BSR\BANHSAURIENG\BANHSAURIENG\bin\DotNetOpenAuth.Core.xml
+E:\BSR\BANHSAURIENG\BANHSAURIENG\bin\DotNetOpenAuth.OAuth.xml
+E:\BSR\BANHSAURIENG\BANHSAURIENG\bin\DotNetOpenAuth.OAuth.Consumer.xml
+E:\BSR\BANHSAURIENG\BANHSAURIENG\bin\DotNetOpenAuth.OpenId.xml
+E:\BSR\BANHSAURIENG\BANHSAURIENG\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
+=======
 D:\Windows\Working\Project\BSR\BANHSAURIENG\BANHSAURIENG\obj\Debug\BANHSAURIENG.csprojResolveAssemblyReference.cache
 D:\Windows\Working\Project\BSR\BANHSAURIENG\BANHSAURIENG\obj\Debug\BANHSAURIENG.dll
 D:\Windows\Working\Project\BSR\BANHSAURIENG\BANHSAURIENG\obj\Debug\BANHSAURIENG.pdb
@@ -353,3 +361,4 @@ D:\Windows\Working\Project\BSR\BANHSAURIENG\BANHSAURIENG\bin\WebMatrix.Data.xml
 D:\Windows\Working\Project\BSR\BANHSAURIENG\BANHSAURIENG\bin\Microsoft.Web.WebPages.OAuth.xml
 D:\Windows\Working\Project\BSR\BANHSAURIENG\BANHSAURIENG\bin\WebMatrix.WebData.xml
 D:\Windows\Working\Project\BSR\BANHSAURIENG\BANHSAURIENG\bin\System.Web.Providers.dll
+>>>>>>> .r16
