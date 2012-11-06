@@ -3245,10 +3245,10 @@
         </AssociationConnector>
         <AssociationConnector Association="BSRModel.FK_Account_Roles_tblAccount" ManuallyRouted="false">
           <ConnectorPoint PointX="3" PointY="20.90625" />
+          <ConnectorPoint PointX="4.666666666666667" PointY="20.90625" />
+          <ConnectorPoint PointX="4.833333333333333" PointY="20.90625" />
           <ConnectorPoint PointX="5.416666666666667" PointY="20.90625" />
           <ConnectorPoint PointX="5.583333333333333" PointY="20.90625" />
-          <ConnectorPoint PointX="6.416666666666667" PointY="20.90625" />
-          <ConnectorPoint PointX="6.583333333333333" PointY="20.90625" />
           <ConnectorPoint PointX="7.5" PointY="20.90625" />
           <ConnectorPoint PointX="7.5" PointY="21.625" />
         </AssociationConnector>
@@ -3277,15 +3277,9 @@
           <ConnectorPoint PointX="16" PointY="16.04771484375" />
         </AssociationConnector>
         <AssociationConnector Association="BSRModel.FK_tblBillDetail_tblBill" ManuallyRouted="false">
-          <ConnectorPoint PointX="5.25" PointY="22.884348958333334" />
-          <ConnectorPoint PointX="5.416666666666667" PointY="22.884348958333334" />
-          <ConnectorPoint PointX="5.583333333333333" PointY="22.884348958333334" />
-          <ConnectorPoint PointX="6.5" PointY="22.884348958333334" />
-          <ConnectorPoint PointX="6.5" PointY="19.307190755208325" />
-          <ConnectorPoint PointX="7.5" PointY="19.307190755208325" />
-          <ConnectorPoint PointX="7.5" PointY="13.230286458333339" />
-          <ConnectorPoint PointX="7.0312494999999995" PointY="13.230286458333339" />
-          <ConnectorPoint PointX="7.0312494999999995" PointY="10.634095052083334" />
+          <ConnectorPoint PointX="4.75" PointY="21.125" />
+          <ConnectorPoint PointX="4.75" PointY="10.2807421875" />
+          <ConnectorPoint PointX="6" PointY="10.2807421875" />
         </AssociationConnector>
         <AssociationConnector Association="BSRModel.FK_tblBillDetail_tblProduct" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="7.900383615384615" />
@@ -3362,8 +3356,6 @@
         </AssociationConnector>
         <AssociationConnector Association="BSRModel.FK_tblStatement_tblFixedCost" ManuallyRouted="false">
           <ConnectorPoint PointX="7.25" PointY="17.778595377604162" />
-          <ConnectorPoint PointX="7.416666666666667" PointY="17.778595377604162" />
-          <ConnectorPoint PointX="7.583333333333333" PointY="17.778595377604162" />
           <ConnectorPoint PointX="8" PointY="17.778595377604162" />
         </AssociationConnector>
         <AssociationConnector Association="BSRModel.FK_tblSupplier_tblGroupSupplier" ManuallyRouted="false">
@@ -3378,6 +3370,8 @@
         </AssociationConnector>
         <AssociationConnector Association="BSRModel.FK_tblMediaCat_tblMedia_tblMediaCat" ManuallyRouted="false">
           <ConnectorPoint PointX="4.25" PointY="12.208639322916662" />
+          <ConnectorPoint PointX="4.666666666666667" PointY="12.208639322916662" />
+          <ConnectorPoint PointX="4.833333333333333" PointY="12.208639322916662" />
           <ConnectorPoint PointX="5" PointY="12.208639322916662" />
         </AssociationConnector>
         <AssociationConnector Association="BSRModel.FK_tblRoles_tblTable" ManuallyRouted="false">
@@ -3424,14 +3418,16 @@
           <ConnectorPoint PointX="15.8125" PointY="17.9375" />
           <ConnectorPoint PointX="16" PointY="18.125" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="BSRModel.tblComBo" Width="1.5" PointX="4.375" PointY="8.75" Height="2.7494921874999996" />
+        <EntityTypeShape EntityType="BSRModel.tblComBo" Width="1.5" PointX="7.875" PointY="9.25" Height="2.7494921874999996" />
         <AssociationConnector Association="BSRModel.FK_tblBillDetails_tblComBo" >
-          <ConnectorPoint PointX="5.875" PointY="9.6920475260416659" />
-          <ConnectorPoint PointX="6" PointY="9.6920475260416659" />
+          <ConnectorPoint PointX="7.875" PointY="9.9420475260416659" />
+          <ConnectorPoint PointX="7.5" PointY="9.9420475260416659" />
         </AssociationConnector>
         <AssociationConnector Association="BSRModel.tblProduct_Combo" >
-          <ConnectorPoint PointX="4.375" PointY="10.369944661458332" />
-          <ConnectorPoint PointX="2.25" PointY="10.369944661458332" />
+          <ConnectorPoint PointX="7.875" PointY="10.754547526041666" />
+          <ConnectorPoint PointX="4.833333333333333" PointY="10.754547526041666" />
+          <ConnectorPoint PointX="4.666666666666667" PointY="10.754547526041666" />
+          <ConnectorPoint PointX="2.25" PointY="10.754547526041666" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>
