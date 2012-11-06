@@ -23,9 +23,12 @@ namespace BANHSAURIENG.Models
         public int ComboID { get; set; }
         public string ComboName { get; set; }
         public string ShortcutKey { get; set; }
+        public string Avatar { get; set; }
+        public bool isDelete { get; set; }
+        public bool isHidden { get; set; }
+        public decimal Price { get; set; }
     
         public virtual ICollection<tblBillDetail> tblBillDetails { get; set; }
-        public virtual tblComboPrice tblComboPrice { get; set; }
         public virtual ICollection<tblProduct> tblProducts { get; set; }
     }
 }

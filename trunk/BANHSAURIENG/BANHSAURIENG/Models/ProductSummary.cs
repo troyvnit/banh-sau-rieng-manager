@@ -13,6 +13,6 @@ namespace BANHSAURIENG.Models
         public string Description { get; set; }
         public string Unit { get; set; }
         public string ShortcutKey { get; set; }
-        public decimal Price { get; set; }
+        public decimal? Price { get; set; }
     }
 }

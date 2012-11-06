@@ -57,7 +57,6 @@ namespace BANHSAURIENG.Models
         public DbSet<tblMedia> tblMedias { get; set; }
         public DbSet<tblMenu> tblMenus { get; set; }
         public DbSet<tblObject> tblObjects { get; set; }
-        public DbSet<tblProductPrice> tblProductPrices { get; set; }
         public DbSet<tblProduct> tblProducts { get; set; }
         public DbSet<tblRole> tblRoles { get; set; }
         public DbSet<tblShop_tblStore_tblEmployee> tblShop_tblStore_tblEmployee { get; set; }
@@ -69,7 +68,6 @@ namespace BANHSAURIENG.Models
         public DbSet<tblVoucher> tblVouchers { get; set; }
         public DbSet<tblWard> tblWards { get; set; }
         public DbSet<tblComBo> tblComBoes { get; set; }
-        public DbSet<tblComboPrice> tblComboPrices { get; set; }
     
         public virtual ObjectResult<spGetProductByID_Result> spGetProductByID(Nullable<int> productID)
         {
@@ -110,6 +108,64 @@ namespace BANHSAURIENG.Models
                 new ObjectParameter("password", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<tblAccount>("spCheckLogin", mergeOption, usernameParameter, passwordParameter);
+        }
+    
+        public virtual int spAddComboProduct(Nullable<int> comboID, Nullable<int> productID)
+        {
+            var comboIDParameter = comboID.HasValue ?
+                new ObjectParameter("comboID", comboID) :
+                new ObjectParameter("comboID", typeof(int));
+    
+            var productIDParameter = productID.HasValue ?
+                new ObjectParameter("productID", productID) :
+                new ObjectParameter("productID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spAddComboProduct", comboIDParameter, productIDParameter);
+        }
+    
+        public virtual ObjectResult<tblProduct> spGetProductByComboID(Nullable<int> comboID)
+        {
+            ((IObjectContextAdapter)this).ObjectContext.MetadataWorkspace.LoadFromAssembly(typeof(tblProduct).Assembly);
+    
+            var comboIDParameter = comboID.HasValue ?
+                new ObjectParameter("comboID", comboID) :
+                new ObjectParameter("comboID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<tblProduct>("spGetProductByComboID", comboIDParameter);
+        }
+    
+        public virtual ObjectResult<tblProduct> spGetProductByComboID(Nullable<int> comboID, MergeOption mergeOption)
+        {
+            ((IObjectContextAdapter)this).ObjectContext.MetadataWorkspace.LoadFromAssembly(typeof(tblProduct).Assembly);
+    
+            var comboIDParameter = comboID.HasValue ?
+                new ObjectParameter("comboID", comboID) :
+                new ObjectParameter("comboID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<tblProduct>("spGetProductByComboID", mergeOption, comboIDParameter);
+        }
+    
+        public virtual int spDeleteComboProduct(Nullable<int> comboID)
+        {
+            var comboIDParameter = comboID.HasValue ?
+                new ObjectParameter("comboID", comboID) :
+                new ObjectParameter("comboID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spDeleteComboProduct", comboIDParameter);
+        }
+    
+        public virtual ObjectResult<tblProduct> spTest()
+        {
+            ((IObjectContextAdapter)this).ObjectContext.MetadataWorkspace.LoadFromAssembly(typeof(tblProduct).Assembly);
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<tblProduct>("spTest");
+        }
+    
+        public virtual ObjectResult<tblProduct> spTest(MergeOption mergeOption)
+        {
+            ((IObjectContextAdapter)this).ObjectContext.MetadataWorkspace.LoadFromAssembly(typeof(tblProduct).Assembly);
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<tblProduct>("spTest", mergeOption);
         }
     }
 }

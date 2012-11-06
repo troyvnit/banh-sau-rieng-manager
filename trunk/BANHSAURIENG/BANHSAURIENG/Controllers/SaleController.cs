@@ -14,6 +14,13 @@ namespace BANHSAURIENG.Controllers
         {
             return View();
         }
+        public ActionResult Index1()
+        {
+            ViewBag.Product = ProductDataAccess.GetInstance().GetProduct();
+            ViewBag.Combo = ComboDataAccess.GetInstance().GetCombo();
+            return View();
+        }
+        
         public ActionResult GetProductByID(string productID)
         {
             try

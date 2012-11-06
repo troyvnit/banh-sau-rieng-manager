@@ -32,7 +32,6 @@
     <EntitySet Name="tblMedias" EntityType="BSRModel.tblMedia" />
     <EntitySet Name="tblMenus" EntityType="BSRModel.tblMenu" />
     <EntitySet Name="tblObjects" EntityType="BSRModel.tblObject" />
-    <EntitySet Name="tblProductPrices" EntityType="BSRModel.tblProductPrice" />
     <EntitySet Name="tblProducts" EntityType="BSRModel.tblProduct" />
     <EntitySet Name="tblRoles" EntityType="BSRModel.tblRole" />
     <EntitySet Name="tblShop_tblStore_tblEmployee" EntityType="BSRModel.tblShop_tblStore_tblEmployee" />
@@ -163,10 +162,6 @@
       <End Role="tblMediaCats" EntitySet="tblMediaCats" />
       <End Role="tblMediaCat_tblMedia" EntitySet="tblMediaCat_tblMedia" />
     </AssociationSet>
-    <AssociationSet Name="FK_tblProductPrice_tblProduct" Association="BSRModel.FK_tblProductPrice_tblProduct">
-      <End Role="tblProducts" EntitySet="tblProducts" />
-      <End Role="tblProductPrices" EntitySet="tblProductPrices" />
-    </AssociationSet>
     <AssociationSet Name="FK_tblRoles_tblTable" Association="BSRModel.FK_tblRoles_tblTable">
       <End Role="tblTables" EntitySet="tblTables" />
       <End Role="tblRoles" EntitySet="tblRoles" />
@@ -195,14 +190,9 @@
       <Parameter Name="productID" Mode="In" Type="Int32" />
     </FunctionImport>
     <EntitySet Name="tblComBoes" EntityType="BSRModel.tblComBo" />
-    <EntitySet Name="tblComboPrices" EntityType="BSRModel.tblComboPrice" />
     <AssociationSet Name="FK_tblBillDetails_tblComBo" Association="BSRModel.FK_tblBillDetails_tblComBo">
       <End Role="tblComBo" EntitySet="tblComBoes" />
       <End Role="tblBillDetail" EntitySet="tblBillDetails" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tblComboPrice_tblComBo" Association="BSRModel.FK_tblComboPrice_tblComBo">
-      <End Role="tblComBo" EntitySet="tblComBoes" />
-      <End Role="tblComboPrice" EntitySet="tblComboPrices" />
     </AssociationSet>
     <AssociationSet Name="tblProduct_Combo" Association="BSRModel.tblProduct_Combo">
       <End Role="tblComBo" EntitySet="tblComBoes" />
@@ -212,6 +202,17 @@
       <Parameter Name="username" Mode="In" Type="String" />
       <Parameter Name="password" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="spAddComboProduct">
+      <Parameter Name="comboID" Mode="In" Type="Int32" />
+      <Parameter Name="productID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spGetProductByComboID" EntitySet="tblProducts" ReturnType="Collection(BSRModel.tblProduct)">
+      <Parameter Name="comboID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spDeleteComboProduct">
+      <Parameter Name="comboID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spTest" EntitySet="tblProducts" ReturnType="Collection(BSRModel.tblProduct)" />
   </EntityContainer>
   <EntityType Name="CampainDetail">
     <Key>
@@ -629,17 +630,6 @@
     <NavigationProperty Name="tblCustomer" Relationship="BSRModel.FK_tblCustomer_tblObject" FromRole="tblObjects" ToRole="tblCustomers" />
     <NavigationProperty Name="tblEmployee" Relationship="BSRModel.FK_tblEmployee_tblObject" FromRole="tblObjects" ToRole="tblEmployees" />
   </EntityType>
-  <EntityType Name="tblProductPrice">
-    <Key>
-      <PropertyRef Name="ProductID" />
-      <PropertyRef Name="Price" />
-      <PropertyRef Name="CreateDate" />
-    </Key>
-    <Property Name="ProductID" Type="Int32" Nullable="false" />
-    <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-    <Property Name="CreateDate" Type="DateTime" Nullable="false" />
-    <NavigationProperty Name="tblProduct" Relationship="BSRModel.FK_tblProductPrice_tblProduct" FromRole="tblProductPrices" ToRole="tblProducts" />
-  </EntityType>
   <EntityType Name="tblProduct">
     <Key>
       <PropertyRef Name="ProductID" />
@@ -653,11 +643,11 @@
     <NavigationProperty Name="CampainDetails" Relationship="BSRModel.FK_CampainDetail_tblProduct" FromRole="tblProducts" ToRole="CampainDetails" />
     <NavigationProperty Name="Product_Material" Relationship="BSRModel.FK_Product_Material_tblProduct" FromRole="tblProducts" ToRole="Product_Material" />
     <NavigationProperty Name="tblBillDetails" Relationship="BSRModel.FK_tblBillDetail_tblProduct" FromRole="tblProducts" ToRole="tblBillDetails" />
-    <NavigationProperty Name="tblProductPrices" Relationship="BSRModel.FK_tblProductPrice_tblProduct" FromRole="tblProducts" ToRole="tblProductPrices" />
     <Property Type="String" Name="ProductCode" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="Unit" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="ShortcutKey" MaxLength="20" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="tblComBoes" Relationship="BSRModel.tblProduct_Combo" FromRole="tblProduct" ToRole="tblComBo" />
+    <Property Type="Decimal" Name="Price" Precision="18" Scale="0" />
   </EntityType>
   <EntityType Name="tblRole">
     <Key>
@@ -1152,18 +1142,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_tblProductPrice_tblProduct">
-    <End Role="tblProducts" Type="BSRModel.tblProduct" Multiplicity="1" />
-    <End Role="tblProductPrices" Type="BSRModel.tblProductPrice" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tblProducts">
-        <PropertyRef Name="ProductID" />
-      </Principal>
-      <Dependent Role="tblProductPrices">
-        <PropertyRef Name="ProductID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_tblRoles_tblTable">
     <End Role="tblTables" Type="BSRModel.tblTable" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -1234,17 +1212,11 @@
     <Property Type="String" Name="ComboName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Type="String" Name="ShortcutKey" MaxLength="20" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="tblBillDetails" Relationship="BSRModel.FK_tblBillDetails_tblComBo" FromRole="tblComBo" ToRole="tblBillDetail" />
-    <NavigationProperty Name="tblComboPrice" Relationship="BSRModel.FK_tblComboPrice_tblComBo" FromRole="tblComBo" ToRole="tblComboPrice" />
     <NavigationProperty Name="tblProducts" Relationship="BSRModel.tblProduct_Combo" FromRole="tblComBo" ToRole="tblProduct" />
-  </EntityType>
-  <EntityType Name="tblComboPrice">
-    <Key>
-      <PropertyRef Name="ComboID" />
-    </Key>
-    <Property Type="Int32" Name="ComboID" Nullable="false" />
+    <Property Type="String" Name="Avatar" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Type="Boolean" Name="isDelete" Nullable="false" />
+    <Property Type="Boolean" Name="isHidden" Nullable="false" />
     <Property Type="Decimal" Name="Price" Nullable="false" Precision="18" Scale="0" />
-    <Property Type="DateTime" Name="CreateDate" Nullable="false" />
-    <NavigationProperty Name="tblComBo" Relationship="BSRModel.FK_tblComboPrice_tblComBo" FromRole="tblComboPrice" ToRole="tblComBo" />
   </EntityType>
   <Association Name="FK_tblBillDetails_tblComBo">
     <End Type="BSRModel.tblComBo" Role="tblComBo" Multiplicity="0..1" />
@@ -1254,18 +1226,6 @@
         <PropertyRef Name="ComboID" />
       </Principal>
       <Dependent Role="tblBillDetail">
-        <PropertyRef Name="ComboID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tblComboPrice_tblComBo">
-    <End Type="BSRModel.tblComBo" Role="tblComBo" Multiplicity="1" />
-    <End Type="BSRModel.tblComboPrice" Role="tblComboPrice" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="tblComBo">
-        <PropertyRef Name="ComboID" />
-      </Principal>
-      <Dependent Role="tblComboPrice">
         <PropertyRef Name="ComboID" />
       </Dependent>
     </ReferentialConstraint>

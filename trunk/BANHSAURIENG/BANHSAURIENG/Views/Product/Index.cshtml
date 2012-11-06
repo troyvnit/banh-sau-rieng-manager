@@ -5,17 +5,18 @@
 <div>
     <div class="k-toolbar k-grid-toolbar">
         <a class="k-button" title="Thêm sản phẩm" id="addProduct"><span class="k-icon k-i-plus"></span></a>
-                <a class="k-button" style="display:none" id="edit"><span class="k-icon k-i-pencil"></span></a>
+                <a class="k-button" style="display:none" id="editProduct"><span class="k-icon k-i-pencil"></span></a>
                 <a class="k-button" style="display:none" id="delete"><span class="k-icon k-i-close"></span></a>
     </div>
     <div id="grid">
         </div>
         <div id="window">
         </div>
+        
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
-        
+        var proID="";
         var resDataSource = new kendo.data.DataSource({
             transport: {
                 read: {
@@ -28,12 +29,12 @@
                     if (type == "read") {
                         return JSON.stringify({
                             page: options.page,
-                            itemCount: 20
+                            itemCount: 10000
                         })
                     }
                 }
             },
-            pageSize: 20,
+            pageSize: 10000,
             serverPaging: true,
             schema: {
                 data: "Data",
@@ -70,10 +71,8 @@
                         
                     ],
             change: function (e) {
-                resId = this.select().find('td:first').html();
-                $("#edit").attr("data-id", resId.toString());
-                $("#edit").show();
-                $("#delete").attr("data-id", resId.toString());
+                proID = this.select().find('td:first').html();
+                $("#editProduct").show();
                 $("#delete").show();
             }
         });
@@ -81,7 +80,7 @@
        var window = $("#window");
        var addProduct = $("#addProduct").bind("click", function () {
             window.kendoWindow({
-                width: "163px",
+                width: "350px",
                 title: "Thêm Sản phẩm",
                 content: "/Product/Create",
                 close: onClose
@@ -97,21 +96,34 @@
          $(document).keyup(function (e) {
             if (e.keyCode == 27) { window.data("kendoWindow").close(); }
         });
+         var editProduct = $("#editProduct").bind("click", function () {
+            window.kendoWindow({
+                width: "350px",
+                title: "Sửa Sản phẩm",
+                content: "/Product/Edit?proID="+proID,
+                close: onClose
+            });
+            window.data("kendoWindow").open();
+            window.data("kendoWindow").center();
+            editProduct.hide();
+        });
         //end of window
+        //delete
         $("#delete").click(function () {
             if (confirm("Bạn có chắc chắn muốn xóa sản phẩm này?")) {
                     $.ajax({
-                        url: '@Url.Action("Delete","Restaurant")',
-                        data: { 'resID': +resId },
+                        url: '@Url.Action("Hide","Product")',
+                        data: { 'proID': +proID },
                         success: function () {
                             $("#grid").data("kendoGrid").dataSource.read();
                         }
                     })
-                    resId = "";
+                    proID = "";
                     $("#edit").hide();
                     $("#delete").hide();
-                    $("#viewDetail").hide();
                 }
         })
+        //end of delete
+
     })
 </script>

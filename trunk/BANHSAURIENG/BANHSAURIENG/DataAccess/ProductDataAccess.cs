@@ -24,14 +24,32 @@ namespace BANHSAURIENG.DataAccess
             _db.Configuration.ProxyCreationEnabled = false;
         }
         //end of ini class
-        public List<ProductSummary> GetProduct(int page, int itemCount)
+        public IEnumerable<tblProduct> GetProduct(int page, int itemCount)
         {
-            List<ProductSummary> result = new List<ProductSummary>();
+            IEnumerable<tblProduct> result;
             try
             {
                 result = (from p in _db.tblProducts
-                          join pr in _db.tblProductPrices on p.ProductID equals pr.ProductID where p.isDelete==false && p.isHidden ==false
-                          select new ProductSummary { ProductID = p.ProductID, Avatar = p.Avatar, Description = p.Description, Price = pr.Price, ProductName = p.ProductName, ShortcutKey = p.ShortcutKey, Unit = p.Unit }).OrderByDescending(i => i.ProductID).Skip((page - 1) * itemCount).Take(itemCount).ToList();
+                          where p.isDelete==false && p.isHidden ==false
+                          orderby p.ProductID descending
+                          select new tblProduct { ProductID = p.ProductID , Avatar = p.Avatar, Description = p.Description, Price = p.Price, ProductName = p.ProductName, ShortcutKey = p.ShortcutKey, Unit = p.Unit }).OrderByDescending(i => i.ProductID).Skip((page - 1) * itemCount).Take(itemCount).ToList();
+                //result = _db.spTest().ToList();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        public List<tblProduct> GetProduct()
+        {
+            List<tblProduct> result = new List<tblProduct>();
+            try
+            {
+                result = (from p in _db.tblProducts
+                          where p.isDelete == false && p.isHidden == false
+                          orderby p.ProductID descending
+                          select p).ToList();
                 return result;
             }
             catch (Exception ex)
@@ -43,18 +61,13 @@ namespace BANHSAURIENG.DataAccess
         {
             return _db.tblProducts.Count();
         }
-        public bool Create(tblProduct p,decimal price)
+
+        public bool Create(tblProduct p)
         {
             try
             {
                 p.isDelete = p.isHidden= false;
                 _db.tblProducts.Add(p);
-                _db.SaveChanges();
-                tblProductPrice pr = new tblProductPrice();
-                pr.ProductID = p.ProductID;
-                pr.Price = price;
-                pr.CreateDate = DateTime.Now;
-                _db.tblProductPrices.Add(pr);
                 _db.SaveChanges();
                 return true;
             }
@@ -63,6 +76,52 @@ namespace BANHSAURIENG.DataAccess
                 return false;
             }
         }
+
+        public bool Hide(long proID)
+        {
+            try
+            {
+                tblProduct p = _db.tblProducts.Find(proID);
+                p.isDelete = true;
+                _db.Entry(_db.tblProducts.Find(proID)).CurrentValues.SetValues(p);
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public bool Edit(tblProduct p)
+        {
+            try
+            {
+                p.isDelete =p.isHidden= false;
+                _db.Entry(_db.tblProducts.Find(p.ProductID)).CurrentValues.SetValues(p);
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public tblProduct GetProductDetail(long proID)
+        {
+            try
+            {
+                tblProduct p = new tblProduct();
+                p= _db.tblProducts.Find(proID);
+                return p;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
         // destroy 
         ~ProductDataAccess()
         {
