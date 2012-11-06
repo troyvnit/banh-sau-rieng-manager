@@ -16,7 +16,7 @@ namespace BANHSAURIENG
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Sale", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Sale", action = "Index1", id = UrlParameter.Optional }
             );
         }
     }
