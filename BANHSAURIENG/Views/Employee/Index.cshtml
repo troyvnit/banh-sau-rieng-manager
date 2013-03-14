@@ -1,0 +1,181 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+}
+<div>
+    <div class="k-toolbar">
+        <a class="k-button" title="Thêm nhân viên" id="addEmployee"><span class="k-icon k-i-plus"></span></a>
+                <a class="k-button" style="display:none" id="editEmployee"><span class="k-icon k-i-pencil"></span></a>
+                <a class="k-button" style="display:none" id="delete"><span class="k-icon k-i-close"></span></a>
+    </div>
+    <div id="grid">
+        </div>
+        <div id="window">
+        </div>
+        
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var proID = "";
+        var resDataSource = new kendo.data.DataSource({
+            transport: {
+                read: {
+                    url: '@Url.Action("ReadEmployeeToGrid")',
+                    type: "post",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json"
+                },
+                parameterMap: function (options, type) {
+                    if (type == "read") {
+                        return JSON.stringify({
+                            page: options.page,
+                            itemCount: 10000
+                        })
+                    }
+                }
+            },
+            pageSize: 10000,
+            serverPaging: true,
+            schema: {
+                data: "Data",
+                total: "ItemCount",
+                model: {
+                    id: "EmployeeID",
+                    fields: {
+                        EmployeeName: { type: "string" },
+                        Avatar: { type: "string" },
+                        CreateDate: { type: "date" }
+                    }
+                }
+            }
+        });
+        $("#grid").kendoGrid({
+            dataSource: resDataSource,
+            groupable: true,
+            columnMenu: true,
+            resizable: true,
+            sortable: true,
+            selectable: "single",
+            pageable: true,
+            height: 768,
+            detailInit: detailInit,
+            dataBound: function () {
+                this.expandRow(this.tbody.find("tr.k-master-row").first());
+            },
+            columns: [
+                         { field: "EmployeeID", title: "ID", hidden: true },
+                         { field: "EmployeeName", title: "Tên nhân viên" },
+                         { field: "Avatar", title: "Avatar", template: " <img src='/Images/${ Avatar }' alt='${ Avatar }' style='width:60px' />" },
+                         { field: "CreateDate", title: "Ngày tạo", template: "#= kendo.toString(CreateDate,'dd-MM-yyyy hh:mm:ss') #" }
+                    ],
+            change: function (e) {
+                proID = this.select().find('td:first').next().html();
+                $("#editEmployee").show();
+                $("#delete").show();
+            }
+        });
+        function detailInit(e) {
+            $("<div/>").appendTo(e.detailCell).kendoGrid({
+                dataSource: {
+                    transport: {
+                        read: {
+                            url: '@Url.Action("GetHistoryToGrid")',
+                            type: "post",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json"
+                        },
+                        parameterMap: function (options, type) {
+                            if (type == "read") {
+                                console.log(options.filter.filters[0].value);
+                                return JSON.stringify({
+                                    page: options.page,
+                                    itemCount: 10000,
+                                    EmployeeID: options.filter.filters[0].value
+                                })
+                            }
+                        }
+                    },
+                    schema: {
+                        data: "Data",
+                        total: "ItemCount",
+                        model: {
+                            id: "EAId",
+                            fields: {
+                                EAId: { type: "number" },
+                                CreateDate: { type: "date" },
+                                ImageUrl: { type: "string" },
+                                Note: { type: "string" }
+                            }
+                        }
+                    },
+                    serverPaging: true,
+                    serverSorting: true,
+                    serverFiltering: true,
+                    pageSize: 6,
+                    filter: { field: "EmployeeID", operator: "eq", value: e.data.EmployeeID }
+                },
+                scrollable: false,
+                sortable: true,
+                pageable: true,
+                columns: [
+                            { field: "EAId", width: 50 },
+                            { field: "CreateDate", title: "Ngày tạo", template: "#= kendo.toString(CreateDate,'dd-MM-yyyy hh:mm:ss') #" },
+                            { field: "ImageUrl", title: "Ảnh", template: " <img src='/Images/${ ImageUrl }' alt='${ ImageUrl }' style='width:100px' />" },
+                            { field: "Note", title: "Ghi chú" }
+                        ]
+            });
+        }
+        //window
+        var window = $("#window");
+        var addEmployee = $("#addEmployee").bind("click", function () {
+            window.kendoWindow({
+                width: "350px",
+                title: "Nhân viên",
+                content: "/Employee/CreateEmployee",
+                close: onClose
+            });
+            window.data("kendoWindow").open();
+            window.data("kendoWindow").center();
+            addEmployee.hide();
+        });
+
+        var onClose = function () {
+            addEmployee.show();
+        }
+        $(document).keyup(function (e) {
+            if (e.keyCode == 27) { window.data("kendoWindow").close(); }
+        });
+        var editEmployee = $("#editEmployee").bind("click", function () {
+            window.kendoWindow({
+                width: "350px",
+                title: "Nhân viên",
+                content: "/Employee/EditEmployee?mID=" + proID,
+                close: onCloseEdit
+            });
+            window.data("kendoWindow").open();
+            window.data("kendoWindow").center();
+            editEmployee.hide();
+        });
+        var onCloseEdit = function () {
+            editEmployee.show();
+        }
+        //end of window
+        //delete
+        $("#delete").click(function () {
+            if (confirm("Bạn có chắc chắn muốn xóa sản phẩm này?")) {
+                $.ajax({
+                    url: '@Url.Action("HideEmployee","Employee")',
+                    data: { 'mID': +proID },
+                    success: function () {
+                        $("#grid").data("kendoGrid").dataSource.read();
+                    }
+                })
+                proID = "";
+                $("#edit").hide();
+                $("#delete").hide();
+            }
+        })
+        //end of delete
+
+    })
+</script>
