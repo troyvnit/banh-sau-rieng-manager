@@ -1,0 +1,190 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+}
+<div>
+    <div class="k-toolbar">
+        <a class="k-button" title="Thêm nguyên liệu" id="addMaterial"><span class="k-icon k-i-plus"></span></a>
+                <a class="k-button" style="display:none" id="editMaterial"><span class="k-icon k-i-pencil"></span></a>
+                <a class="k-button" style="display:none" id="delete"><span class="k-icon k-i-close"></span></a>
+    </div>
+    <div id="grid">
+        </div>
+        <div id="window">
+        </div>
+        
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var proID = "";
+        var resDataSource = new kendo.data.DataSource({
+            transport: {
+                read: {
+                    url: '@Url.Action("ReadMaterialToGrid")',
+                    type: "post",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json"
+                },
+                parameterMap: function (options, type) {
+                    if (type == "read") {
+                        return JSON.stringify({
+                            page: options.page,
+                            itemCount: 10000
+                        })
+                    }
+                }
+            },
+            pageSize: 10000,
+            serverPaging: true,
+            schema: {
+                data: "Data",
+                total: "ItemCount",
+                model: {
+                    id: "MaterialID",
+                    fields: {
+                        Avatar: { type: "string" },
+                        MaterialName: { type: "string" },
+                        Price: { type: "string" },
+                        Unit: { type: "string" },
+                        MaterialQuantity: { type: "string" },
+                        MaterialQuantityUsed: { type: "string" },
+                        MaterialQuantityNet: { type: "string" },
+                        MaterialQuantityAlert: { type: "string" }
+                    }
+                }
+            }
+        });
+        $("#grid").kendoGrid({
+            dataSource: resDataSource,
+            groupable: true,
+            columnMenu: true,
+            resizable: true,
+            sortable: true,
+            selectable: "single",
+            pageable: true,
+            height: 768,
+            detailInit: detailInit,
+            dataBound: function () {
+                this.expandRow(this.tbody.find("tr.k-master-row").first());
+            },
+            columns: [
+                         { field: "MaterialID", title: "ID", hidden: true },
+                         { field: "MaterialName", title: "Tên nguyên liệu" },
+                         { field: "Unit", title: "Đơn vị tính" },
+                         { field: "Price", title: "Đơn giá" },
+                         { field: "MaterialQuantity", title: "Số lượng" },
+                         { field: "MaterialQuantityUsed", title: "Đã dùng" },
+                         { field: "MaterialQuantityNet", title: "Còn lại" },
+                         { field: "MaterialQuantityAlert", title: "Cảnh báo khi còn" }
+                    ],
+            change: function (e) {
+                proID = this.select().find('td:first').next().html();
+                $("#editMaterial").show();
+                $("#delete").show();
+            }
+        });
+        function detailInit(e) {
+            $("<div/>").appendTo(e.detailCell).kendoGrid({
+                dataSource: {
+                    transport: {
+                        read: {
+                            url: '@Url.Action("GetHistoryToGrid")',
+                            type: "post",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json"
+                        },
+                        parameterMap: function (options, type) {
+                            if (type == "read") {
+                                console.log(options.filter.filters[0].value);
+                                return JSON.stringify({
+                                    page: options.page,
+                                    itemCount: 10000,
+                                    materialID: options.filter.filters[0].value
+                                })
+                            }
+                        }
+                    },
+                    schema: {
+                        data: "Data",
+                        total: "ItemCount",
+                        model: {
+                            id: "SMId",
+                            fields: {
+                                SMId: { type: "number" },
+                                CreateDate: { type: "date" },
+                                MaterialQuantity: { type: "number" },
+                                Note: { type: "string" }
+                            }
+                        }
+                    },
+                    serverPaging: true,
+                    serverSorting: true,
+                    serverFiltering: true,
+                    pageSize: 6,
+                    filter: { field: "MaterialID", operator: "eq", value: e.data.MaterialID }
+                },
+                scrollable: false,
+                sortable: true,
+                pageable: true,
+                columns: [
+                            { field: "SMId", width: 50 },
+                            { field: "CreateDate", title: "Ngày tạo", template: "#= kendo.toString(CreateDate,'dd-MM-yyyy hh:mm:ss') #", width: 200 },
+                            { field: "MaterialQuantity", title: "Số lượng", width: 70 },
+                            { field: "Note", title: "Ghi chú" }
+                        ]
+            });
+        }
+        //window
+        var window = $("#window");
+        var addMaterial = $("#addMaterial").bind("click", function () {
+            window.kendoWindow({
+                width: "350px",
+                title: "Nguyên liệu",
+                content: "/Store/CreateMaterial",
+                close: onClose
+            });
+            window.data("kendoWindow").open();
+            window.data("kendoWindow").center();
+            addMaterial.hide();
+        });
+
+        var onClose = function () {
+            addMaterial.show();
+        }
+        $(document).keyup(function (e) {
+            if (e.keyCode == 27) { window.data("kendoWindow").close(); }
+        });
+        var editMaterial = $("#editMaterial").bind("click", function () {
+            window.kendoWindow({
+                width: "350px",
+                title: "Nguyên liệu",
+                content: "/Store/EditMaterial?mID=" + proID,
+                close: onCloseEdit
+            });
+            window.data("kendoWindow").open();
+            window.data("kendoWindow").center();
+            editMaterial.hide();
+        });
+        var onCloseEdit = function () {
+            editMaterial.show();
+        }
+        //end of window
+        //delete
+        $("#delete").click(function () {
+            if (confirm("Bạn có chắc chắn muốn xóa sản phẩm này?")) {
+                $.ajax({
+                    url: '@Url.Action("HideMaterial","Store")',
+                    data: { 'mID': +proID },
+                    success: function () {
+                        $("#grid").data("kendoGrid").dataSource.read();
+                    }
+                })
+                proID = "";
+                $("#edit").hide();
+                $("#delete").hide();
+            }
+        })
+        //end of delete
+
+    })
+</script>

@@ -1,0 +1,290 @@
+﻿@{
+    ViewBag.Title = "Bill";
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+}
+<div id="example" class="k-content" style="width: 1024px; height: 768px; margin: 0px">
+    <div id="vertical" style="height: 100%; width: 100%;">
+        <div id="top-pane" style="height: 100%; width: 100%;">
+            <div id="horizontal" style="height: 100%; width: 100%;">
+                <div id="right-pane" style="height: 85%; width: 100%;">
+                    <div class="pane-content" style="padding: 0px">
+                        <div class="k-toolbar k-grid-toolbar">
+                            <input type="text" class="datePicker" readonly id="createFrom" placeholder="Từ ngày" />
+                            <span class="k-icon k-i-close" onclick="$('#createFrom').val('');"></span>
+                            <input type="text" class="datePicker" readonly id="createTo" placeholder="Đến ngày" />
+                            <span class="k-icon k-i-close" onclick="$('#createTo').val('');"></span>
+                            <a class="k-button" id="search">Tìm</a>
+                            <a class="k-button" id="print">In Báo Cáo</a>
+                        </div>
+                        <div class="k-toolbar k-grid-toolbar">
+                            <div style="text-align: center">
+                                Quản Lý Hóa Đơn</div>
+                        </div>
+                        @(Html.Kendo().Grid<BANHSAURIENG.Models.BillModel>()
+        .Name("Bills")
+        .Columns(columns =>
+        {
+            columns.Bound(e => e.BillID);
+            columns.Bound(e => e.CreateBy);
+            columns.Bound(e => e.CreateDate);
+            columns.Bound(e => e.GeneralCompain);
+            columns.Bound(e => e.TotalMoney);
+        })
+        .ClientDetailTemplateId("billTemplate")
+        .Pageable()
+        .DataSource(billdataSource => billdataSource
+            .Ajax()
+            .Read(read => read.Action("GetAllBills", "Bill").Data("additionalData"))
+            .PageSize(10)
+        )
+        .Sortable()
+        .Events(events => events.DataBound("dataBound"))
+)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script id="billTemplate" type="text/kendo-tmpl">
+    @(Html.Kendo().Grid<BANHSAURIENG.Models.BillDetailModel>()
+            .Name("Details_#=BillID#")
+            .Columns(columns =>
+            {
+                columns.Bound(o => o.ProductName);
+                columns.Bound(o => o.ProductQuantity);
+                columns.Bound(o => o.ProductPrice);
+                columns.Bound(o => o.ProductCompain);
+                columns.Bound(o => o.ComboName);
+                columns.Bound(o => o.ComboQUantity);
+                columns.Bound(o => o.ComboPrice);
+                columns.Bound(o => o.ComboCompain);
+            })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .Read(read => read.Action("GetDetailByBillID", "Bill", new { billID = "#=BillID#" }))
+            )
+            .Sortable()
+            .ToClientTemplate()
+    )
+    </script>
+    <script>
+        function dataBound() {
+            this.expandRow(this.tbody.find("tr.k-master-row").first());
+        }
+        function additionalData() {
+            return {
+                from: $("#createFrom").val(),
+                to: $("#createTo").val()
+            };
+        }
+        $("#search").click(function () {
+            $("#Bills").data("kendoGrid").dataSource.read()
+        });
+        $("#print").click(function () {
+            //            $.ajax({
+            //                type: "GET",
+            //                url: "/Bill/PrintReport?from=" + $("#createFrom").val() + "&to=" + $("#createTo").val(),
+            //                contentType: "application/json; charset=utf-8",
+            //                cache: true,
+            //                success: function (result) {
+            //                    alert("In thành công");
+            //                }
+            //            });
+            var url = "/Bill/PrintReport?from=" + $("#createFrom").val() + "&to=" + $("#createTo").val();
+            window.open(url, '_blank');
+            return false;
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $(".text-box").addClass("k-textbox").removeClass("text-box");
+            $("#Description").addClass("k-textbox").css('height', '100px');
+            $(".datePicker").kendoDatePicker({
+                format: "dd/MM/yyyy"
+            });
+            var objectypedata = [
+                        { text: "CV Lê Thị Riêng", value: "1" },
+                        { text: "Khác", value: "2" }
+                    ];
+
+            $("#vertical").kendoSplitter({
+                orientation: "vertical",
+                panes: [
+                            { collapsible: false },
+                            { collapsible: false, size: "100px" },
+                            { collapsible: false, resizable: false, size: "100px" }
+                        ]
+            });
+
+            $("#horizontal").kendoSplitter({
+                panes: [
+                            { collapsible: true, size: "220px" },
+                            { collapsible: false },
+                            { collapsible: true, size: "220px" }
+                        ]
+            });
+        });
+    </script>
+    <style scoped="scoped">
+        #vertical
+        {
+            height: 380px;
+            width: 700px;
+            margin: 0 auto;
+        }
+        #middle-pane
+        {
+            background-color: rgba(60, 70, 80, 0.10);
+        }
+        #bottom-pane
+        {
+            background-color: rgba(60, 70, 80, 0.15);
+        }
+        #left-pane
+        {
+            background-color: rgba(60, 70, 80, 0.05);
+        }
+        #center-pane
+        {
+            background-color: rgba(60, 70, 80, 0.05);
+        }
+        #right-pane
+        {
+            background-color: rgba(60, 70, 80, 0.05);
+        }
+        .pane-content
+        {
+            padding: 0 10px;
+        }
+        .k-panel
+        {
+            -webkit-transform: translatez(0);
+        }
+        
+        .demo-section
+        {
+            width: 300px;
+        }
+        .demo-section h3
+        {
+            font-weight: normal;
+            padding-bottom: 10px;
+        }
+        #panelbar-images > .k-item > .k-link > .k-image
+        {
+            margin-top: 2px;
+            margin-left: -5px;
+        }
+        
+        #panelbar-sprites > .k-item > .k-link > .k-sprite
+        {
+            margin-top: 6px;
+        }
+        
+        #panelbar-sprites .k-sprite
+        {
+            background-image: url("../../content/shared/styles/flags.png");
+        }
+        .brazilFlag
+        {
+            background-position: 0 0;
+        }
+        .indiaFlag
+        {
+            background-position: 0 -32px;
+        }
+        .netherlandsFlag
+        {
+            background-position: 0 -64px;
+        }
+        .historyIcon
+        {
+            background-position: 0 -96px;
+        }
+        .geographyIcon
+        {
+            background-position: 0 -128px;
+        }
+        .k-textbox
+        {
+            width: 11.8em;
+        }
+        
+        #loginform
+        {
+            width: 510px;
+            height: 323px;
+            margin: 30px auto;
+            padding: 10px 20px 20px 170px;
+            background: url('../../content/web/validator/ticketsOnline.png') transparent no-repeat 0 0;
+        }
+        
+        #loginform h3
+        {
+            font-weight: normal;
+            font-size: 1.4em;
+            border-bottom: 1px solid #ccc;
+        }
+        
+        #loginform ul
+        {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        #loginform li
+        {
+            margin: 10px 0 0 0;
+        }
+        
+        label
+        {
+            display: inline-block;
+            width: 90px;
+            text-align: right;
+        }
+        
+        .required
+        {
+            font-weight: bold;
+        }
+        
+        .save, .status
+        {
+            padding-left: 90px;
+        }
+        
+        .valid
+        {
+            color: green;
+        }
+        
+        .invalid
+        {
+            color: red;
+        }
+        span.k-tooltip
+        {
+            margin-left: 6px;
+        }
+        .forms
+        {
+            float: left;
+        }
+        
+        .forms li
+        {
+            margin-bottom: 5px;
+            list-style: none;
+        }
+        
+        .forms li > *
+        {
+            width: 200px;
+        }
+        .editor-field
+        {
+            padding-bottom: 5px;
+        }
+    </style>
+</div>

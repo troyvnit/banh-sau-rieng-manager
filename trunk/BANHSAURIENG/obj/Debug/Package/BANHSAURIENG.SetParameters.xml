@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <setParameter name="IIS Web Application Name" value="Default Web Site/BANHSAURIENG_deploy" />
+  <setParameter name="DefaultConnection-Web.config Connection String" value="Data Source=.\SQLEXPRESS;Initial Catalog=aspnet-BANHSAURIENG-20120922230130;Integrated Security=SSPI" />
+  <setParameter name="BSR_Entities-Web.config Connection String" value="metadata=res://*/Models.BSR.csdl|res://*/Models.BSR.ssdl|res://*/Models.BSR.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=.;initial catalog=BSRv3;persist security info=True;user id=sa;password=Asdcxz1+;multipleactiveresultsets=True;App=EntityFramework&quot;" />
+</parameters>
