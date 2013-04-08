@@ -1,0 +1,268 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+}
+
+<div id="example" class="k-content" style="width: 100%; height: 1024px; margin: 0px">
+    <div id="vertical" style="height: 100%; width: 100%;">
+        <div id="top-pane" style="height: 100%; width: 100%;">
+            <div id="horizontal" style="height: 100%; width: 100%;">
+                <div id="left-pane" style="height: 15%; width: 100%;">
+                    <div class="pane-content" style="padding: 0px">
+                        <div class="k-toolbar k-grid-toolbar">
+                            <a class="k-button" id="back" style="float: left; margin-left: 5px"><span class="k-icon k-i-seek-w">
+                            </span></a><a class="k-button" id="forward" style="float: left; margin-left: 5px"><span
+                                class="k-icon k-i-seek-e"></span></a>
+                        </div>
+                        <div id="panelbar-images">
+                        </div>
+                    </div>
+                </div>
+                <div id="right-pane" style="height: 85%; width: 100%;">
+                    <div class="pane-content">
+                        <div id="loginform">
+                            <h3>
+                                Đăng nhập</h3>
+                            <ul>
+                                <li>
+                                    <label for="account" class="required">
+                                        Tài khoản</label>
+                                    <input type="text" id="account" name="account" class="k-textbox" placeholder="Account"
+                                        required validationmessage="Please enter {0}" />
+                                </li>
+                                <li>
+                                    <label for="password" class="required">
+                                        Mật khẩu</label>
+                                    <input type="password" id="password" name="password" class="k-textbox" placeholder="Password"
+                                        required validationmessage="Please enter {0}" />
+                                </li>
+                                <li class="save">
+                                    <input type="checkbox" name="save"/>
+                                    Lưu mật khẩu cho lần đăng nhập tiếp theo </li>
+                                <li class="accept">
+                                    <button class="k-button" type="submit">
+                                        Đăng nhập</button>
+                                </li>
+                                <li class="status"></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $("#vertical").kendoSplitter({
+                orientation: "vertical",
+                panes: [
+                            { collapsible: false },
+                            { collapsible: false, size: "100px" },
+                            { collapsible: false, resizable: false, size: "100px" }
+                        ]
+            });
+
+            $("#horizontal").kendoSplitter({
+                panes: [
+                            { collapsible: true, size: "220px" },
+                            { collapsible: false },
+                            { collapsible: true, size: "220px" }
+                        ]
+            });
+            $("#panelbar-images").kendoPanelBar({
+                dataSource: [
+                        {
+                            text: "Bán hàng", imageUrl: "../../content/shared/icons/sports/baseball.png",
+                            items: [
+                                { text: "Hóa đơn bán lẻ", imageUrl: "../../content/shared/icons/16/star.png" },
+                                { text: "Hóa đơn bán sỉ", imageUrl: "../../content/shared/icons/16/photo.png" },
+                                { text: "Tài sản cố định", imageUrl: "../../content/shared/icons/16/video.png" }
+                            ]
+                        },
+                        {
+                            text: "Khách hàng", imageUrl: "../../content/shared/icons/sports/golf.png",
+                            items: [
+                                { text: "Thông tin khách hàng", imageUrl: "../../content/shared/icons/16/star.png" },
+                                { text: "Chính sách giảm giá", imageUrl: "../../content/shared/icons/16/photo.png" }
+                            ]
+                        },
+                        {
+                            text: "Kho", imageUrl: "../../content/shared/icons/sports/swimming.png",
+                            items: [
+                                { text: "Hóa đơn mua hàng", imageUrl: "../../content/shared/icons/16/star.png" },
+                                { text: "Hóa đơn trả hàng", imageUrl: "../../content/shared/icons/16/photo.png" },
+                                { text: "Phiếu nhập kho", imageUrl: "../../content/shared/icons/16/photo.png" },
+                                { text: "Nguyên vật liệu", imageUrl: "../../content/shared/icons/16/photo.png" },
+                                { text: "Phiếu chuyển kho", imageUrl: "../../content/shared/icons/16/photo.png" },
+                                { text: "Tài sản cố định", imageUrl: "../../content/shared/icons/16/photo.png" }
+                            ]
+                        },
+                        {
+                            text: "Tài khoản", imageUrl: "../../content/shared/icons/sports/snowboarding.png",
+                            items: [
+                                { text: "Quản lý tài khoản", imageUrl: "../../content/shared/icons/16/photo.png" },
+                                { text: "Phân quyền", imageUrl: "../../content/shared/icons/16/video.png" },
+                                { text: "Danh mục", imageUrl: "../../content/shared/icons/16/photo.png" }
+                            ]
+                        },
+                        {
+                            text: "Báo cáo", imageUrl: "../../content/shared/icons/sports/snowboarding.png",
+                            items: [
+                                { text: "Tình trạng kho", imageUrl: "../../content/shared/icons/16/photo.png" },
+                                { text: "Sản phẩm", imageUrl: "../../content/shared/icons/16/video.png" },
+                                { text: "Doanh thu", imageUrl: "../../content/shared/icons/16/photo.png" },
+                                { text: "Tài sản cố định", imageUrl: "../../content/shared/icons/16/photo.png" },
+                                { text: "Lợi nhuận", imageUrl: "../../content/shared/icons/16/photo.png" }
+                            ]
+                        },
+                        {
+                            text: "Quản lý chung", imageUrl: "../../content/shared/icons/sports/snowboarding.png",
+                            items: [
+                                { text: "Cửa hàng", imageUrl: "../../content/shared/icons/16/photo.png" },
+                                { text: "Mặt hàng", imageUrl: "../../content/shared/icons/16/video.png" },
+                                { text: "Nhóm hàng", imageUrl: "../../content/shared/icons/16/photo.png" },
+                                { text: "Loại hàng", imageUrl: "../../content/shared/icons/16/photo.png" },
+                                { text: "Đơn vị tính", imageUrl: "../../content/shared/icons/16/photo.png" },
+                                { text: "Mức giá", imageUrl: "../../content/shared/icons/16/photo.png" },
+                                { text: "Chính sách giảm giá", imageUrl: "../../content/shared/icons/16/photo.png" },
+                                { text: "Nhân viên", imageUrl: "../../content/shared/icons/16/photo.png" },
+                                { text: "Kho", imageUrl: "../../content/shared/icons/16/photo.png" }
+                            ]
+                        }
+                    ]
+            });
+        });
+    </script>
+    <style scoped="scoped">
+        #vertical
+        {
+            height: 380px;
+            width: 700px;
+            margin: 0 auto;
+        }
+        #middle-pane
+        {
+            background-color: rgba(60, 70, 80, 0.10);
+        }
+        #bottom-pane
+        {
+            background-color: rgba(60, 70, 80, 0.15);
+        }
+        #left-pane
+        {
+            background-color: rgba(60, 70, 80, 0.05);
+        }
+        #center-pane
+        {
+            background-color: rgba(60, 70, 80, 0.05);
+        }
+        #right-pane
+        {
+            background-color: rgba(60, 70, 80, 0.05);
+        }
+        .pane-content
+        {
+            padding: 0 10px;
+        }
+        .k-panel
+        {
+            -webkit-transform: translatez(0);
+        }
+        
+        .demo-section
+        {
+            width: 300px;
+        }
+        .demo-section h3
+        {
+            font-weight: normal;
+            padding-bottom: 10px;
+        }
+        #panelbar-images > .k-item > .k-link > .k-image
+        {
+            margin-top: 2px;
+            margin-left: -5px;
+        }
+        
+        #panelbar-sprites > .k-item > .k-link > .k-sprite
+        {
+            margin-top: 6px;
+        }
+        
+        #panelbar-sprites .k-sprite
+        {
+            background-image: url("../../content/shared/styles/flags.png");
+        }
+        .brazilFlag
+        {
+            background-position: 0 0;
+        }
+        .indiaFlag
+        {
+            background-position: 0 -32px;
+        }
+        .netherlandsFlag
+        {
+            background-position: 0 -64px;
+        }
+        .historyIcon
+        {
+            background-position: 0 -96px;
+        }
+        .geographyIcon
+        {
+            background-position: 0 -128px;
+        }
+        .k-textbox {
+                    width: 11.8em;
+                }
+
+                #loginform {
+                    width: 510px;
+                    height: 323px;
+                    margin: 30px auto;
+                    padding: 10px 20px 20px 170px;
+                    background: url('../../content/web/validator/ticketsOnline.png') transparent no-repeat 0 0;
+                }
+
+                #loginform h3 {
+                    font-weight: normal;
+                    font-size: 1.4em;
+                    border-bottom: 1px solid #ccc;
+                }
+
+                #loginform ul {
+                    list-style-type: none;
+                    margin: 0;
+                    padding: 0;
+                }
+                #loginform li {
+                    margin: 10px 0 0 0;
+                }
+
+                label {
+                    display: inline-block;
+                    width: 90px;
+                    text-align: right;
+                }
+
+                .required {
+                    font-weight: bold;
+                }
+
+                .save, .status {
+                    padding-left: 90px;
+                }
+
+                .valid {
+                    color: green;
+                }
+
+                .invalid {
+                    color: red;
+                }
+                span.k-tooltip {
+                    margin-left: 6px;
+                }
+    </style>
+</div>

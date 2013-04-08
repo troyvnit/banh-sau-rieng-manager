@@ -1,0 +1,143 @@
+﻿
+    <div id="form_validate">
+        <table>
+            <tr>
+                <td>
+                    <input type="text" name="ProductName" id="ProductName" class="k-textbox" placeholder="Tên sản phẩm"
+                        required validationmessage="Vui lòng điền tên sản phẩm" maxlength="200" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" name="Price" id="Price" placeholder="Giá" type="number" min="0"
+                        required validationmessage="Vui lòng điền giá" />
+                </td>
+                <td>
+                    <input type="text" name="OrderID" id="OrderID" class="k-textbox" placeholder="Thứ tự" required validationmessage="Vui lòng điền thứ tự"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <select id="Unit">
+                        <option value="Kg">Kg</option>
+                        <option value="Hộp">Hộp</option>
+                        <option value="Cái">Cái</option>
+                        <option value="Ly">Ly</option>
+                        <option value="Ly">Phần</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="text" name="ShortcutKey" id="ShortcutKey" class="k-textbox" placeholder="Phím tắt"
+                        maxlength="1" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="hidden" id="Avatar" name="Avatar" />
+                    <input name="selectAvatar" id="selectAvatar" type="file" />
+                    <img src="" id="avatarPreview" width="90px" height="90px" />
+                </td>
+                <td>
+                    <textarea name="Description" id="Description" class="k-textbox" placeholder="Mô tả"
+                        maxlength="500" />
+                </td>
+            </tr>
+            @foreach (var c in (List<BANHSAURIENG.Models.tblMaterial>)ViewBag.Material)
+            {
+                <tr>
+                    <td>
+                        @c.MaterialName (@c.Unit)
+                    </td>
+                    <td>
+                        <input type="text" class="materiQuantity" id="materiQuantity_@c.MaterialID" placeholder="SL" type="number" min="0" value="0"/>
+                    </td>
+                </tr>
+            }
+        </table>
+        <p>
+            <a class="k-button" type="button" id="submit">Hoàn thành</a>
+        </p>
+    </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("select").kendoDropDownList();
+        $("#Price").kendoNumericTextBox({
+            format: "c",
+            decimals: 3
+        });
+        $(".materiQuantity").kendoNumericTextBox({
+            decimals: 3,
+            width: "50px"
+        });
+        var validator = $("#form_validate").kendoValidator().data("kendoValidator");
+        $("#submit").click(function () {
+            if (validator.validate()) {
+                var ProductName = $("#ProductName").val();
+                var Avatar = $("#Avatar").val();
+                var Description = $("#Description").val();
+                var Price = $("#Price").val();
+                var Unit = $("#Unit").val();
+                var ShortcutKey = $("#ShortcutKey").val();
+                var OrderID = $("#OrderID").val();
+                var material = [];
+                $(".materiQuantity").each(function (index) {
+                    if (this.value >= 0) {
+                        material.push(this.id + "_" + this.value);
+                    }
+                });
+                jQuery.ajaxSettings.traditional = true;
+                $.ajax({
+                    type: "Post",
+                    url: '@Url.Action("Create", "Product")',
+                    data: { 'ProductName': ProductName, 'Avatar': Avatar, 'Description': Description, 'Price': Price, 'Unit': Unit, 'ShortcutKey': ShortcutKey, 'OrderID': OrderID, 'Material': material },
+                    success: function () {
+                        $("#window").data("kendoWindow").close();
+                        $("#grid").data("kendoGrid").dataSource.read();
+                    }
+                })
+
+            } else {
+
+            }
+        });
+        //upload Avatar
+        function onSelectImage(e) {
+            var files = e.files;
+            // Check the extension of each file and abort the upload if it is not .jpg,. png, . gif
+            $.each(files, function () {
+                if (this.extension != ".jpg" && this.extension != ".png" && this.extension != ".gif") {
+                    alert("File incorrect, only submit .jpg,.png,.gif")
+                    e.preventDefault();
+                } else {
+
+                }
+            });
+        };
+        function SuccessAvatar(e) {
+            var files = e.files;
+            $("#Avatar").val(files[0].name);
+            $("#avatarPreview").attr('src', '/Images/Product/' + files[0].name);
+        };
+        $("#selectAvatar").kendoUpload({
+            localization: {
+                "select": "SelectAvatar"
+            },
+            async: {
+                saveUrl: '@Url.Action("UploadImage", "Product")',
+                removeUrl: '@Url.Action("RemoveImage", "Product")',
+                autoUpload: true
+            },
+            multiple: false,
+            showFileList: false,
+            select: onSelectImage,
+            success: SuccessAvatar
+        });
+    })
+</script>
+<style type="text/css">
+.materiQuantity
+{
+    max-width: 50px;
+}
+</style>

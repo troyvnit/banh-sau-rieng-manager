@@ -1,0 +1,129 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+}
+<div>
+    <div class="k-toolbar k-grid-toolbar">
+        <a class="k-button" title="Thêm nguyên liệu" id="addMaterial"><span class="k-icon k-i-plus"></span></a>
+                <a class="k-button" style="display:none" id="editMaterial"><span class="k-icon k-i-pencil"></span></a>
+                <a class="k-button" style="display:none" id="delete"><span class="k-icon k-i-close"></span></a>
+    </div>
+    <div id="grid">
+        </div>
+        <div id="window">
+        </div>
+        
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var proID = "";
+        var resDataSource = new kendo.data.DataSource({
+            transport: {
+                read: {
+                    url: '@Url.Action("ReadFixedAssetToGrid")',
+                    type: "post",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json"
+                },
+                parameterMap: function (options, type) {
+                    if (type == "read") {
+                        return JSON.stringify({
+                            page: options.page,
+                            itemCount: 10000
+                        })
+                    }
+                }
+            },
+            pageSize: 10000,
+            serverPaging: true,
+            schema: {
+                data: "Data",
+                total: "ItemCount",
+                model: {
+                    id: "FixedAssetID",
+                    fields: {
+                        FixedAssetName: { type: "string" },
+                        Description: { type: "string" },
+                        Price: { type: "string" },
+                        PurchaseDate: { type: "string" }
+                    }
+                }
+            }
+        })
+        $("#grid").kendoGrid({
+            dataSource: resDataSource,
+            groupable: true,
+            columnMenu: true,
+            resizable: true,
+            sortable: true,
+            selectable: "single",
+            pageable: true,
+            height: 500,
+            columns: [
+                         { field: "FixedAssetID", title: "ID", hidden: true },
+                         { field: "FixedAssetName", title: "Tên khoản chi" },
+                         { field: "Description", title: "Mô tả" },
+                         { field: "Price", title: "Số tiền chi" },
+                         { field: "PurchaseDate", title: "Ngày chi" }
+
+                    ],
+            change: function (e) {
+                proID = this.select().find('td:first').html();
+                $("#editMaterial").show();
+                $("#delete").show();
+            }
+        });
+        //window
+        var window = $("#window");
+        var addMaterial = $("#addMaterial").bind("click", function () {
+            window.kendoWindow({
+                width: "350px",
+                title: "Nguyên liệu",
+                content: "/Store/CreateFixedAsset",
+                close: onClose
+            });
+            window.data("kendoWindow").open();
+            window.data("kendoWindow").center();
+            addMaterial.hide();
+        });
+
+        var onClose = function () {
+            addMaterial.show();
+        }
+        $(document).keyup(function (e) {
+            if (e.keyCode == 27) { window.data("kendoWindow").close(); }
+        });
+        var editMaterial = $("#editMaterial").bind("click", function () {
+            window.kendoWindow({
+                width: "350px",
+                title: "Nguyên liệu",
+                content: "/Store/EditFixedAsset?mID=" + proID,
+                close: onCloseEdit
+            });
+            window.data("kendoWindow").open();
+            window.data("kendoWindow").center();
+            editMaterial.hide();
+        });
+        var onCloseEdit = function () {
+            editMaterial.show();
+        }
+        //end of window
+        //delete
+        $("#delete").click(function () {
+            if (confirm("Bạn có chắc chắn muốn xóa sản phẩm này?")) {
+                $.ajax({
+                    url: '@Url.Action("HideFixedAsset","Store")',
+                    data: { 'mID': +proID },
+                    success: function () {
+                        $("#grid").data("kendoGrid").dataSource.read();
+                    }
+                })
+                proID = "";
+                $("#edit").hide();
+                $("#delete").hide();
+            }
+        })
+        //end of delete
+
+    })
+</script>
