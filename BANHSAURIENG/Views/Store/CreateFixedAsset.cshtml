@@ -1,0 +1,94 @@
+﻿
+    <div id="form_validate">
+        <table>
+            <tr>
+                <td>
+                    <input type="text" name="FixedAssetName" id="FixedAssetName" class="k-textbox" placeholder="Tên khoản chi"
+                        required validationmessage="Vui lòng điền tên sản phẩm" maxlength="200" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" name="FixedAssetPrice" id="FixedAssetPrice" placeholder="Số tiền chi" type="number" min="0"
+                        required validationmessage="Vui lòng điền số lượng" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <textarea name="Description" id="Description" class="k-textbox" placeholder="Mô tả"
+                        maxlength="500" />
+                </td>
+            </tr>
+        </table>
+        <p>
+            <a class="k-button" type="button" id="submit">Hoàn thành</a>
+        </p>
+    </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("select").kendoDropDownList();
+        $("#FixedAssetPrice").kendoNumericTextBox({
+            decimals: 3
+        });
+        var validator = $("#form_validate").kendoValidator().data("kendoValidator");
+        $("#submit").click(function () {
+            if (validator.validate()) {
+                var FixedAssetName = $("#FixedAssetName").val();
+                var Description = $("#Description").val();
+                var FixedAssetPrice = $("#FixedAssetPrice").val();
+                jQuery.ajaxSettings.traditional = true;
+                $.ajax({
+                    type: "Post",
+                    url: '@Url.Action("CreateFixedAsset", "Store")',
+                    data: { 'FixedAssetName': FixedAssetName, 'Description': Description, 'FixedAssetPrice': FixedAssetPrice },
+                    success: function () {
+                        $("#window").data("kendoWindow").close();
+                        $("#grid").data("kendoGrid").dataSource.read();
+                    }
+                })
+
+            } else {
+
+            }
+        });
+        //upload Avatar
+        function onSelectImage(e) {
+            var files = e.files;
+            // Check the extension of each file and abort the upload if it is not .jpg,. png, . gif
+            $.each(files, function () {
+                if (this.extension != ".jpg" && this.extension != ".png" && this.extension != ".gif") {
+                    alert("File incorrect, only submit .jpg,.png,.gif")
+                    e.preventDefault();
+                } else {
+
+                }
+            });
+        };
+        function SuccessAvatar(e) {
+            var files = e.files;
+            $("#Avatar").val(files[0].name);
+            $("#avatarPreview").attr('src', '/Images/FixedAsset/' + files[0].name);
+        };
+        $("#selectAvatar").kendoUpload({
+            localization: {
+                "select": "SelectAvatar"
+            },
+            async: {
+                saveUrl: '@Url.Action("UploadImage", "Product")',
+                removeUrl: '@Url.Action("RemoveImage", "Product")',
+                autoUpload: true
+            },
+            multiple: false,
+            showFileList: false,
+            select: onSelectImage,
+            success: SuccessAvatar
+        });
+    })
+</script>
+<style type="text/css">
+.materiQuantity
+{
+    max-width: 50px;
+}
+</style>

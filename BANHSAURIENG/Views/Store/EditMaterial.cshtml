@@ -1,0 +1,131 @@
+﻿
+@if (ViewBag.MaterialEdit != null)
+{
+    BANHSAURIENG.Models.spGetMaterialByStoreID_Result p1 = new BANHSAURIENG.Models.spGetMaterialByStoreID_Result();
+    p1 = ViewBag.MaterialEdit as BANHSAURIENG.Models.spGetMaterialByStoreID_Result;
+        <div id="form_validate">
+        <input type="hidden" name="MaterialID" id="MaterialID" value="@p1.MaterialID" />
+        <table>
+            <tr>
+                <td colspan="2">
+                    <input type="text" name="MaterialName" id="MaterialName" class="k-textbox" value="@p1.MaterialName"
+                        required validationmessage="Vui lòng điền tên sản phẩm" maxlength="200" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="text" name="MaterialQuantity" id="MaterialQuantity" value="0" type="number"
+                        required validationmessage="Vui lòng điền số lượng" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="text" name="MaterialQuantityAlert" id="MaterialQuantityAlert" value="@p1.MaterialQuantityAlert" type="number" min="0"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" name="MaterialPrice" id="MaterialPrice" value="@p1.Price" type="number" min="0"
+                        required validationmessage="Vui lòng điền giá / đơn vị tính" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <select id="Unit">
+                        <option value="Kg">Kg</option>
+                        <option value="Gói">Gói</option>
+                        <option value="Cái">Cái</option>
+                        <option value="Ly">Ly</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="hidden" id="Avatar" name="Avatar" value="@p1.Avatar"/>
+                    <input name="selectAvatar" id="selectAvatar" type="file" />
+                    <img src="@Url.Content("~/Images/Material/"+@p1.Avatar+"")" id="avatarPreview" width="120px" height="90px" />
+                </td>
+                <td>
+                    <textarea name="Description" id="Description" class="k-textbox" value="@p1.Description"
+                        maxlength="500" placeholder="Ghi chú"></textarea>
+                </td>
+            </tr>
+        </table>
+        <p>
+            <a class="k-button" type="button" id="submit">Hoàn thành</a>
+        </p>
+    </div>
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("select").kendoDropDownList();
+        $("#MaterialQuantity").kendoNumericTextBox({
+            decimals: 3
+        });
+        $("#MaterialQuantityAlert").kendoNumericTextBox({
+            decimals: 3
+        });
+        $("#MaterialPrice").kendoNumericTextBox({
+            decimals: 3
+        });
+        var validator = $("#form_validate").kendoValidator().data("kendoValidator");
+        $("#submit").click(function () {
+            if (validator.validate()) {
+                var MaterialID = $("#MaterialID").val();
+                var MaterialName = $("#MaterialName").val();
+                var Avatar = $("#Avatar").val();
+                var Description = $("#Description").val();
+                var MaterialQuantity = $("#MaterialQuantity").val();
+                var MaterialQuantityAlert = $("#MaterialQuantityAlert").val();
+                var Unit = $("#Unit").val();
+                var MaterialPrice = $("#MaterialPrice").val();
+                jQuery.ajaxSettings.traditional = true;
+                if (MaterialQuantity != 0){
+                    $.ajax({
+                        type: "Post",
+                        url: '@Url.Action("EditMaterial", "Store")',
+                        data: { 'MaterialID': MaterialID, 'MaterialName': MaterialName, 'Avatar': Avatar, 'Description': Description, 'MaterialQuantity': MaterialQuantity, 'MaterialQuantityAlert': MaterialQuantityAlert, 'Unit': Unit, 'MaterialPrice': MaterialPrice },
+                        success: function() {
+                            $("#window").data("kendoWindow").close();
+                            $("#grid").data("kendoGrid").dataSource.read();
+                        }
+                    });
+                }
+        } else {
+
+            }
+        });
+        //upload Avatar
+        function onSelectImage(e) {
+            var files = e.files;
+            // Check the extension of each file and abort the upload if it is not .jpg,. png, . gif
+            $.each(files, function () {
+                if (this.extension != ".jpg" && this.extension != ".png" && this.extension != ".gif") {
+                    alert("File incorrect, only submit .jpg,.png,.gif")
+                    e.preventDefault();
+                } else {
+
+                }
+            });
+        };
+        function SuccessAvatar(e) {
+            var files = e.files;
+            $("#Avatar").val(files[0].name);
+            $("#avatarPreview").attr('src', '/Images/Material/' + files[0].name);
+        };
+        $("#selectAvatar").kendoUpload({
+            localization: {
+                "select": "SelectAvatar"
+            },
+            async: {
+                saveUrl: '@Url.Action("UploadImage", "Product")',
+                removeUrl: '@Url.Action("RemoveImage", "Product")',
+                autoUpload: true
+            },
+            multiple: false,
+            showFileList: false,
+            select: onSelectImage,
+            success: SuccessAvatar
+        });
+    })
+</script>

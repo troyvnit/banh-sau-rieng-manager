@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Connection String used in web.config by the application to access the database." defaultvalue="Data Source=.\SQLEXPRESS;Initial Catalog=aspnet-BANHSAURIENG-20120922230130;Integrated Security=SSPI" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="E:\\Windows\\Working\\Project\\BANHSAURIENG\\obj\\Debug\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
+  </parameter>
+  <parameter name="BSR_Entities-Web.config Connection String" description="BSR_Entities Connection String used in web.config by the application to access the database." defaultvalue="metadata=res://*/Models.BSR.csdl|res://*/Models.BSR.ssdl|res://*/Models.BSR.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=.;initial catalog=BSRv3;persist security info=True;user id=sa;password=Asdcxz1+;multipleactiveresultsets=True;App=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="E:\\Windows\\Working\\Project\\BANHSAURIENG\\obj\\Debug\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='BSR_Entities']/@connectionString" />
+  </parameter>
+</parameters>
